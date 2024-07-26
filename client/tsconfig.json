@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "target": "ES5",
+    "strict": true,
+    "skipLibCheck": false,
+    "lib": ["es2015", "dom"],
+    "outDir": "out"
+  },
+  "exclude": ["node_modules", "dist", "lib", "lib-amd"]
+}

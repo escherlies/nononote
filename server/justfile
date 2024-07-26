@@ -1,0 +1,14 @@
+install:
+  bun install
+
+dev:
+  bun --watch src/index.ts
+
+build:
+  bun build src/index.ts
+
+run:
+  NODE_ENV=production bun src/index.ts
+
+clean:
+  rm -rf ./dist ./node_modules

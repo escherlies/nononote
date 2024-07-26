@@ -1,0 +1,20 @@
+dev:
+  #!/bin/bash
+  . ../scripts/version.sh
+  echo "Version: $VERSION"
+  npx parcel \
+    --hmr-port 1337 \
+    --open "Firefox Developer Edition" \
+    src/index.html
+
+build:
+  #!/bin/bash
+  . ../../scripts/version.sh
+  npx parcel build \
+    --no-cache \
+    --no-source-maps \
+    --dist-dir build \
+    src/index.html
+
+clean:
+  rm -rf dist .parcel-cache
