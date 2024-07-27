@@ -10,7 +10,7 @@ export function NoteInput() {
   }, [])
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-hidden">
       <textarea
         id="note-input"
         ref={inputRef}
