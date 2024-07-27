@@ -7,6 +7,7 @@ import { logger } from "./logger"
 export const useStore = create(() => ({
   error: null as Maybe<string>,
   counter: 0,
+  noteInput: "",
   testData: null as Maybe<string>,
   testSubscription: null as Maybe<Unsubscribable>,
 }))
@@ -23,6 +24,10 @@ export const incrementCounter = () => {
 
 export const decrementCounter = () => {
   useStore.setState((state) => ({ counter: state.counter - 1 }))
+}
+
+export const setNoteInput = (noteInput: string) => {
+  useStore.setState({ noteInput })
 }
 
 export const getTestData = async () => {
