@@ -1,26 +1,26 @@
-import { Counter } from "./Counter"
-import { TrcpTest } from "./TrcpTest"
-import { SubTitle, Title } from "./Ui"
-import { Version } from "./Version"
+import { MainButton, TextButton } from "./Ui"
+import { Route, BrowserRouter, Routes } from "react-router-dom"
+import { ViewHome } from "./views/Home"
 
 export function App() {
   return (
-    <div className="w-dvw h-dvh bg-gray-100 flex">
-      <div className="flex flex-col gap-4 m-auto">
-        <Title>Hello, Wörld!</Title>
-        {/* Test */}
-        <SubTitle>Test:</SubTitle>
-        <TrcpTest></TrcpTest>
-
-        {/* Counter */}
-        <SubTitle>Simple state example:</SubTitle>
-        <Counter />
-
-        {/* Version */}
-        <div className="font-mono text-sm">
-          Version: <Version />
+    <BrowserRouter>
+      <div className="w-dvw h-dvh bg-secondary-100 flex text-primary">
+        <div className="flex flex-col gap-4 m-auto">
+          <Routes>
+            <Route path="/" element={<ViewHome />} />
+            <Route
+              path="/notes"
+              element={
+                <div className="flex gap-4">
+                  <MainButton navigateTo="/" />
+                  <TextButton title="menu" />
+                </div>
+              }
+            />
+          </Routes>
         </div>
       </div>
-    </div>
+    </BrowserRouter>
   )
 }
