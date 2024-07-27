@@ -38,7 +38,7 @@ export const MainButton = (props: { navigateTo: string }) => {
   return (
     <div
       className={`
-    border-2 border-primary rounded-lg w-[68px] h-[68px] flex items-center justify-center bg-secondary-100
+    border-2 border-color-primary rounded-lg w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     cursor-pointer
     transition-all duration-75
     ${clickedClassNames}
@@ -72,7 +72,7 @@ export const TextButton = (
   return (
     <div
       className={`
-    border-2 border-primary rounded-lg min-w-[68px] h-[68px] flex items-center justify-center bg-secondary-100
+    border-2 border-color-primary rounded-lg min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     px-10
     cursor-pointer
     transition-all duration-75 ease-in-out

@@ -9,7 +9,7 @@ import { Menu } from "./views/Menu"
 export function App() {
   return (
     <BrowserRouter>
-      <div className="w-dvw h-dvh bg-secondary-100 flex text-primary">
+      <div className="w-dvw h-dvh bg-background-primary flex text-color-primary">
         <Layout
           body={
             <Routes>

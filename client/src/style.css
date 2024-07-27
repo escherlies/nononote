@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root .light-one {
+  --color-primary: #002cfa;
+  --background-primary: #dbdbdb;
+}
+.light-two {
+  --color-primary: #002cfa;
+  --background-primary: #fffefd;
+}
+
+.light-three {
+  --color-primary: #1b2c2e;
+  --background-primary: #f7fbfc;
+}
+
+.dark-one {
+  --color-primary: #f8f8e3;
+  --background-primary: #252325;
+}
+
+.dark-two {
+  --color-primary: #e9eae9;
+  --background-primary: #25272e;
+}
