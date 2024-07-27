@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { setNoteInput, useStore } from "../../model/store"
+import { saveNote, setNoteInput, useStore } from "../../model/store"
 import { MainButton, TextButton } from "../Ui"
 import React from "react"
 
@@ -15,7 +15,7 @@ export function Menu() {
             {noteInput === "" ? (
               <MainButton navigateTo="/notes" />
             ) : (
-              <TextButton onClick={() => setNoteInput("")}>Save</TextButton>
+              <TextButton onClick={saveNote}>Save</TextButton>
             )}
           </Container>
         }

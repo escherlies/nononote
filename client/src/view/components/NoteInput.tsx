@@ -12,6 +12,7 @@ export function NoteInput() {
   return (
     <div className="h-full w-full">
       <textarea
+        id="note-input"
         ref={inputRef}
         rows={10}
         cols={50}

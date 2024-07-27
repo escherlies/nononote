@@ -8,6 +8,7 @@ export const useStore = create(() => ({
   error: null as Maybe<string>,
   counter: 0,
   noteInput: "",
+  notes: [] as string[],
   testData: null as Maybe<string>,
   testSubscription: null as Maybe<Unsubscribable>,
 }))
@@ -28,6 +29,17 @@ export const decrementCounter = () => {
 
 export const setNoteInput = (noteInput: string) => {
   useStore.setState({ noteInput })
+}
+
+export const saveNote = () => {
+  useStore.setState((state) => ({
+    notes: [...state.notes, state.noteInput],
+    noteInput: "",
+  }))
+
+  // Refocus on note-input
+  const input = document.getElementById("note-input") as HTMLTextAreaElement
+  input?.focus()
 }
 
 export const getTestData = async () => {
