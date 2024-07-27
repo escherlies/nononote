@@ -1,5 +1,12 @@
-import { ReactNode, useState } from "react"
+import {
+  ClassAttributes,
+  HTMLAttributes,
+  MouseEventHandler,
+  ReactNode,
+  useState,
+} from "react"
 import { useNavigate } from "react-router-dom"
+import { JSX } from "react/jsx-runtime"
 
 type DefaultProps = {
   children: ReactNode
@@ -17,6 +24,8 @@ export const MainButton = (props: { navigateTo: string }) => {
   const navigate = useNavigate()
   const handleClick = () => {
     navigate(props.navigateTo)
+    setClicked(true)
+    setTimeout(() => setClicked(false), 75)
   }
 
   // Use a state to animate a click event. This should last for 400ms.
@@ -31,7 +40,7 @@ export const MainButton = (props: { navigateTo: string }) => {
       className={`
     border-2 border-primary rounded-lg w-[68px] h-[68px] flex items-center justify-center bg-secondary-100
     cursor-pointer
-    transition-all duration-200 ease-in-out
+    transition-all duration-75
     ${clickedClassNames}
     `}
       onMouseDown={() => setClicked(true)}
@@ -44,12 +53,16 @@ export const MainButton = (props: { navigateTo: string }) => {
   )
 }
 
-export const TextButton = ({ title }: { title: string }) => {
+export const TextButton = (
+  props: JSX.IntrinsicAttributes &
+    ClassAttributes<HTMLDivElement> &
+    HTMLAttributes<HTMLDivElement>
+) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
   const handleClick = () => {
     setClicked(true)
-    setTimeout(() => setClicked(false), 400)
+    setTimeout(() => setClicked(false), 75)
   }
 
   const clickedClassNames = clicked
@@ -62,14 +75,18 @@ export const TextButton = ({ title }: { title: string }) => {
     border-2 border-primary rounded-lg min-w-[68px] h-[68px] flex items-center justify-center bg-secondary-100
     px-10
     cursor-pointer
-    transition-all duration-200 ease-in-out
+    transition-all duration-75 ease-in-out
     ${clickedClassNames}
     `}
       onMouseDown={() => setClicked(true)}
       onMouseUp={() => setClicked(false)}
       onMouseLeave={() => setClicked(false)}
+      onClick={handleClick}
+      {...props}
     >
-      <div className="uppercase tracking-tight text-[40px]">{title}</div>
+      <div className="uppercase tracking-tight text-[40px]">
+        {props.children}
+      </div>
     </div>
   )
 }
