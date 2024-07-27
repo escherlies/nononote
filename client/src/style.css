@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root .light-one {
+:root,
+.light-one {
   --color-primary: #002cfa;
   --background-primary: #dbdbdb;
 }

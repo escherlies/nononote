@@ -48,7 +48,7 @@ export const MainButton = (props: { navigateTo: string }) => {
       onMouseLeave={() => setClicked(false)}
       onClick={handleClick}
     >
-      <div className="w-[54px] h-[54px] rounded-full bg-primary"></div>
+      <div className="w-[54px] h-[54px] rounded-full bg-color-primary"></div>
     </div>
   )
 }
