@@ -10,7 +10,7 @@ export function NoteInput() {
   }, [])
 
   return (
-    <div>
+    <div className="h-full w-full">
       <textarea
         ref={inputRef}
         rows={10}
@@ -18,7 +18,7 @@ export function NoteInput() {
         value={noteInput}
         onChange={(e) => setNoteInput(e.target.value)}
         spellCheck={false}
-        className="bg-transparent outline-none text-lg resize-none custom-caret"
+        className="bg-transparent outline-none text-lg resize-none w-full h-full"
       />
     </div>
   )
