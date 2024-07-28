@@ -1,11 +1,10 @@
 import {
   ClassAttributes,
   HTMLAttributes,
-  MouseEventHandler,
   ReactNode,
+  useCallback,
   useState,
 } from "react"
-import { useNavigate } from "react-router-dom"
 import { JSX } from "react/jsx-runtime"
 import { navigateTo } from "../model/router"
 
@@ -22,11 +21,11 @@ export const SubTitle = (props: DefaultProps) => {
 }
 
 export const MainButton = (props: { navigateTo: string }) => {
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     navigateTo(props.navigateTo)
     setClicked(true)
     setTimeout(() => setClicked(false), 75)
-  }
+  }, [props.navigateTo])
 
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)

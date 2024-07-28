@@ -1,19 +1,25 @@
 import { setView } from "./store"
 import Navigo from "navigo"
 
-export type View = "Home" | "Notes" | { tag: "Note"; id: string } | "NotFound"
+import { T } from "../../../shared/types"
+
+export type View =
+  | T<"Home">
+  | T<"Notes">
+  | T<"Note", { id: string }>
+  | T<"NotFound">
 
 const router = new Navigo("/")
 
-router.on("/", () => setView("Home"))
-router.on("/notes", () => setView("Notes"))
+router.on("/", () => setView({ tag: "Home" }))
 router.on(
-  "/note/:id",
+  "/notes/:id",
   (match) => match && setView({ tag: "Note", id: match.data!.id })
 )
+router.on("/notes", () => setView({ tag: "Notes" }))
 
 export const navigateTo = async (pathname: string) => {
-  router.navigate(pathname)
+  return router.navigate(pathname, { callHooks: true })
 }
 
 // Initial route

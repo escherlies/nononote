@@ -29,7 +29,7 @@ function ViewClosedMenu() {
   const noteInput = useStore((state) => state.noteInput)
   const view = useStore((state) => state.view)
 
-  switch (view) {
+  switch (view.tag) {
     case "Home":
       return (
         <Container>
@@ -44,6 +44,26 @@ function ViewClosedMenu() {
       )
 
     case "Notes":
+      return (
+        <Container>
+          <MainButton navigateTo="/" />
+          <TextButton className="w-full" onClick={toggleMenu}>
+            Menu
+          </TextButton>
+        </Container>
+      )
+
+    case "Note":
+      return (
+        <Container>
+          <MainButton navigateTo="/notes" />
+          <TextButton className="w-full" onClick={toggleMenu}>
+            Menu
+          </TextButton>
+        </Container>
+      )
+
+    case "NotFound":
       return (
         <Container>
           <MainButton navigateTo="/" />
