@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client"
 
 import "./model/router"
+import { initBindings } from "./model/keyboard"
 
 import { App } from "./view/App"
 import { useStore } from "./model/store"
@@ -20,3 +21,6 @@ if (container) {
 useStore.setState({
   notes: sampleNotes,
 })
+
+// Initialize keyboard bindings
+initBindings()
