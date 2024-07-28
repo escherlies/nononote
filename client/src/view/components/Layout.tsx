@@ -14,7 +14,7 @@ export function Layout({ body, footer }: LayoutProps) {
       <div className="relative flex-grow overflow-scroll">
         {menuOpen ? (
           <div
-            className="absolute top-0 left-0 w-full h-full bg-background-primary/50 p-10 flex backdrop-blur-sm"
+            className="absolute top-0 left-0 w-full h-full bg-background-primary/50 p-10 flex backdrop-blur-sm select-none"
             onClick={() => {}}
           ></div>
         ) : null}
