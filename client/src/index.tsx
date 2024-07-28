@@ -24,3 +24,10 @@ useStore.setState({
 
 // Initialize keyboard bindings
 initBindings()
+
+// Add dark mode media event listener
+const darkModeMedia = window.matchMedia("(prefers-color-scheme: dark)")
+darkModeMedia.addEventListener("change", (e) => {
+  useStore.setState({ darkMode: e.matches })
+})
+useStore.setState({ darkMode: darkModeMedia.matches })

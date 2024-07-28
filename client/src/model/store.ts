@@ -2,6 +2,7 @@ import { create } from "zustand"
 import trpc, { Unsubscribable } from "./trcp"
 import { logger } from "./logger"
 import { View } from "./router"
+import { Maybe } from "../../../shared/types"
 
 // Store
 
@@ -13,7 +14,8 @@ export const useStore = create(() => ({
   testData: null as Maybe<string>,
   testSubscription: null as Maybe<Unsubscribable>,
   menuOpen: false,
-  view: "Home" as View,
+  view: { tag: "Home" } as View,
+  darkMode: false,
 }))
 
 // Actions/Reducers
