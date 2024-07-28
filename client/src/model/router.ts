@@ -1,4 +1,3 @@
-import UniversalRouter, { Routes } from "universal-router"
 import { setView } from "./store"
 import Navigo from "navigo"
 
