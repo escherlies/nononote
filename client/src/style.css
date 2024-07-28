@@ -26,3 +26,7 @@
   --color-primary: #e9eae9;
   --background-primary: #25272e;
 }
+
+.debug {
+  border: 1px solid red;
+}

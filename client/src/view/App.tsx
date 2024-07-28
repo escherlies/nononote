@@ -17,7 +17,7 @@ export function App() {
               <Route path="/*" element={<ViewHome />} />
             </Routes>
           }
-          footer={<Menu></Menu>}
+          footer={<Menu />}
         />
       </div>
     </BrowserRouter>

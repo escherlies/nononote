@@ -8,16 +8,7 @@ export function Menu() {
   const menuOpen = useStore((state) => state.menuOpen)
 
   return menuOpen ? (
-    <div className="">
-      <Container>
-        <div onClick={toggleMenu}>
-          <MainButton navigateTo="/" />
-        </div>
-        <TextButton className="w-[260px]" onClick={toggleMenu}>
-          Close
-        </TextButton>
-      </Container>
-    </div>
+    <ViewOpenMenu />
   ) : (
     <Routes>
       <Route
@@ -25,7 +16,7 @@ export function Menu() {
         element={
           <Container>
             <MainButton navigateTo="/" />
-            <TextButton className="w-[260px]" onClick={toggleMenu}>
+            <TextButton className="w-full" onClick={toggleMenu}>
               Menu
             </TextButton>
           </Container>
@@ -38,7 +29,7 @@ export function Menu() {
             {noteInput === "" ? (
               <MainButton navigateTo="/notes" />
             ) : (
-              <TextButton className="w-[260px]" onClick={saveNote}>
+              <TextButton className="w-full" onClick={saveNote}>
                 Save
               </TextButton>
             )}
@@ -49,14 +40,36 @@ export function Menu() {
   )
 }
 
-interface ContainerProps {
+function ViewOpenMenu() {
+  return (
+    <div className="relative">
+      <Container className="absolute top-0 left-0 transform -translate-y-full flex flex-col pb-4">
+        <TextButton className="w-full">Settings</TextButton>
+        <TextButton className="w-full">Search</TextButton>
+      </Container>
+      <Container>
+        <MainButton navigateTo="/" />
+        <TextButton className="w-full" onClick={toggleMenu}>
+          Close
+        </TextButton>
+      </Container>
+    </div>
+  )
+}
+
+export interface ContainerProps {
+  className?: string
   children: React.ReactNode
 }
 
-export function Container({ children }: ContainerProps) {
+export function Container(props: ContainerProps) {
   return (
-    <div className="flex gap-4 w-full justify-center items-center">
-      {children}
+    <div
+      className={
+        "flex gap-4 w-full justify-center items-center " + props.className
+      }
+    >
+      {props.children}
     </div>
   )
 }

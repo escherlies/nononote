@@ -38,7 +38,7 @@ export const MainButton = (props: { navigateTo: string }) => {
   return (
     <div
       className={`
-    border-2 border-color-primary rounded-lg w-[68px] h-[68px] flex items-center justify-center bg-background-primary
+    border-2 border-color-primary rounded-lg w-[68px] min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     cursor-pointer
     transition-all duration-75
     ${clickedClassNames}
