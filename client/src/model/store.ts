@@ -1,6 +1,7 @@
 import { create } from "zustand"
 import trpc, { Unsubscribable } from "./trcp"
 import { logger } from "./logger"
+import { View } from "./router"
 
 // Store
 
@@ -12,6 +13,7 @@ export const useStore = create(() => ({
   testData: null as Maybe<string>,
   testSubscription: null as Maybe<Unsubscribable>,
   menuOpen: false,
+  view: "Home" as View,
 }))
 
 // Actions/Reducers
@@ -85,4 +87,8 @@ export const stopSubscription = () => {
     subscription.unsubscribe()
     useStore.setState({ testSubscription: null })
   }
+}
+
+export const setView = (view: View) => {
+  useStore.setState({ view })
 }

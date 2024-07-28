@@ -1,4 +1,7 @@
 import { createRoot } from "react-dom/client"
+
+import "./model/router"
+
 import { App } from "./view/App"
 import { useStore } from "./model/store"
 
