@@ -9,7 +9,7 @@ export function ViewNotes() {
       {notes.map((note, i) => (
         <div
           key={i}
-          className="line-clamp-2 font-bold"
+          className="line-clamp-2 font-bold cursor-pointer select-none"
           onClick={() => navigateTo(`/notes/${i}`)}
         >
           {note}
