@@ -1,18 +1,21 @@
 import UniversalRouter, { Routes } from "universal-router"
 import { setView } from "./store"
+import Navigo from "navigo"
 
 export type View = "Home" | "Notes" | { tag: "Note"; id: string } | "NotFound"
 
-const routes: Routes = [
-  { path: "/", action: () => setView("Home") },
-  { path: "/notes", action: () => setView("Notes") },
-  {
-    path: "/note/:id",
-    action: (context) =>
-      setView({ tag: "Note", id: context.params.id as string }),
-  },
-]
+const router = new Navigo("/")
 
-const router = new UniversalRouter(routes)
+router.on("/", () => setView("Home"))
+router.on("/notes", () => setView("Notes"))
+router.on(
+  "/note/:id",
+  (match) => match && setView({ tag: "Note", id: match.data!.id })
+)
 
-export const navigateTo = router.resolve
+export const navigateTo = async (pathname: string) => {
+  router.navigate(pathname)
+}
+
+// Initial route
+router.resolve(window.location.pathname)

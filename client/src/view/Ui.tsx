@@ -7,6 +7,7 @@ import {
 } from "react"
 import { useNavigate } from "react-router-dom"
 import { JSX } from "react/jsx-runtime"
+import { navigateTo } from "../model/router"
 
 type DefaultProps = {
   children: ReactNode
@@ -21,9 +22,8 @@ export const SubTitle = (props: DefaultProps) => {
 }
 
 export const MainButton = (props: { navigateTo: string }) => {
-  const navigate = useNavigate()
   const handleClick = () => {
-    navigate(props.navigateTo)
+    navigateTo(props.navigateTo)
     setClicked(true)
     setTimeout(() => setClicked(false), 75)
   }

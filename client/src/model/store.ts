@@ -90,5 +90,5 @@ export const stopSubscription = () => {
 }
 
 export const setView = (view: View) => {
-  useStore.setState({ view })
+  useStore.setState({ view, menuOpen: false })
 }

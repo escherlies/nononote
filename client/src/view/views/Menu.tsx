@@ -1,43 +1,11 @@
-import { Route, Routes } from "react-router-dom"
 import { saveNote, toggleMenu, useStore } from "../../model/store"
 import { MainButton, TextButton } from "../Ui"
 import React from "react"
 
 export function Menu() {
-  const noteInput = useStore((state) => state.noteInput)
   const menuOpen = useStore((state) => state.menuOpen)
 
-  return menuOpen ? (
-    <ViewOpenMenu />
-  ) : (
-    <Routes>
-      <Route
-        path="/notes"
-        element={
-          <Container>
-            <MainButton navigateTo="/" />
-            <TextButton className="w-full" onClick={toggleMenu}>
-              Menu
-            </TextButton>
-          </Container>
-        }
-      />
-      <Route
-        path="/"
-        element={
-          <Container>
-            {noteInput === "" ? (
-              <MainButton navigateTo="/notes" />
-            ) : (
-              <TextButton className="w-full" onClick={saveNote}>
-                Save
-              </TextButton>
-            )}
-          </Container>
-        }
-      />
-    </Routes>
-  )
+  return menuOpen ? <ViewOpenMenu /> : <ViewClosedMenu />
 }
 
 function ViewOpenMenu() {
@@ -55,6 +23,38 @@ function ViewOpenMenu() {
       </Container>
     </div>
   )
+}
+
+function ViewClosedMenu() {
+  const noteInput = useStore((state) => state.noteInput)
+  const view = useStore((state) => state.view)
+
+  switch (view) {
+    case "Home":
+      return (
+        <Container>
+          {noteInput === "" ? (
+            <MainButton navigateTo="/notes" />
+          ) : (
+            <TextButton className="w-full" onClick={saveNote}>
+              Save
+            </TextButton>
+          )}
+        </Container>
+      )
+
+    case "Notes":
+      return (
+        <Container>
+          <MainButton navigateTo="/" />
+          <TextButton className="w-full" onClick={toggleMenu}>
+            Menu
+          </TextButton>
+        </Container>
+      )
+  }
+
+  return <div>Not found</div>
 }
 
 export interface ContainerProps {

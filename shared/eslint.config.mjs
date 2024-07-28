@@ -22,6 +22,10 @@ export default [
       semi: ["error", "never"],
       // Newline at end of file
       "eol-last": ["error", "always"],
+      // No unused vars
+      "no-unused-vars": "warn",
+      // Switch exhaustiveness check
+      "@typescript-eslint/switch-exhaustiveness-check": "error",
     },
   },
 ];
