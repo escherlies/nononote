@@ -19,6 +19,7 @@ export function NoteInput() {
         value={noteInput}
         onChange={(e) => setNoteInput(e.target.value)}
         spellCheck={false}
+        placeholder="New note..."
         className="bg-transparent outline-none text-lg resize-none w-full h-full"
       />
     </div>
