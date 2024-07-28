@@ -13,8 +13,8 @@ export function App() {
         <Layout
           body={
             <Routes>
-              <Route path="/" element={<ViewHome />} />
               <Route path="/notes" element={<ViewNotes />} />
+              <Route path="/*" element={<ViewHome />} />
             </Routes>
           }
           footer={<Menu></Menu>}

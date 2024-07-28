@@ -11,6 +11,7 @@ export const useStore = create(() => ({
   notes: [] as string[],
   testData: null as Maybe<string>,
   testSubscription: null as Maybe<Unsubscribable>,
+  menuOpen: false,
 }))
 
 // Actions/Reducers
@@ -40,6 +41,10 @@ export const saveNote = () => {
   // Refocus on note-input
   const input = document.getElementById("note-input") as HTMLTextAreaElement
   input?.focus()
+}
+
+export const toggleMenu = () => {
+  useStore.setState((state) => ({ menuOpen: !state.menuOpen }))
 }
 
 export const getTestData = async () => {

@@ -1,13 +1,36 @@
 import { Route, Routes } from "react-router-dom"
-import { saveNote, setNoteInput, useStore } from "../../model/store"
+import { saveNote, toggleMenu, useStore } from "../../model/store"
 import { MainButton, TextButton } from "../Ui"
 import React from "react"
 
 export function Menu() {
   const noteInput = useStore((state) => state.noteInput)
+  const menuOpen = useStore((state) => state.menuOpen)
 
-  return (
+  return menuOpen ? (
+    <div className="">
+      <Container>
+        <div onClick={toggleMenu}>
+          <MainButton navigateTo="/" />
+        </div>
+        <TextButton className="w-[260px]" onClick={toggleMenu}>
+          Close
+        </TextButton>
+      </Container>
+    </div>
+  ) : (
     <Routes>
+      <Route
+        path="/notes"
+        element={
+          <Container>
+            <MainButton navigateTo="/" />
+            <TextButton className="w-[260px]" onClick={toggleMenu}>
+              Menu
+            </TextButton>
+          </Container>
+        }
+      />
       <Route
         path="/"
         element={
@@ -15,17 +38,10 @@ export function Menu() {
             {noteInput === "" ? (
               <MainButton navigateTo="/notes" />
             ) : (
-              <TextButton onClick={saveNote}>Save</TextButton>
+              <TextButton className="w-[260px]" onClick={saveNote}>
+                Save
+              </TextButton>
             )}
-          </Container>
-        }
-      />
-      <Route
-        path="/notes"
-        element={
-          <Container>
-            <MainButton navigateTo="/" />
-            <TextButton>Menu</TextButton>
           </Container>
         }
       />

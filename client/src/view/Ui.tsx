@@ -53,11 +53,12 @@ export const MainButton = (props: { navigateTo: string }) => {
   )
 }
 
-export const TextButton = (
-  props: JSX.IntrinsicAttributes &
-    ClassAttributes<HTMLDivElement> &
-    HTMLAttributes<HTMLDivElement>
-) => {
+export const TextButton = ({
+  className,
+  ...props
+}: JSX.IntrinsicAttributes &
+  ClassAttributes<HTMLDivElement> &
+  HTMLAttributes<HTMLDivElement>) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
   const handleClick = () => {
@@ -77,6 +78,7 @@ export const TextButton = (
     cursor-pointer
     transition-all duration-75 ease-in-out
     ${clickedClassNames}
+    ${className}
     `}
       onMouseDown={() => setClicked(true)}
       onMouseUp={() => setClicked(false)}
