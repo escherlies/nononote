@@ -17,6 +17,7 @@ router.on(
   (match) => match && setView({ tag: "Note", id: match.data!.id })
 )
 router.on("/notes", () => setView({ tag: "Notes" }))
+router.on("*", () => setView({ tag: "NotFound" }))
 
 export const navigateTo = async (pathname: string) => {
   return router.navigate(pathname, { callHooks: true })

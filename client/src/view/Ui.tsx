@@ -20,15 +20,19 @@ export const SubTitle = (props: DefaultProps) => {
   return <div className="text-lg font-semibold">{props.children}</div>
 }
 
-export const MainButton = (props: { navigateTo: string }) => {
-  const handleClick = useCallback(() => {
-    navigateTo(props.navigateTo)
-    setClicked(true)
-    setTimeout(() => setClicked(false), 75)
-  }, [props.navigateTo])
-
+export const MainButton = ({
+  className,
+  ...props
+}: JSX.IntrinsicAttributes &
+  ClassAttributes<HTMLDivElement> &
+  HTMLAttributes<HTMLDivElement>) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
+
+  const handleClick = () => {
+    setClicked(true)
+    setTimeout(() => setClicked(false), 75)
+  }
 
   const clickedClassNames = clicked
     ? "translate-x-1 translate-y-1 shadow-down"
@@ -41,11 +45,13 @@ export const MainButton = (props: { navigateTo: string }) => {
     cursor-pointer
     transition-all duration-75
     ${clickedClassNames}
+    ${className}
     `}
       onMouseDown={() => setClicked(true)}
       onMouseUp={() => setClicked(false)}
       onMouseLeave={() => setClicked(false)}
       onClick={handleClick}
+      {...props}
     >
       <div className="w-[54px] h-[54px] rounded-full bg-color-primary"></div>
     </div>
@@ -60,6 +66,7 @@ export const TextButton = ({
   HTMLAttributes<HTMLDivElement>) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
+
   const handleClick = () => {
     setClicked(true)
     setTimeout(() => setClicked(false), 75)
