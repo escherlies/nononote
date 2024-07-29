@@ -22,7 +22,7 @@ function handleKeyDown(event: KeyboardEvent) {
         break
       case "enter":
         event.preventDefault()
-        navigateTo("/")
+        navigateTo({ tag: "Home" })
         break
       default:
         break

@@ -10,8 +10,18 @@ export function Menu() {
     <div className="relative">
       {menuOpen && (
         <Container className="absolute top-0 left-0 transform -translate-y-full flex flex-col pb-4">
-          <TextButton className="w-full">Settings</TextButton>
-          <TextButton className="w-full">Search</TextButton>
+          <TextButton
+            className="w-full"
+            onClick={() => navigateTo({ tag: "Settings" })}
+          >
+            Settings
+          </TextButton>
+          <TextButton
+            className="w-full"
+            onClick={() => navigateTo({ tag: "Notes" })}
+          >
+            Search
+          </TextButton>
         </Container>
       )}
       <Container>
@@ -29,7 +39,10 @@ function ViewMainAction() {
   switch (view.tag) {
     case "Home":
       return noteInput === "" ? (
-        <TextButton className="w-full" onClick={() => navigateTo("/notes")}>
+        <TextButton
+          className="w-full"
+          onClick={() => navigateTo({ tag: "Notes" })}
+        >
           Notes
         </TextButton>
       ) : (
@@ -40,7 +53,10 @@ function ViewMainAction() {
 
     case "Notes":
       return (
-        <TextButton className="w-full" onClick={() => navigateTo("/")}>
+        <TextButton
+          className="w-full"
+          onClick={() => navigateTo({ tag: "Home" })}
+        >
           New
         </TextButton>
       )
@@ -49,21 +65,58 @@ function ViewMainAction() {
       return (
         <TextButton
           className="w-full"
-          onClick={() => navigateTo(`/notes/${view.id}/edit`)}
+          onClick={() => navigateTo({ tag: "EditNote", id: view.id })}
         >
           Edit
         </TextButton>
       )
 
+    case "EditNote":
+      return (
+        <TextButton
+          className="w-full"
+          onClick={() => navigateTo({ tag: "Note", id: view.id })}
+        >
+          Cancel
+        </TextButton>
+      )
+
+    case "Search":
+      return (
+        <TextButton
+          className="w-full"
+          onClick={() => navigateTo({ tag: "Notes" })}
+        >
+          Cancel
+        </TextButton>
+      )
+
+    case "Settings":
+      return (
+        <TextButton
+          className="w-full"
+          onClick={() => navigateTo({ tag: "Home" })}
+        >
+          SET
+        </TextButton>
+      )
+
     case "NotFound":
       return (
-        <TextButton className="w-full" onClick={() => navigateTo("/")}>
+        <TextButton
+          className="w-full"
+          onClick={() => navigateTo({ tag: "Home" })}
+        >
           X_X
         </TextButton>
       )
   }
 
-  return <div>Not found</div>
+  return (
+    <TextButton className="w-full" onClick={() => navigateTo({ tag: "Home" })}>
+      NEVER 😭
+    </TextButton>
+  )
 }
 
 export interface ContainerProps {

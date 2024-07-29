@@ -92,5 +92,15 @@ export const stopSubscription = () => {
 }
 
 export const setView = (view: View) => {
+  logger.debug("setting view", view)
   useStore.setState({ view, menuOpen: false })
+}
+
+export const seachNotes = (query: string) => {
+  // Todo: Add search functionality
+  logger.debug("todo: searching for", query)
+}
+
+export const closeMenu = () => {
+  useStore.setState({ menuOpen: false })
 }

@@ -6,7 +6,6 @@ import {
   useState,
 } from "react"
 import { JSX } from "react/jsx-runtime"
-import { navigateTo } from "../model/router"
 
 type DefaultProps = {
   children: ReactNode

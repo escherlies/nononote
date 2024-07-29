@@ -8,4 +8,9 @@
  */
 export type T<Tag extends string, U = {}> = { tag: Tag } & U;
 
+export const tag = <Tag extends string, U = {}>(
+  tag: Tag,
+  props: U
+): T<Tag, U> => ({ tag, ...props });
+
 export type Maybe<T> = T | null;
