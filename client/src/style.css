@@ -44,3 +44,8 @@
     --background-primary: #001a8f;
   }
 }
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--background-primary);
+}
