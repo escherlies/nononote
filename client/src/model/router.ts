@@ -36,16 +36,10 @@ router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: 
 router.on("/settings", () => setView({ tag: "Settings" }))
 
 // Search
-router.on("/search", (match) => match && setView({ tag: "Search", query: "" }), {
-  after: () => {
-    setSeachQuery("")
-  },
-})
-
-// Search with query
-router.on("/search/:query", (match) => match && setView({ tag: "Search", query: match.data!.query }), {
+router.on("/search", (match) => match && setView({ tag: "Search", query: match?.params?.q || "" }), {
   after: (match) => {
-    setSeachQuery(match.data!.query)
+    const query = match?.params?.q || ""
+    setSeachQuery(query)
   },
 })
 
@@ -84,4 +78,4 @@ export const navigateTo = (view: View) => {
 // ~~~~~~~~~~~~~~~~~ Init ~~~~~~~~~~~~~~~~ //
 
 // Initial route
-router.resolve(window.location.pathname)
+router.resolve(window.location.pathname + window.location.search)

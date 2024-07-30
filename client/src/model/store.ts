@@ -93,12 +93,12 @@ export const stopSubscription = () => {
 }
 
 export const setView = (view: View) => {
-  logger.debug("setting view", view)
   useStore.setState({ view, menuOpen: false })
 }
 
 export const setSeachQuery = (query: string) => {
   useStore.setState({ searchQuery: query })
+  window.history.replaceState({ q: query }, "", "/search?q=" + query)
 }
 
 export const closeMenu = () => {
