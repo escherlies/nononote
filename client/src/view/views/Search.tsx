@@ -25,7 +25,7 @@ export function ViewNotesSearch() {
 
   if (query === "") {
     return (
-      <div className="p-10 m-auto w-full h-full flex">
+      <div className="m-auto w-full h-full flex">
         <div className="text-2xl m-auto">
           <b>{notes.length}</b> Notes in total
         </div>
@@ -35,14 +35,14 @@ export function ViewNotesSearch() {
 
   if (results.length === 0) {
     return (
-      <div className="p-10 m-auto w-full h-full flex">
+      <div className="m-auto w-full h-full flex">
         <div className="text-2xl m-auto">No results found</div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-10 w-full p-10">
+    <div className="flex flex-col gap-10 w-full m-auto">
       {results.map((result, index) => {
         const note = find((note) => note.id === result.id, notes)
 

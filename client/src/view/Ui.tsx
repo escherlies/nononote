@@ -26,8 +26,8 @@ export const MainButton = ({
   }
 
   const clickedClassNames = clicked
-    ? "translate-x-1 translate-y-1 shadow-down"
-    : "shadow hover:shadow-hover hover:translate-x-[1px] hover:translate-y-[1px]"
+    ? "translate-x-0 translate-y-0 shadow-down"
+    : "-translate-x-1 -translate-y-1 shadow hover:shadow-hover hover:-translate-x-[3px] hover:-translate-y-[3px]"
 
   return (
     <div
@@ -62,8 +62,8 @@ export const TextButton = ({
   }
 
   const clickedClassNames = clicked
-    ? "translate-x-1 translate-y-1 shadow-down"
-    : "shadow hover:shadow-hover hover:translate-x-[1px] hover:translate-y-[1px]"
+    ? "translate-x-0 translate-y-0 shadow-down"
+    : "-translate-x-1 -translate-y-1 shadow hover:shadow-hover hover:-translate-x-[3px] hover:-translate-y-[3px]"
 
   return (
     <div

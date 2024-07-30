@@ -13,14 +13,15 @@ export function SearchInput(
   }, [])
 
   return (
-    <div className="w-full overflow-hidden border-2 border-color-primary h-[68px] rounded-lg px-4 flex items-center">
+    <div className="w-full overflow-hidden border-2 border-color-primary h-[68px] rounded-lg px-4 flex items-center shadow-inner">
       <input
         id="note-input"
         ref={inputRef}
         value={value}
         spellCheck={false}
-        className="bg-transparent outline-none resize-none w-full text-3xl italic uppercase"
+        className="bg-transparent outline-none resize-none w-full text-3xl italic uppercase translate-y-0.5"
         onChange={(e) => setSeachQuery(e.target.value)}
+        placeholder="Search"
         {...props}
       />
     </div>

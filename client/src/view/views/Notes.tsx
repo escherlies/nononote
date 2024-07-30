@@ -6,7 +6,7 @@ export function ViewNotes() {
   const notes = useStore((state) => state.notes)
 
   return (
-    <div className="flex flex-col gap-10 w-full p-10">
+    <div className="flex flex-col gap-10 w-full">
       {notes.map((note) => (
         <div
           key={note.id}
