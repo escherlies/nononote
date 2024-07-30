@@ -4,12 +4,12 @@
 
 :root,
 .light-one {
-  --color-primary: #002cfa;
+  --color-primary: #001aff;
   --background-primary: #dbdbdb;
 }
 
 .light-two {
-  --color-primary: #002cfa;
+  --color-primary: #001aff;
   --background-primary: #fffefd;
 }
 
