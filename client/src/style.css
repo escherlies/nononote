@@ -19,13 +19,18 @@
 }
 
 .dark-one {
-  --color-primary: #f8f8e3;
-  --background-primary: #252325;
+  --color-primary: #f3f5f4;
+  --background-primary: #001a8f;
 }
 
 .dark-two {
   --color-primary: #e9eae9;
   --background-primary: #25272e;
+}
+
+.dark-three {
+  --color-primary: #f8f8e3;
+  --background-primary: #252325;
 }
 
 .debug {
@@ -35,7 +40,7 @@
 /* Dark mode media */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #f8f8e3;
-    --background-primary: #252325;
+    --color-primary: #f3f5f4;
+    --background-primary: #001a8f;
   }
 }
