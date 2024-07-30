@@ -19,16 +19,22 @@ function ViewBody() {
   switch (view.tag) {
     case "NotFound":
       return <div>Not Found</div>
+
     case "Home":
       return <ViewHome />
+
     case "Notes":
       return <ViewNotes />
+
     case "Note":
       return <ViewNote noteId={view.id} />
+
     case "EditNote":
       return <ViewNote noteId={view.id} />
+
     case "Search":
       return <div>Search</div>
+
     case "Settings":
       return <div>Settings</div>
   }
