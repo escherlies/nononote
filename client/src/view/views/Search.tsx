@@ -4,9 +4,10 @@ import MiniSearch from "minisearch"
 import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
+import { find } from "rambda"
 
 const miniSearch = new MiniSearch({
-  fields: ["note"],
+  fields: ["text"],
   searchOptions: {
     prefix: true,
     fuzzy: 0.2,
@@ -14,10 +15,8 @@ const miniSearch = new MiniSearch({
 })
 
 export function ViewNotesSearch() {
-  const allNotes = useStore((state) => state.notes)
+  const notes = useStore((state) => state.notes)
   const query = useStore((state) => state.searchQuery)
-
-  const notes = allNotes.map((note, idx) => ({ id: idx, note }))
 
   miniSearch.removeAll()
   miniSearch.addAll(notes)
@@ -28,7 +27,7 @@ export function ViewNotesSearch() {
     return (
       <div className="p-10 m-auto w-full h-full flex">
         <div className="text-2xl m-auto">
-          <b>{allNotes.length}</b> Notes in total
+          <b>{notes.length}</b> Notes in total
         </div>
       </div>
     )
@@ -45,15 +44,16 @@ export function ViewNotesSearch() {
   return (
     <div className="flex flex-col gap-10 w-full p-10">
       {results.map((result, index) => {
-        // const index = allNotes?.findIndex((note) => note === result.target)
+        const note = find((note) => note.id === result.id, notes)
+
+        if (!note) {
+          return null
+        }
 
         return (
           <div key={index} className="">
-            <div
-              className="cursor-pointer select-none"
-              onClick={() => navigateTo(tag("Note", { id: index.toString() }))}
-            >
-              <HighlightedText text={notes[result.id].note} match={result.terms} />
+            <div className="cursor-pointer select-none" onClick={() => navigateTo(tag("Note", { id: note.id }))}>
+              <HighlightedText text={note.text} match={result.terms} />
             </div>
           </div>
         )

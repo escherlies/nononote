@@ -68,7 +68,7 @@ export const navigateTo = (view: View) => {
       return router.navigate("/settings")
 
     case "Search":
-      return router.navigate("/search/" + view.query)
+      return router.navigate(`/search?q=${view.query}`)
 
     case "EditNote":
       return router.navigate(`/notes/${view.id}/edit`)

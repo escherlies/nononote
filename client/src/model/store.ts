@@ -3,6 +3,7 @@ import trpc, { Unsubscribable } from "./trcp"
 import { logger } from "./logger"
 import { View } from "./router"
 import { Maybe } from "../../../shared/types"
+import { Note } from "./data"
 
 // Store
 
@@ -10,7 +11,7 @@ export const useStore = create(() => ({
   error: null as Maybe<string>,
   counter: 0,
   noteInput: "",
-  notes: [] as string[],
+  notes: [] as Note[],
   testData: null as Maybe<string>,
   testSubscription: null as Maybe<Unsubscribable>,
   menuOpen: false,
@@ -38,10 +39,14 @@ export const setNoteInput = (noteInput: string) => {
 }
 
 export const saveNote = () => {
-  useStore.setState((state) => ({
-    notes: [...state.notes, state.noteInput],
-    noteInput: "",
-  }))
+  useStore.setState((state) => {
+    const note = { id: String(Date.now()), text: state.noteInput, tags: [] }
+
+    return {
+      notes: [...state.notes, note],
+      noteInput: "",
+    }
+  })
 
   // Refocus on note-input
   const input = document.getElementById("note-input") as HTMLTextAreaElement

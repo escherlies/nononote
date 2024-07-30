@@ -7,13 +7,13 @@ export function ViewNotes() {
 
   return (
     <div className="flex flex-col gap-10 w-full p-10">
-      {notes.map((note, idx) => (
+      {notes.map((note) => (
         <div
-          key={idx}
+          key={note.id}
           className="line-clamp-2 font-bold cursor-pointer select-none"
-          onClick={() => navigateTo(tag("Note", { id: idx.toString() }))}
+          onClick={() => navigateTo(tag("Note", { id: note.id }))}
         >
-          {note}
+          {note.text}
         </div>
       ))}
     </div>
