@@ -17,13 +17,19 @@ function ViewBody() {
   const view = useStore((state) => state.view)
 
   switch (view.tag) {
+    case "NotFound":
+      return <div>Not Found</div>
     case "Home":
       return <ViewHome />
     case "Notes":
       return <ViewNotes />
     case "Note":
       return <ViewNote noteId={view.id} />
-    case "NotFound":
-      return <div>Not Found</div>
+    case "EditNote":
+      return <ViewNote noteId={view.id} />
+    case "Search":
+      return <div>Search</div>
+    case "Settings":
+      return <div>Settings</div>
   }
 }
