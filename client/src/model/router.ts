@@ -1,12 +1,9 @@
-import { closeMenu, seachNotes, setView, useStore } from "./store"
+import { closeMenu, setSeachQuery, setView, useStore } from "./store"
 import Navigo from "navigo"
 
 import { T } from "../../../shared/types"
 
 const router = new Navigo("/")
-
-// Initial route
-router.resolve(window.location.pathname)
 
 //
 //
@@ -30,30 +27,26 @@ router.on("/", () => setView({ tag: "Home" }))
 router.on("/notes", () => setView({ tag: "Notes" }))
 
 // Note
-router.on(
-  "/notes/:id",
-  (match) => match && setView({ tag: "Note", id: match.data!.id })
-)
+router.on("/notes/:id", (match) => match && setView({ tag: "Note", id: match.data!.id }))
 
 // Edit note
-router.on(
-  "/notes/:id/edit",
-  (match) => match && setView({ tag: "EditNote", id: match.data!.id })
-)
+router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: match.data!.id }))
 
 // Settings
 router.on("/settings", () => setView({ tag: "Settings" }))
 
 // Search
-router.on(
-  "/notes",
-  (match) => match && setView({ tag: "Search", query: match.params!.q }),
-  {
-    after: (match) => {
-      seachNotes(match.params?.q || "")
-    },
-  }
-)
+router.on("/search", (match) => match && setView({ tag: "Search", query: "" }), {
+  after: (match) => {
+    setSeachQuery("")
+  },
+})
+// Search with query
+router.on("/search/:query", (match) => match && setView({ tag: "Search", query: match.data!.query }), {
+  after: (match) => {
+    setSeachQuery(match.data!.query)
+  },
+})
 
 // Not found
 router.notFound(() => setView({ tag: "NotFound" }))
@@ -80,9 +73,14 @@ export const navigateTo = (view: View) => {
       return router.navigate("/settings")
 
     case "Search":
-      return router.navigate("/notes?q=" + view.query)
+      return router.navigate("/search/" + view.query)
 
     case "EditNote":
       return router.navigate(`/notes/${view.id}/edit`)
   }
 }
+
+// ~~~~~~~~~~~~~~~~~ Init ~~~~~~~~~~~~~~~~ //
+
+// Initial route
+router.resolve(window.location.pathname)

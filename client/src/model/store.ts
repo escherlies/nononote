@@ -16,6 +16,7 @@ export const useStore = create(() => ({
   menuOpen: false,
   view: { tag: "Home" } as View,
   darkMode: false,
+  searchQuery: "",
 }))
 
 // Actions/Reducers
@@ -96,9 +97,8 @@ export const setView = (view: View) => {
   useStore.setState({ view, menuOpen: false })
 }
 
-export const seachNotes = (query: string) => {
-  // Todo: Add search functionality
-  logger.debug("todo: searching for", query)
+export const setSeachQuery = (query: string) => {
+  useStore.setState({ searchQuery: query })
 }
 
 export const closeMenu = () => {

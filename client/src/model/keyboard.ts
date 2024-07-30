@@ -18,7 +18,7 @@ function handleKeyDown(event: KeyboardEvent) {
       case "f":
       case "k":
         event.preventDefault()
-        // todo
+        navigateTo({ tag: "Search", query: "" })
         break
       case "enter":
         event.preventDefault()

@@ -4,6 +4,7 @@ import { Layout } from "./components/Layout"
 import { Menu } from "./views/Menu"
 import { useStore } from "../model/store"
 import { ViewNote } from "./views/Note"
+import { ViewNotesSearch } from "./views/Search"
 
 export function App() {
   return (
@@ -33,7 +34,7 @@ function ViewBody() {
       return <ViewNote noteId={view.id} />
 
     case "Search":
-      return <div>Search</div>
+      return <ViewNotesSearch />
 
     case "Settings":
       return <div>Settings</div>

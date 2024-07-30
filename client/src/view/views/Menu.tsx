@@ -1,5 +1,6 @@
 import { navigateTo } from "../../model/router"
-import { saveNote, toggleMenu, useStore } from "../../model/store"
+import { saveNote, setSeachQuery, toggleMenu, useStore } from "../../model/store"
+import { SearchInput } from "../components/SearchInput"
 import { MainButton, TextButton } from "../Ui"
 import React from "react"
 
@@ -13,7 +14,7 @@ export function Menu() {
           <TextButton className="w-full" onClick={() => navigateTo({ tag: "Settings" })}>
             Settings
           </TextButton>
-          <TextButton className="w-full" onClick={() => navigateTo({ tag: "Notes" })}>
+          <TextButton className="w-full" onClick={() => navigateTo({ tag: "Search", query: "" })}>
             Search
           </TextButton>
         </Container>
@@ -65,9 +66,10 @@ function ViewMainAction() {
 
     case "Search":
       return (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "Notes" })}>
-          Cancel
-        </TextButton>
+        // <TextButton className="w-full" onClick={() => navigateTo({ tag: "Notes" })}>
+        //   Cancel
+        // </TextButton>
+        <SearchInput />
       )
 
     case "Settings":
@@ -98,9 +100,5 @@ export interface ContainerProps {
 }
 
 export function Container(props: ContainerProps) {
-  return (
-    <div className={"flex gap-4 w-full justify-center items-center " + props.className}>
-      {props.children}
-    </div>
-  )
+  return <div className={"flex gap-4 w-full justify-center items-center " + props.className}>{props.children}</div>
 }
