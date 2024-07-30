@@ -5,8 +5,16 @@ export function ViewNote({ noteId }: { noteId: string }) {
   const note = notes.find((note, ix) => String(ix) === noteId)
 
   if (!note) {
-    return <div>Note not found</div>
+    return (
+      <div className="flex h-full w-full">
+        <div className="m-auto">Note not found</div>
+      </div>
+    )
   }
 
-  return <div>{note}</div>
+  return (
+    <div className="flex h-full w-full">
+      <div className="m-auto">{note}</div>
+    </div>
+  )
 }

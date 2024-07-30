@@ -64,6 +64,9 @@ export const navigateTo = (view: View) => {
   closeMenu()
 
   switch (view.tag) {
+    case "NotFound":
+      return router.navigate("/404")
+
     case "Home":
       return router.navigate("/")
 
@@ -79,7 +82,7 @@ export const navigateTo = (view: View) => {
     case "Search":
       return router.navigate("/notes?q=" + view.query)
 
-    case "NotFound":
-      return router.navigate("/404")
+    case "EditNote":
+      return router.navigate(`/notes/${view.id}/edit`)
   }
 }
