@@ -5,7 +5,7 @@ import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
 
-let miniSearch = new MiniSearch({
+const miniSearch = new MiniSearch({
   fields: ["note"],
   searchOptions: {
     prefix: true,
@@ -23,10 +23,6 @@ export function ViewNotesSearch() {
   miniSearch.addAll(notes)
 
   const results = miniSearch.search(query)
-  console.log("results", results)
-
-  const autoSuggestions = miniSearch.autoSuggest(query)
-  console.log("autoSuggestions", autoSuggestions)
 
   if (query === "") {
     return (

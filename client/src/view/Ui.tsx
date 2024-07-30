@@ -1,10 +1,4 @@
-import {
-  ClassAttributes,
-  HTMLAttributes,
-  ReactNode,
-  useCallback,
-  useState,
-} from "react"
+import { ClassAttributes, HTMLAttributes, ReactNode, useState } from "react"
 import { JSX } from "react/jsx-runtime"
 
 type DefaultProps = {
@@ -22,9 +16,7 @@ export const SubTitle = (props: DefaultProps) => {
 export const MainButton = ({
   className,
   ...props
-}: JSX.IntrinsicAttributes &
-  ClassAttributes<HTMLDivElement> &
-  HTMLAttributes<HTMLDivElement>) => {
+}: JSX.IntrinsicAttributes & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
 
@@ -60,9 +52,7 @@ export const MainButton = ({
 export const TextButton = ({
   className,
   ...props
-}: JSX.IntrinsicAttributes &
-  ClassAttributes<HTMLDivElement> &
-  HTMLAttributes<HTMLDivElement>) => {
+}: JSX.IntrinsicAttributes & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
 
@@ -91,9 +81,7 @@ export const TextButton = ({
       onClick={handleClick}
       {...props}
     >
-      <div className="uppercase tracking-tight text-[40px]">
-        {props.children}
-      </div>
+      <div className="uppercase tracking-tight text-[40px]">{props.children}</div>
     </div>
   )
 }

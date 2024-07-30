@@ -1,5 +1,5 @@
 import { navigateTo } from "../../model/router"
-import { saveNote, setSeachQuery, toggleMenu, useStore } from "../../model/store"
+import { saveNote, toggleMenu, useStore } from "../../model/store"
 import { SearchInput } from "../components/SearchInput"
 import { MainButton, TextButton } from "../Ui"
 import React from "react"

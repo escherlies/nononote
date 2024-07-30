@@ -1,5 +1,5 @@
 import { ClassAttributes, InputHTMLAttributes, useEffect, useRef } from "react"
-import { setNoteInput, setSeachQuery, useStore } from "../../model/store"
+import { setSeachQuery, useStore } from "../../model/store"
 import { JSX } from "react/jsx-runtime"
 
 export function SearchInput(

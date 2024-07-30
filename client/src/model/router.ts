@@ -1,4 +1,4 @@
-import { closeMenu, setSeachQuery, setView, useStore } from "./store"
+import { closeMenu, setSeachQuery, setView } from "./store"
 import Navigo from "navigo"
 
 import { T } from "../../../shared/types"
@@ -37,10 +37,11 @@ router.on("/settings", () => setView({ tag: "Settings" }))
 
 // Search
 router.on("/search", (match) => match && setView({ tag: "Search", query: "" }), {
-  after: (match) => {
+  after: () => {
     setSeachQuery("")
   },
 })
+
 // Search with query
 router.on("/search/:query", (match) => match && setView({ tag: "Search", query: match.data!.query }), {
   after: (match) => {
