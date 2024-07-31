@@ -8,6 +8,8 @@ export function initBindings() {
 }
 
 function handleKeyDown(event: KeyboardEvent) {
+  const view = useStore.getState().view
+
   if (event.metaKey) {
     // Check for the 'cmd' key
     switch (event.key.toLowerCase()) {
@@ -20,9 +22,16 @@ function handleKeyDown(event: KeyboardEvent) {
         event.preventDefault()
         navigateTo({ tag: "Search", query: "" })
         break
+
+      default:
+        break
+    }
+  }
+
+  if (event.ctrlKey) {
+    switch (event.key.toLowerCase()) {
       case "enter":
         {
-          const view = useStore.getState().view
           event.preventDefault()
           if (view.tag === "Home") {
             saveNote()
@@ -31,8 +40,27 @@ function handleKeyDown(event: KeyboardEvent) {
           }
         }
         break
+
       default:
         break
     }
+  }
+
+  switch (event.key.toLowerCase()) {
+    case "escape": {
+      switch (view.tag) {
+        case "Home":
+          return navigateTo({ tag: "Notes" })
+
+        case "Search":
+          return navigateTo({ tag: "Notes" })
+
+        default:
+          return navigateTo({ tag: "Home" })
+      }
+    }
+
+    default:
+      break
   }
 }

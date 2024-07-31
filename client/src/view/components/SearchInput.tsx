@@ -13,7 +13,7 @@ export function SearchInput(
   }, [])
 
   return (
-    <div className="w-full overflow-hidden border-2 border-color-primary h-[68px] rounded-lg px-4 flex items-center shadow-inner">
+    <div className="w-full overflow-hidden border-[3px] border-color-primary h-[68px] rounded-lg px-4 flex items-center shadow-inner">
       <input
         id="note-input"
         ref={inputRef}

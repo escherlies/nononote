@@ -56,7 +56,8 @@ export const Button = ({ active, className, ...props }: DefaultButtonProps & { a
   return (
     <div
       className={`
-    border-2 border-color-primary rounded-lg w-[68px] min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
+    border-[3px] border-color-primary w-[68px] min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
+    rounded-lg
     cursor-pointer
     transition-all duration-75
     ${clickedClassNames}
