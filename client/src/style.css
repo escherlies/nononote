@@ -6,6 +6,7 @@
 .light-one {
   --color-primary: #001aff;
   --background-primary: #dbdbdb;
+  font-size: 22px;
 }
 
 .light-two {
@@ -34,7 +35,12 @@
 }
 
 .debug {
-  border: 1px solid red;
+  border: 2px dashed deeppink;
+  /* padding: 2px; */
+}
+
+.debug > * {
+  border: 2px dashed dodgerblue;
 }
 
 /* Dark mode media */

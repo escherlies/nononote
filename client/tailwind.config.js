@@ -12,6 +12,7 @@ module.exports = {
         DEFAULT: `var(--color-primary) 4px 4px`,
         hover: `var(--color-primary) 3px 3px`,
         down: `var(--color-primary) 0px 0px`,
+        active: `var(--color-primary) 1px 1px`,
       },
       fontFamily: {
         sans: [

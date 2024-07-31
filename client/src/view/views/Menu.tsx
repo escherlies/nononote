@@ -1,104 +1,72 @@
 import { navigateTo } from "../../model/router"
-import { saveNote, toggleMenu, useStore } from "../../model/store"
+import { saveNote, useStore } from "../../model/store"
+import { CheckIcon, NotesIcon, PlusIcon, QuestionMarkIcon, SearchIcon, SettingsIcon } from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
-import { MainButton, TextButton } from "../Ui"
-import React from "react"
+import { MenuButton, IconButton } from "../Ui"
 
 export function Menu() {
-  const menuOpen = useStore((state) => state.menuOpen)
-
   return (
-    <div className="relative">
-      {menuOpen && (
-        <Container className="absolute top-0 left-0 transform -translate-y-full flex flex-col pb-4">
-          <TextButton className="w-full" onClick={() => navigateTo({ tag: "Settings" })}>
-            Settings
-          </TextButton>
-          <TextButton className="w-full" onClick={() => navigateTo({ tag: "Search", query: "" })}>
-            Search
-          </TextButton>
-        </Container>
-      )}
-      <Container>
-        <MainButton onClick={toggleMenu} />
+    <div className="relative w-full">
+      <ViewMenuOpen />
+      <div className="flex gap-5 justify-end">
         <ViewMainAction />
-      </Container>
+      </div>
     </div>
   )
 }
 
 function ViewMainAction() {
-  const noteInput = useStore((state) => state.noteInput)
   const view = useStore((state) => state.view)
+  const noteInput = useStore((state) => state.noteInput)
+
+  if (noteInput !== "") {
+    return <IconButton onClick={saveNote} icon={<CheckIcon />} />
+  }
 
   switch (view.tag) {
     case "Home":
-      return noteInput === "" ? (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "Notes" })}>
-          Notes
-        </TextButton>
-      ) : (
-        <TextButton className="w-full" onClick={saveNote}>
-          Save
-        </TextButton>
-      )
-
-    case "Notes":
-      return (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "Home" })}>
-          New
-        </TextButton>
-      )
-
-    case "Note":
-      return (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "EditNote", id: view.id })}>
-          Edit
-        </TextButton>
-      )
-
-    case "EditNote":
-      return (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "Note", id: view.id })}>
-          Cancel
-        </TextButton>
-      )
+      return [
+        //
+        <MenuButton key="menu" />,
+        <IconButton key="search" onClick={() => navigateTo({ tag: "Search", query: "" })} icon={<SearchIcon />} />,
+        <IconButton key="notes" onClick={() => navigateTo({ tag: "Notes" })} icon={<NotesIcon />} />,
+      ]
 
     case "Search":
-      return (
-        // <TextButton className="w-full" onClick={() => navigateTo({ tag: "Notes" })}>
-        //   Cancel
-        // </TextButton>
-        <SearchInput />
-      )
+      return [
+        //
+        <SearchInput key="search-input" />,
+        <IconButton
+          key="notes"
+          onClick={() => navigateTo({ tag: "Notes" })}
+          icon={
+            <div className="rotate-45">
+              <PlusIcon />
+            </div>
+          }
+        />,
+      ]
 
-    case "Settings":
-      return (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "Home" })}>
-          SET
-        </TextButton>
-      )
-
-    case "NotFound":
-      return (
-        <TextButton className="w-full" onClick={() => navigateTo({ tag: "Home" })}>
-          X_X
-        </TextButton>
-      )
+    default:
+      return [
+        <MenuButton key="menu" />,
+        <IconButton key="search" onClick={() => navigateTo({ tag: "Search", query: "" })} icon={<SearchIcon />} />,
+        <IconButton key="home" onClick={() => navigateTo({ tag: "Home" })} icon={<PlusIcon />} />,
+      ]
   }
+}
+
+const ViewMenuOpen = () => {
+  const menuOpen = useStore((state) => state.menuOpen)
 
   return (
-    <TextButton className="w-full" onClick={() => navigateTo({ tag: "Home" })}>
-      NEVER 😭
-    </TextButton>
+    menuOpen && (
+      <div className="absolute right-0 top-0 transform -translate-y-full">
+        <div className="grid grid-cols-3 gap-5 mb-5">
+          <IconButton onClick={() => navigateTo({ tag: "Settings" })} icon={<SettingsIcon />} />
+          <IconButton onClick={() => ({})} icon={<QuestionMarkIcon />} />
+        </div>
+      </div>
+    )
   )
-}
-
-export interface ContainerProps {
-  className?: string
-  children: React.ReactNode
-}
-
-export function Container(props: ContainerProps) {
-  return <div className={"flex gap-4 w-full justify-center items-center " + props.className}>{props.children}</div>
 }
