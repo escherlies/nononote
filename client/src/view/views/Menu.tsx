@@ -64,7 +64,7 @@ const ViewMenuOpen = () => {
       <div className="absolute right-0 top-0 transform -translate-y-full">
         <div className="grid grid-cols-3 gap-5 mb-5">
           <IconButton onClick={() => navigateTo({ tag: "Settings" })} icon={<SettingsIcon />} />
-          <IconButton onClick={() => ({})} icon={<QuestionMarkIcon />} />
+          <IconButton onClick={() => navigateTo({ tag: "Info" })} icon={<QuestionMarkIcon />} />
         </div>
       </div>
     )

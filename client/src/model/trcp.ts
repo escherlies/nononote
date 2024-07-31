@@ -1,17 +1,20 @@
 import { createTRPCClient, createWSClient, wsLink } from "@trpc/client"
-import type {
-  AppRouter,
-  Unsubscribable,
-} from "../../../server/src/web-server-rtcp"
+import type { AppRouter, Unsubscribable } from "../../../server/src/web-server-rtcp"
 import { logger } from "./logger"
+import { attemptSyncNewNotes, setConnectionStatus } from "./store"
 
 const wsClient = createWSClient({
   url: "/ws",
   onClose(cause) {
     logger.warn("wsClient was closed", cause)
+    setConnectionStatus(false)
   },
   retryDelayMs(attemptIndex) {
     return Math.min(attemptIndex * 1000, 30_000)
+  },
+  onOpen() {
+    setConnectionStatus(true)
+    attemptSyncNewNotes()
   },
 })
 

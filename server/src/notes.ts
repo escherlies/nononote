@@ -45,7 +45,7 @@ export const handleNotesMessages = async (message: NotesMessages) => {
         updatedAt: new Date().toISOString(),
       }
       // Save note
-      saveNewNote(note)
+      await saveNewNote(note)
 
       // Emit note to all subscribers
       return emitMessageEvent({ type: "notes:note", note })

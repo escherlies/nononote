@@ -3,7 +3,11 @@ import { useStore } from "../../model/store"
 import { navigateTo } from "../../model/router"
 
 export function ViewNote({ noteId }: { noteId: string }) {
-  const notes = useStore((state) => state.notes)
+  const storedNotes = useStore((state) => state.notes)
+  const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
+
+  const notes = [...storedNotes, ...unsyncedNewNotes]
+
   const note = notes.find((note) => note.id === noteId)
 
   if (!note) {

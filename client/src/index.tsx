@@ -4,7 +4,7 @@ import "./model/router"
 import { initBindings } from "./model/keyboard"
 
 import { App } from "./view/App"
-import { startSubscription, useStore } from "./model/store"
+import { loadUnsyncedNewNotes, startSubscription, useStore } from "./model/store"
 
 import { sampleNotes } from "./sample-data"
 
@@ -17,10 +17,8 @@ if (container) {
   throw new Error("No container found")
 }
 
-// Set sample notes to store
-// useStore.setState({
-//   notes: sampleNotes,
-// })
+// Load unsynced new notes
+loadUnsyncedNewNotes()
 
 // Initialize keyboard bindings
 initBindings()

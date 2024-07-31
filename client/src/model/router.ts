@@ -15,6 +15,7 @@ export type View =
   | T<"Note", { id: string }>
   | T<"EditNote", { id: string }>
   | T<"Settings">
+  | T<"Info">
   | T<"Search", { query: string }>
   | T<"NotFound">
 
@@ -34,6 +35,9 @@ router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: 
 
 // Settings
 router.on("/settings", () => setView({ tag: "Settings" }))
+
+// Info
+router.on("/info", () => setView({ tag: "Info" }))
 
 // Search
 router.on("/search", (match) => match && setView({ tag: "Search", query: match?.params?.q || "" }), {
@@ -66,6 +70,9 @@ export const navigateTo = (view: View) => {
 
     case "Settings":
       return router.navigate("/settings")
+
+    case "Info":
+      return router.navigate("/info")
 
     case "Search":
       return router.navigate(`/search?q=${view.query}`)

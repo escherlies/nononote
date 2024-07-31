@@ -18,6 +18,8 @@ export const useStore = create(() => ({
   view: { tag: "Home" } as View,
   darkMode: false,
   searchQuery: "",
+  isConnected: false,
+  unsyncedNewNotes: [] as Note[],
 }))
 
 // Actions/Reducers
@@ -40,25 +42,55 @@ export const setNoteInput = (noteInput: string) => {
 
 export const saveNote = async () => {
   const noteInput = useStore.getState().noteInput.trim()
+  const isConnected = useStore.getState().isConnected
 
   if (!noteInput) {
     return
   }
 
+  const note: Note = {
+    id: "tmp_" + String(new Date().valueOf()),
+    text: noteInput,
+    tags: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  }
+
+  if (!isConnected) {
+    cacheNewNote(note)
+    clearInput()
+    return
+  }
+
   try {
     await trpc.api.message.mutate({ type: "notes:create", text: noteInput })
-    useStore.setState({ noteInput: "" })
-
-    // Refocus on note-input
-    const input = document.getElementById("note-input") as HTMLTextAreaElement
-    input?.focus()
   } catch (error) {
     setError(String(error))
-    // Save noteInput to localStorage
-    const date = new Date().toISOString()
-    localStorage.setItem(`noteInput-${date}`, noteInput)
-    // todo: add recovery mechanism
   }
+
+  clearInput()
+}
+
+const cacheNewNote = (note: Note) => {
+  useStore.setState((state) => {
+    const unsyncedNewNotes = [note, ...state.unsyncedNewNotes]
+    localStorage.setItem("unsyncedNewNotes", JSON.stringify(unsyncedNewNotes))
+    return { unsyncedNewNotes: [note, ...state.unsyncedNewNotes] }
+  })
+}
+
+const removeCachedNote = (noteId: string) => {
+  useStore.setState((state) => {
+    const unsyncedNewNotes = state.unsyncedNewNotes.filter((n) => n.id !== noteId)
+    localStorage.setItem("unsyncedNewNotes", JSON.stringify(unsyncedNewNotes))
+    return { unsyncedNewNotes }
+  })
+}
+
+const clearInput = () => {
+  useStore.setState({ noteInput: "" })
+  const input = document.getElementById("note-input") as HTMLTextAreaElement
+  input?.focus()
 }
 
 export const toggleMenu = () => {
@@ -95,8 +127,12 @@ export const startSubscription = async () => {
           break
 
         case "notes:got-notes": {
-          const notes = data.notes
-          useStore.setState({ notes })
+          useStore.setState((state) => {
+            const updatedNotes = state.notes.filter(
+              (note) => !data.notes.some((n) => n.id === note.id)
+            )
+            return { notes: [...data.notes, ...updatedNotes] }
+          })
         }
 
         default:
@@ -108,6 +144,9 @@ export const startSubscription = async () => {
     },
     onComplete() {
       logger.debug("completed")
+    },
+    onStopped() {
+      logger.debug("stopped")
     },
   })
 
@@ -133,4 +172,32 @@ export const setSeachQuery = (query: string) => {
 
 export const closeMenu = () => {
   useStore.setState({ menuOpen: false })
+}
+
+export const setConnectionStatus = (isConnected: boolean) => {
+  useStore.setState({ isConnected })
+}
+
+export const toggleDarkMode = () => {
+  useStore.setState((state) => ({ darkMode: !state.darkMode }))
+}
+
+export const loadUnsyncedNewNotes = () => {
+  const unsyncedNewNotes = localStorage.getItem("unsyncedNewNotes")
+  if (unsyncedNewNotes) {
+    useStore.setState({ unsyncedNewNotes: JSON.parse(unsyncedNewNotes) })
+  }
+}
+
+export const attemptSyncNewNotes = async () => {
+  const unsyncedNewNotes = useStore.getState().unsyncedNewNotes
+
+  for await (const note of unsyncedNewNotes) {
+    try {
+      await trpc.api.message.mutate({ type: "notes:create", text: note.text })
+      removeCachedNote(note.id)
+    } catch (error) {
+      setError(String(error))
+    }
+  }
 }

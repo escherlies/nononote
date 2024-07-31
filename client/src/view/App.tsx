@@ -5,6 +5,7 @@ import { Menu } from "./views/Menu"
 import { useStore } from "../model/store"
 import { ViewNote } from "./views/Note"
 import { ViewNotesSearch } from "./views/Search"
+import { ViewInfo } from "./views/Info"
 
 export function App() {
   return (
@@ -35,6 +36,9 @@ function ViewBody() {
 
     case "Search":
       return <ViewNotesSearch />
+
+    case "Info":
+      return <ViewInfo />
 
     case "Settings":
       return <div>Settings</div>
