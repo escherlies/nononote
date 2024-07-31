@@ -24,7 +24,7 @@ const appRouter1 = router({
       emit.next({ type: "noop" })
 
       const unsub = listenForMessage((message) => {
-        const clientMsgs: Message["type"][] = ["note:note", "note:got-notes"]
+        const clientMsgs: Message["type"][] = ["notes:note", "notes:got-notes"]
         if (clientMsgs.includes(message.type)) {
           emit.next(message)
         }

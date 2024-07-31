@@ -46,7 +46,7 @@ export const saveNote = async () => {
   }
 
   try {
-    await trpc.api.message.mutate({ type: "note:create", text: noteInput })
+    await trpc.api.message.mutate({ type: "notes:create", text: noteInput })
     useStore.setState({ noteInput: "" })
 
     // Refocus on note-input
@@ -82,19 +82,19 @@ export const startSubscription = async () => {
       logger.debug("started")
 
       // Fetch all notes
-      trpc.api.message.mutate({ type: "note:fetch:all" })
+      trpc.api.message.mutate({ type: "notes:fetch:all" })
     },
     onData(data) {
       logger.debug("data", data)
       switch (data.type) {
-        case "note:note":
+        case "notes:note":
           useStore.setState((state) => {
             const updatedNotes = state.notes.filter((note) => note.id !== data.note.id)
             return { notes: [data.note, ...updatedNotes] }
           })
           break
 
-        case "note:got-notes": {
+        case "notes:got-notes": {
           const notes = data.notes
           useStore.setState({ notes })
         }

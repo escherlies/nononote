@@ -10,22 +10,22 @@ export const notesMessages = z.union([
     type: z.literal("noop"),
   }),
   z.object({
-    type: z.literal("note:create"),
+    type: z.literal("notes:create"),
     text: z.string(),
   }),
   z.object({
-    type: z.literal("note:note"),
+    type: z.literal("notes:note"),
     note: noteDecoder,
   }),
   z.object({
-    type: z.literal("note:fetch"),
+    type: z.literal("notes:fetch"),
     id: z.string(),
   }),
   z.object({
-    type: z.literal("note:fetch:all"),
+    type: z.literal("notes:fetch:all"),
   }),
   z.object({
-    type: z.literal("note:got-notes"),
+    type: z.literal("notes:got-notes"),
     notes: z.array(noteDecoder),
   }),
 ])
@@ -34,7 +34,7 @@ type NotesMessages = z.infer<typeof notesMessages>
 
 export const handleNotesMessages = async (message: NotesMessages) => {
   switch (message.type) {
-    case "note:create": {
+    case "notes:create": {
       // Create note
       const id = "no_" + uuid()
 
@@ -49,18 +49,18 @@ export const handleNotesMessages = async (message: NotesMessages) => {
       saveNewNote(note)
 
       // Emit note to all subscribers
-      return emitMessageEvent({ type: "note:note", note })
+      return emitMessageEvent({ type: "notes:note", note })
     }
 
-    case "note:fetch": {
+    case "notes:fetch": {
       // Fetch note
       // TODO
       break
     }
 
-    case "note:fetch:all": {
+    case "notes:fetch:all": {
       const notes = await loadAllNotes()
-      return emitMessageEvent({ type: "note:got-notes", notes })
+      return emitMessageEvent({ type: "notes:got-notes", notes })
     }
 
     default:
