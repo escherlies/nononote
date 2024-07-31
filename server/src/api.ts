@@ -4,7 +4,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod"
 export default function api(
   app: FastifyInstance,
   opts: never,
-  done: () => void,
+  done: () => void
 ) {
   // Hello
   app.withTypeProvider<ZodTypeProvider>().route({

@@ -1,24 +1,12 @@
-import { publicProcedure, router } from "./trpc"
-import { createHTTPServer } from "@trpc/server/adapters/standalone"
-import { observable, Unsubscribable } from "@trpc/server/observable"
-import { EventEmitter } from "events"
 import ws from "ws"
-import { applyWSSHandler } from "@trpc/server/adapters/ws"
-
 import { z } from "zod"
 
-const message = z.union([
-  z.object({
-    type: z.literal("bar"),
-    testData: z.string(),
-  }),
-  z.object({
-    type: z.literal("baz"),
-  }),
-  z.object({
-    type: z.literal("foo"),
-  }),
-])
+import { createHTTPServer } from "@trpc/server/adapters/standalone"
+import { observable, Unsubscribable } from "@trpc/server/observable"
+import { applyWSSHandler } from "@trpc/server/adapters/ws"
+
+import { publicProcedure, router } from "./trpc"
+import { message, Message, emitMessageEvent, listenForMessage } from "./events"
 
 const appRouter1 = router({
   hello: publicProcedure
@@ -29,26 +17,19 @@ const appRouter1 = router({
     }),
   message: publicProcedure.input(message).mutation(async (opts) => {
     const { input } = opts
-    switch (input.type) {
-      case "bar":
-        return { ok: 1 }
-      case "baz":
-        return { ok: 1 }
-      case "foo":
-        return { ok: 1 }
-    }
+    emitMessageEvent(input)
   }),
-  randomNumber: publicProcedure.subscription((foo) => {
-    return observable<{ randomNumber: number }>((emit) => {
-      const timer = setInterval(() => {
-        // emits a number every second
-        emit.next({ randomNumber: Math.random() })
-        console.log("emitting")
-      }, 1000)
+  notes: publicProcedure.subscription(() => {
+    return observable<Message>((emit) => {
+      emit.next({ type: "noop" })
 
-      return () => {
-        clearInterval(timer)
-      }
+      const unsub = listenForMessage((message) => {
+        console.log("message", message)
+        if (message.type === "note:note") {
+          emit.next(message)
+        }
+      })
+      return unsub
     })
   }),
 })

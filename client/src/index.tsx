@@ -4,7 +4,7 @@ import "./model/router"
 import { initBindings } from "./model/keyboard"
 
 import { App } from "./view/App"
-import { useStore } from "./model/store"
+import { startSubscription, useStore } from "./model/store"
 
 import { sampleNotes } from "./sample-data"
 
@@ -18,9 +18,9 @@ if (container) {
 }
 
 // Set sample notes to store
-useStore.setState({
-  notes: sampleNotes,
-})
+// useStore.setState({
+//   notes: sampleNotes,
+// })
 
 // Initialize keyboard bindings
 initBindings()
@@ -31,3 +31,5 @@ darkModeMedia.addEventListener("change", (e) => {
   useStore.setState({ darkMode: e.matches })
 })
 useStore.setState({ darkMode: darkModeMedia.matches })
+
+startSubscription()
