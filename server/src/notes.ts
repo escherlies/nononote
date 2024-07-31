@@ -1,4 +1,3 @@
-import { EventEmitter } from "node:events"
 import { z } from "zod"
 import { noteDecoder } from "./data"
 import { emitMessageEvent } from "./events"

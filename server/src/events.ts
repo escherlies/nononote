@@ -21,7 +21,7 @@ export const listenForMessage = (
     try {
       cb(message)
     } catch (err) {
-      console.error("Error in subscriber callback:", err)
+      logger.error("Error in subscriber callback: %o", err)
     }
   }
   appMessageEvents.on("message", wrappedCallback)

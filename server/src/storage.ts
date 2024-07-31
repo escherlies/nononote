@@ -1,8 +1,10 @@
 import fs from "fs/promises"
 import yaml from "yaml"
 
-import { Note, noteDecoder, noteMarkdownYamlMetadataDecoder } from "./data"
-import { NOTES_FOLDER } from "./config"
+import { Note, noteMarkdownYamlMetadataDecoder } from "./data"
+import { moduleLogger, NOTES_FOLDER } from "./config"
+
+const logger = moduleLogger("storage")
 
 // ##################################################################### //
 // ########################### Notes database ########################## //
@@ -73,7 +75,7 @@ async function parseFromMarkdown(content: string) {
 
     return note
   } catch (err) {
-    console.error("Error parsing markdown:", err)
+    logger.error("Error parsing markdown: %o", err)
     return null
   }
 }
