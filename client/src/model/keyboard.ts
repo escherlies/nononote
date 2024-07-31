@@ -1,7 +1,7 @@
 // Keyboard bindings
 
 import { navigateTo } from "./router"
-import { saveNote } from "./store"
+import { saveNote, useStore } from "./store"
 
 export function initBindings() {
   window.addEventListener("keydown", handleKeyDown, false)
@@ -21,8 +21,15 @@ function handleKeyDown(event: KeyboardEvent) {
         navigateTo({ tag: "Search", query: "" })
         break
       case "enter":
-        event.preventDefault()
-        navigateTo({ tag: "Home" })
+        {
+          const view = useStore.getState().view
+          event.preventDefault()
+          if (view.tag === "Home") {
+            saveNote()
+          } else {
+            navigateTo({ tag: "Home" })
+          }
+        }
         break
       default:
         break
