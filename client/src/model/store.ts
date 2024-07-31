@@ -39,7 +39,7 @@ export const setNoteInput = (noteInput: string) => {
 }
 
 export const saveNote = async () => {
-  const noteInput = useStore.getState().noteInput
+  const noteInput = useStore.getState().noteInput.trim()
 
   if (!noteInput) {
     return
@@ -80,6 +80,9 @@ export const startSubscription = async () => {
   const subscription = trpc.api.notes.subscribe(undefined, {
     onStarted() {
       logger.debug("started")
+
+      // Fetch all notes
+      trpc.api.message.mutate({ type: "note:fetch:all" })
     },
     onData(data) {
       logger.debug("data", data)
@@ -90,6 +93,11 @@ export const startSubscription = async () => {
             return { notes: [data.note, ...updatedNotes] }
           })
           break
+
+        case "note:got-notes": {
+          const notes = data.notes
+          useStore.setState({ notes })
+        }
 
         default:
           break
