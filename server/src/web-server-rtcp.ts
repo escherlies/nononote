@@ -7,6 +7,9 @@ import { applyWSSHandler } from "@trpc/server/adapters/ws"
 
 import { publicProcedure, router } from "./trpc"
 import { message, Message, emitMessageEvent, listenForMessage } from "./events"
+import { moduleLogger } from "./config"
+
+const logger = moduleLogger("trpc")
 
 const appRouter1 = router({
   hello: publicProcedure
@@ -44,7 +47,7 @@ const server = createHTTPServer({
 
 server.listen(4000)
 
-console.log("Server listening on port 4000")
+logger.info("Server listening on port 4000")
 
 const wss = new ws.Server({
   port: 4001,
@@ -66,14 +69,14 @@ const handler = applyWSSHandler({
 })
 
 wss.on("connection", (ws) => {
-  console.log(`Connection open (${wss.clients.size})`)
+  logger.info(`Connection open (${wss.clients.size})`)
   ws.once("close", () => {
-    console.log(`Connection close (${wss.clients.size})`)
+    logger.info(`Connection close (${wss.clients.size})`)
   })
 })
-console.log("✅ WebSocket Server listening on ws://localhost:3001")
+logger.info("WebSocket Server listening on ws://localhost:3001")
 process.on("SIGTERM", () => {
-  console.log("SIGTERM")
+  logger.error("Received SIGTERM, closing WebSocket server")
   handler.broadcastReconnectNotification()
   wss.close()
 })

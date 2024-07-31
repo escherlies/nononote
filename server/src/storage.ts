@@ -61,8 +61,6 @@ async function parseFromMarkdown(content: string) {
 
     const metadata = yaml.parse(yamlContent)
 
-    console.log("metadata", metadata)
-
     const parsed = await noteMarkdownYamlMetadataDecoder.parseAsync(metadata)
 
     const note: Note = {

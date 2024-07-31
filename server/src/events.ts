@@ -3,6 +3,9 @@ import { EventEmitter } from "node:events"
 import { z } from "zod"
 
 import { handleNotesMessages, notesMessages } from "./notes"
+import { moduleLogger } from "./config"
+
+const logger = moduleLogger("events")
 
 // Message parser
 export const message = notesMessages
@@ -13,7 +16,7 @@ const appMessageEvents = new EventEmitter()
 export const listenForMessage = (
   cb: (message: Message) => void
 ): (() => void) => {
-  console.log("subscribing")
+  logger.debug("Got a new subscriber")
   const wrappedCallback = (message: Message) => {
     try {
       cb(message)
@@ -23,7 +26,7 @@ export const listenForMessage = (
   }
   appMessageEvents.on("message", wrappedCallback)
   return () => {
-    console.log("unsubscribing")
+    logger.debug("Unsubscribing")
     appMessageEvents.off("message", wrappedCallback)
   }
 }
@@ -40,5 +43,5 @@ listenForMessage((message) => {
 
 // Debug subscriber
 listenForMessage((message) => {
-  console.log("on:", message.type)
+  logger.debug("Received message %o", message.type)
 })
