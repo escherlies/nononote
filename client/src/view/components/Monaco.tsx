@@ -1,7 +1,14 @@
-import Editor, { Monaco } from "@monaco-editor/react"
-import { editor, KeyCode, KeyMod } from "monaco-editor"
+import Editor, { Monaco, loader } from "@monaco-editor/react"
+import * as monaco from "monaco-editor"
 import { setNoteInput, useStore } from "../../model/store"
 import { getCurrentScheme, Scheme } from "../views/settings/Color"
+import { KeyCode, KeyMod } from "monaco-editor"
+
+loader.config({ monaco })
+
+loader.init().then((monaco) => {
+  console.log("Loaded")
+})
 
 export function ViewMonaco() {
   const noteInput = useStore((state) => state.noteInput)
@@ -69,7 +76,7 @@ const setMonacoThemeAndKeybindings = (scheme: Scheme) => (monaco: Monaco) => {
   ])
 }
 
-const options: editor.IStandaloneEditorConstructionOptions = {
+const options: monaco.editor.IStandaloneEditorConstructionOptions = {
   language: "markdown",
   lineNumbers: "off", // Disable line numbers
   roundedSelection: false, // Disable rounded selection
