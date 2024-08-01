@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { updateSettings, useStore } from "../../../model/store"
+import { Settings } from "../../../model/settings"
 
 const schemes = [
   { tag: "blue-on-gray", colors: ["#001aff", "#dbdbdb"], kind: "light" },
@@ -10,7 +11,26 @@ const schemes = [
   { tag: "cream-on-black", colors: ["#f8f8e3", "#252325"], kind: "dark" },
 ] as const
 
-type Scheme = (typeof schemes)[number]
+export type Scheme = (typeof schemes)[number]
+
+export const getCurrentScheme = (settings: Settings, systemDarkMode: boolean) => {
+  const selector = (() => {
+    switch (settings.darkMode) {
+      case "auto":
+        return systemDarkMode ? "dark" : "light"
+      case "on":
+        return "dark"
+      case "off":
+        return "light"
+    }
+  })()
+
+  const scheme = schemes.find((s) => s.tag === settings.theme[selector])
+  if (!scheme) {
+    return schemes[0]
+  }
+  return scheme
+}
 
 const cssString = (colors: readonly [string, string]) => {
   return `
@@ -25,18 +45,7 @@ export const ColorStyleTag = () => {
 
   const systemDarkMode = useStore((state) => state.darkMode)
 
-  const selector = (() => {
-    switch (settings.darkMode) {
-      case "auto":
-        return systemDarkMode ? "dark" : "light"
-      case "on":
-        return "dark"
-      case "off":
-        return "light"
-    }
-  })()
-
-  const scheme = schemes.find((s) => s.tag === settings.theme[selector])
+  const scheme = getCurrentScheme(settings, systemDarkMode)
 
   if (!scheme) {
     return null
