@@ -6,8 +6,6 @@ import { initBindings } from "./model/keyboard"
 import { App } from "./view/App"
 import { loadUnsyncedNewNotes, startSubscription, useStore } from "./model/store"
 
-import { sampleNotes } from "./sample-data"
-
 // Mount react app
 const container = document.getElementById("app")
 if (container) {

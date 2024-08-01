@@ -4,6 +4,7 @@ import { logger } from "./logger"
 import { View } from "./router"
 import { Maybe } from "../../../shared/types"
 import { Note } from "../../../server/src/data"
+import { loadSettings, saveSettings, Settings } from "./settings"
 
 // Store
 
@@ -20,6 +21,7 @@ export const useStore = create(() => ({
   searchQuery: "",
   isConnected: false,
   unsyncedNewNotes: [] as Note[],
+  settings: loadSettings() as Settings,
 }))
 
 // Actions/Reducers
@@ -200,4 +202,12 @@ export const attemptSyncNewNotes = async () => {
       setError(String(error))
     }
   }
+}
+
+export const updateSettings = (fn: (settings: Settings) => Settings) => {
+  useStore.setState((state) => {
+    const settings = fn(state.settings)
+    saveSettings(settings)
+    return { settings }
+  })
 }

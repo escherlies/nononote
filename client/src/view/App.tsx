@@ -6,11 +6,14 @@ import { useStore } from "../model/store"
 import { ViewNote } from "./views/Note"
 import { ViewNotesSearch } from "./views/Search"
 import { ViewInfo } from "./views/Info"
+import { ColorStyleTag } from "./views/settings/Color"
+import { ViewSettings } from "./views/Settings"
 
 export function App() {
   return (
     <div className="w-dvw h-dvh bg-background-primary flex text-color-primary">
       <Layout body={<ViewBody />} footer={<Menu />} />
+      <ColorStyleTag />
     </div>
   )
 }
@@ -41,6 +44,6 @@ function ViewBody() {
       return <ViewInfo />
 
     case "Settings":
-      return <div>Settings</div>
+      return <ViewSettings />
   }
 }
