@@ -12,7 +12,7 @@ export function Layout({ body, footer }: LayoutProps) {
   return (
     <div className="h-screen w-full p-10 flex">
       <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-5 w-full">
-        <div className="relative flex-grow overflow-scroll">
+        <div className="relative flex-grow overflow-scroll bg-neutral-200/50 rounded-lg p-4">
           <div
             // className="fixed inset-0 bg-background-primary/50 p-10 flex backdrop-blur-sm select-none transition-all duration-300"
             className={`fixed inset-0 bg-background-primary/50 p-10 flex backdrop-blur-sm select-none transition-all duration-200 ${

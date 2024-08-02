@@ -10,6 +10,7 @@ import {
   EditPencil,
   MoreHoriz,
   Xmark,
+  ArrowLeft,
 } from "iconoir-react"
 
 const Icon = ({ children }: { children: React.ReactNode }) => {
@@ -105,6 +106,14 @@ export const DismissIcon = () => {
   return (
     <Icon>
       <Xmark />
+    </Icon>
+  )
+}
+
+export const GoBackIcon = () => {
+  return (
+    <Icon>
+      <ArrowLeft />
     </Icon>
   )
 }

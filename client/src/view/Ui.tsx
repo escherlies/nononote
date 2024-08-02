@@ -87,8 +87,9 @@ type DefaultButtonProps = JSX.IntrinsicAttributes &
 export const IconButton = ({
   onClick,
   icon,
+  active,
   ...props
-}: DefaultButtonProps & { icon: ReactNode }) => {
+}: DefaultButtonProps & { icon: ReactNode; active?: boolean }) => {
   return (
     <Button onClick={onClick} {...props}>
       {icon}

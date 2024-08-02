@@ -3,6 +3,7 @@ import * as monaco from "monaco-editor"
 import { setNoteInput, useStore } from "../../model/store"
 import { getCurrentScheme, Scheme } from "../views/settings/Color"
 import { KeyCode, KeyMod } from "monaco-editor"
+import { useState } from "react"
 
 loader.config({ monaco })
 
@@ -18,25 +19,35 @@ export function ViewMonaco() {
   const systemDarkMode = useStore((state) => state.darkMode)
   const settings = useStore((state) => state.settings)
 
+  const [hasFocus, setHasFocus] = useState(false)
+
   const scheme = getCurrentScheme(settings, systemDarkMode)
 
   return (
-    <Editor
-      height="100%"
-      width="100%"
-      defaultLanguage="markdown"
-      options={options}
-      beforeMount={setMonacoThemeAndKeybindings(scheme)}
-      onMount={(editor, monaco) => {
-        monaco.editor.setTheme(`nnn-${scheme.tag}`)
-        editor.focus()
-      }}
-      loading={<div></div>} // Disable loading spinner
-      value={noteInput}
-      onChange={(value) => {
-        setNoteInput(value ?? "")
-      }}
-    />
+    <div className="w-full h-full relative">
+      <Editor
+        key="editor"
+        height="100%"
+        width="100%"
+        defaultLanguage="markdown"
+        options={options}
+        beforeMount={setMonacoThemeAndKeybindings(scheme)}
+        onMount={(editor, monaco) => {
+          monaco.editor.setTheme(`nnn-${scheme.tag}`)
+          editor.focus()
+          editor.onDidFocusEditorText(() => setHasFocus(true))
+          editor.onDidBlurEditorText(() => setHasFocus(false))
+        }}
+        loading={<div></div>} // Disable loading spinner
+        value={noteInput}
+        onChange={(value) => {
+          setNoteInput(value ?? "")
+        }}
+      />
+      {!hasFocus && noteInput === "" && (
+        <div className="absolute inset-0 opacity-50 pointer-events-none">New note...</div>
+      )}
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import { closeMenu, initEditNote, setSeachQuery, setView } from "./store"
+import { clearInput, closeMenu, initEditNote, setSeachQuery, setView } from "./store"
 import Navigo from "navigo"
 
 import { T } from "../../../shared/types"
@@ -34,6 +34,10 @@ router.on("/notes/:id", (match) => match && setView({ tag: "Note", id: match.dat
 router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: match.data!.id }), {
   after: (match) => {
     initEditNote(match?.data!.id)
+  },
+  leave: (done) => {
+    clearInput()
+    done()
   },
 })
 
@@ -93,4 +97,6 @@ export const navigateTo = (view: View) => {
 // ~~~~~~~~~~~~~~~~~ Init ~~~~~~~~~~~~~~~~ //
 
 // Initial route
-router.resolve(window.location.pathname + window.location.search)
+document.addEventListener("DOMContentLoaded", () => {
+  router.resolve(window.location.pathname + window.location.search)
+})

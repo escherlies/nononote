@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import trpc, { Unsubscribable } from "./trcp"
 import { logger } from "./logger"
-import { View } from "./router"
+import { navigateTo, View } from "./router"
 import { Maybe } from "../../../shared/types"
 import { Note } from "../../../server/src/data"
 import { loadSettings, saveSettings, Settings } from "./settings"
@@ -50,7 +50,7 @@ export const saveNote = async () => {
     case "Home":
       return saveNewNote()
     case "EditNote":
-      return updateNote(view.id)
+      return updateNote(view.id).then(() => navigateTo({ tag: "Note", id: view.id }))
     default:
       return
   }
@@ -152,12 +152,12 @@ const removeCachedUpdatedNote = (noteId: string) => {
   })
 }
 
-const clearInput = () => {
+export const clearInput = () => {
   useStore.setState({ noteInput: "" })
   const input = document.getElementById("note-input") as HTMLTextAreaElement
   input?.focus()
 
-  monacoInstance?.editor.getEditors()[0].focus()
+  monacoInstance?.editor.getEditors()[0]?.focus()
 }
 
 export const toggleMenu = () => {
@@ -235,6 +235,11 @@ export const setView = (view: View) => {
 export const setSeachQuery = (query: string) => {
   useStore.setState({ searchQuery: query })
   window.history.replaceState({ q: query }, "", "/search?q=" + query)
+}
+
+export const clearSearchQuery = () => {
+  useStore.setState({ searchQuery: "" })
+  window.history.pushState({ q: "" }, "", "/search?q=" + "")
 }
 
 export const closeMenu = () => {
