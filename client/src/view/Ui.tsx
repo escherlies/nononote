@@ -1,6 +1,7 @@
 import { ClassAttributes, HTMLAttributes, ReactNode, useState } from "react"
 import { JSX } from "react/jsx-runtime"
 import { toggleMenu, useStore } from "../model/store"
+import { MoreActionsIcon } from "./components/Icons"
 
 type DefaultProps = {
   children: ReactNode
@@ -22,10 +23,8 @@ export const MenuButton = ({
   return (
     <Button {...props} onClick={toggleMenu} active={menuOpen}>
       {/* <div className="w-[54px] h-[54px] rounded-full bg-color-primary"></div> */}
-      <div className="flex gap-1">
-        <div className="w-[10px] h-[10px] bg-color-primary"></div>
-        <div className="w-[10px] h-[10px] bg-color-primary"></div>
-        <div className="w-[10px] h-[10px] bg-color-primary"></div>
+      <div className="w-full h-full flex justify-center items-center p-1">
+        <MoreActionsIcon />
       </div>
     </Button>
   )

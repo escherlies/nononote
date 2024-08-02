@@ -1,13 +1,14 @@
 import { navigateTo } from "../../model/router"
 import { saveNote, useStore } from "../../model/store"
 import {
-  CheckIcon,
+  SaveNoteIcon,
   NotesIcon,
   Pencil,
-  PlusIcon,
-  QuestionMarkIcon,
+  NewNoteIcon,
+  InfoOrHelpIcon,
   SearchIcon,
   SettingsIcon,
+  DismissIcon,
 } from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
 import { MenuButton, IconButton } from "../Ui"
@@ -30,7 +31,7 @@ function ViewMainAction() {
   switch (view.tag) {
     case "Home":
       if (noteInput !== "") {
-        return <IconButton onClick={saveNote} icon={<CheckIcon />} />
+        return <IconButton onClick={saveNote} icon={<SaveNoteIcon />} />
       } else {
         return [
           //
@@ -55,11 +56,7 @@ function ViewMainAction() {
         <IconButton
           key="notes"
           onClick={() => navigateTo({ tag: "Notes" })}
-          icon={
-            <div className="rotate-45">
-              <PlusIcon />
-            </div>
-          }
+          icon={<DismissIcon />}
         />,
       ]
 
@@ -81,7 +78,11 @@ function ViewMainAction() {
           onClick={() => navigateTo({ tag: "Search", query: "" })}
           icon={<SearchIcon />}
         />,
-        <IconButton key="home" onClick={() => navigateTo({ tag: "Home" })} icon={<PlusIcon />} />,
+        <IconButton
+          key="home"
+          onClick={() => navigateTo({ tag: "Home" })}
+          icon={<NewNoteIcon />}
+        />,
       ]
 
     case "EditNote":
@@ -95,7 +96,7 @@ function ViewMainAction() {
         <IconButton
           key="save"
           onClick={saveNote}
-          icon={<CheckIcon />}
+          icon={<SaveNoteIcon />}
           className={noteInput === "" ? "opacity-50" : ""}
         />,
       ]
@@ -108,7 +109,11 @@ function ViewMainAction() {
           onClick={() => navigateTo({ tag: "Search", query: "" })}
           icon={<SearchIcon />}
         />,
-        <IconButton key="home" onClick={() => navigateTo({ tag: "Home" })} icon={<PlusIcon />} />,
+        <IconButton
+          key="home"
+          onClick={() => navigateTo({ tag: "Home" })}
+          icon={<NewNoteIcon />}
+        />,
       ]
   }
 }
@@ -121,7 +126,7 @@ const ViewMenuOpen = () => {
       <div className="absolute right-0 top-0 transform -translate-y-full">
         <div className="grid grid-cols-3 gap-5 mb-5">
           <IconButton onClick={() => navigateTo({ tag: "Settings" })} icon={<SettingsIcon />} />
-          <IconButton onClick={() => navigateTo({ tag: "Info" })} icon={<QuestionMarkIcon />} />
+          <IconButton onClick={() => navigateTo({ tag: "Info" })} icon={<InfoOrHelpIcon />} />
         </div>
       </div>
     )

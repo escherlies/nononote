@@ -3,7 +3,7 @@ import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
 import { Note } from "../../../../server/src/data"
-import { CloudOff } from "../components/Icons"
+import { UnsyncedIcon } from "../components/Icons"
 
 const setIsCached = (isNew: boolean) => (note: Note) => {
   return {
@@ -33,7 +33,7 @@ export function ViewNotes() {
             <div className="line-clamp-2 font-bold">{note.text}</div>
             {note.isNew && (
               <div className="w-4" title="Unsynced">
-                <CloudOff />
+                <UnsyncedIcon />
               </div>
             )}
           </div>

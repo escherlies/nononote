@@ -17,6 +17,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
     "@trpc/client": "^11.0.0-rc.467",
+    "iconoir-react": "^7.8.0",
     "minisearch": "^7.1.0",
     "monaco-editor": "^0.50.0",
     "navigo": "^8.11.1",
