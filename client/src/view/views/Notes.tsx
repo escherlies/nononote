@@ -3,6 +3,7 @@ import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
 import { Note } from "../../../../server/src/data"
+import { CloudOff } from "../components/Icons"
 
 const setIsCached = (isNew: boolean) => (note: Note) => {
   return {
@@ -18,7 +19,7 @@ export function ViewNotes() {
   const notes = sortBy(prop("createdAt"), [
     ...map(setIsCached(false), storedNotes),
     ...map(setIsCached(true), unsyncedNewNotes),
-  ])
+  ]).reverse()
 
   return (
     <div className="flex flex-col gap-10 w-full">
@@ -30,7 +31,11 @@ export function ViewNotes() {
             onClick={() => navigateTo(tag("Note", { id: note.id }))}
           >
             <div className="line-clamp-2 font-bold">{note.text}</div>
-            {note.isNew && <div className="text-xs text-gray-500">Unsynced</div>}
+            {note.isNew && (
+              <div className="w-4" title="Unsynced">
+                <CloudOff />
+              </div>
+            )}
           </div>
         ),
         notes

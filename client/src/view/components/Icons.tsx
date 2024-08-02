@@ -2,7 +2,14 @@ export const PlusIcon = () => {
   return (
     <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect y="18" width="46" height="10" fill="currentColor" />
-      <rect x="18" y="46" width="46" height="10" transform="rotate(-90 18 46)" fill="currentColor" />
+      <rect
+        x="18"
+        y="46"
+        width="46"
+        height="10"
+        transform="rotate(-90 18 46)"
+        fill="currentColor"
+      />
     </svg>
   )
 }
@@ -32,7 +39,15 @@ export const SettingsIcon = () => {
   return (
     <svg width="35" height="18" viewBox="0 0 35 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="1" width="34" height="18" fill="currentColor" />
-      <rect x="2.5" y="2.5" width="13" height="13" fill="transparent" stroke="currentColor" strokeWidth="5" />
+      <rect
+        x="2.5"
+        y="2.5"
+        width="13"
+        height="13"
+        fill="transparent"
+        stroke="currentColor"
+        strokeWidth="5"
+      />
     </svg>
   )
 }
@@ -40,7 +55,14 @@ export const SettingsIcon = () => {
 export const SearchIcon = () => {
   return (
     <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18.5" cy="18.5" r="13.5" fill="transparent" stroke="currentColor" strokeWidth="10" />
+      <circle
+        cx="18.5"
+        cy="18.5"
+        r="13.5"
+        fill="transparent"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
       <rect
         x="29.595"
         y="22.5239"
@@ -55,8 +77,55 @@ export const SearchIcon = () => {
 export const CheckIcon = () => {
   return (
     <svg width="44" height="36" viewBox="0 0 44 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="9" y="28.0415" width="39" height="10" transform="rotate(-45 9 28.0415)" fill="currentColor" />
-      <rect x="16.0341" y="35.105" width="22" height="10" transform="rotate(-135 16.0341 35.105)" fill="currentColor" />
+      <rect
+        x="9"
+        y="28.0415"
+        width="39"
+        height="10"
+        transform="rotate(-45 9 28.0415)"
+        fill="currentColor"
+      />
+      <rect
+        x="16.0341"
+        y="35.105"
+        width="22"
+        height="10"
+        transform="rotate(-135 16.0341 35.105)"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+export const CloudOff = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="-1 -1 24 24"
+      id="Cloud-Off--Streamline-Sharp.svg"
+    >
+      <desc>Cloud Off Streamline Icon: https://streamlinehq.com</desc>
+      <g id="cloud-off--cloud-network-internet-disable-server-off">
+        <path
+          id="Union"
+          stroke="currentColor"
+          d="M16.5 16.5a3.6666666666666665 3.6666666666666665 0 0 0 0.4354166666666666 -7.307666666666667A5.041666666666666 5.041666666666666 0 0 0 7.1225 7.142666666666666"
+          strokeWidth="2"
+        ></path>
+        <path
+          id="Union_2"
+          stroke="currentColor"
+          d="M4.2203333333333335 7.892499999999999A4.583333333333333 4.583333333333333 0 0 0 6.416666666666666 16.5h6.416666666666666"
+          strokeWidth="2"
+        ></path>
+        <path
+          id="Vector 2028"
+          stroke="currentColor"
+          d="m0.9166666666666666 0.9166666666666666 20.166666666666664 20.166666666666664"
+          strokeWidth="2"
+        ></path>
+      </g>
     </svg>
   )
 }

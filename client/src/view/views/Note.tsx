@@ -1,6 +1,7 @@
 import { map } from "rambda"
 import { useStore } from "../../model/store"
 import { navigateTo } from "../../model/router"
+import { ReactNode } from "react"
 
 export function ViewNote({ noteId }: { noteId: string }) {
   const storedNotes = useStore((state) => state.notes)
@@ -20,21 +21,26 @@ export function ViewNote({ noteId }: { noteId: string }) {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="m-auto">{note.text}</div>
-      <div className="mt-auto flex gap-1 w-full flex-wrap">
-        {map(
-          (tag) => (
-            <div
-              key={tag}
-              className="text-sm bg-color-primary px-0.5 text-white uppercase dark:text-background-primary cursor-pointer"
-              onClick={() => navigateTo({ tag: "Search", query: tag })}
-            >
-              {tag}
-            </div>
-          ),
-          note.tags
-        )}
+      <div className="m-auto w-full break-words h-fit overflow-scroll whitespace-pre-wrap">
+        {note.text}
       </div>
+      <div className="mt-auto flex gap-1 w-full flex-wrap">
+        {viewTag(new Date(note.createdAt).toDateString())}
+        {note.createdAt !== note.updatedAt && viewTag(new Date(note.updatedAt).toDateString())}
+        {map(viewTag, note.tags)}
+      </div>
+    </div>
+  )
+}
+
+function viewTag(tag: string): ReactNode {
+  return (
+    <div
+      key={tag}
+      className="text-xs bg-color-primary px-0.5 text-white uppercase dark:text-background-primary cursor-pointer"
+      onClick={() => navigateTo({ tag: "Search", query: tag })}
+    >
+      {tag}
     </div>
   )
 }
