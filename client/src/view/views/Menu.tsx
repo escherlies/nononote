@@ -36,7 +36,7 @@ function ViewMainAction() {
   switch (view.tag) {
     case "Home":
       if (noteInput !== "") {
-        return <IconButton onClick={saveNote} icon={<SaveNoteIcon />} />
+        return <IconButton className="m-auto" onClick={saveNote} icon={<SaveNoteIcon />} />
       } else {
         return [
           <IconButton
