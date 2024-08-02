@@ -6,8 +6,11 @@ import { KeyCode, KeyMod } from "monaco-editor"
 
 loader.config({ monaco })
 
+export let monacoInstance: Monaco | null = null
+
 loader.init().then((monaco) => {
   console.log("Loaded")
+  monacoInstance = monaco
 })
 
 export function ViewMonaco() {

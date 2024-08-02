@@ -5,6 +5,7 @@ import { View } from "./router"
 import { Maybe } from "../../../shared/types"
 import { Note } from "../../../server/src/data"
 import { loadSettings, saveSettings, Settings } from "./settings"
+import { monacoInstance } from "../view/components/Monaco"
 
 // Store
 
@@ -155,6 +156,8 @@ const clearInput = () => {
   useStore.setState({ noteInput: "" })
   const input = document.getElementById("note-input") as HTMLTextAreaElement
   input?.focus()
+
+  monacoInstance?.editor.getEditors()[0].focus()
 }
 
 export const toggleMenu = () => {
