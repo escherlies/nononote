@@ -1,6 +1,14 @@
 import { navigateTo } from "../../model/router"
 import { saveNote, useStore } from "../../model/store"
-import { CheckIcon, NotesIcon, PlusIcon, QuestionMarkIcon, SearchIcon, SettingsIcon } from "../components/Icons"
+import {
+  CheckIcon,
+  NotesIcon,
+  Pencil,
+  PlusIcon,
+  QuestionMarkIcon,
+  SearchIcon,
+  SettingsIcon,
+} from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
 import { MenuButton, IconButton } from "../Ui"
 
@@ -19,18 +27,26 @@ function ViewMainAction() {
   const view = useStore((state) => state.view)
   const noteInput = useStore((state) => state.noteInput)
 
-  if (noteInput !== "") {
-    return <IconButton onClick={saveNote} icon={<CheckIcon />} />
-  }
-
   switch (view.tag) {
     case "Home":
-      return [
-        //
-        <MenuButton key="menu" />,
-        <IconButton key="search" onClick={() => navigateTo({ tag: "Search", query: "" })} icon={<SearchIcon />} />,
-        <IconButton key="notes" onClick={() => navigateTo({ tag: "Notes" })} icon={<NotesIcon />} />,
-      ]
+      if (noteInput !== "") {
+        return <IconButton onClick={saveNote} icon={<CheckIcon />} />
+      } else {
+        return [
+          //
+          <MenuButton key="menu" />,
+          <IconButton
+            key="search"
+            onClick={() => navigateTo({ tag: "Search", query: "" })}
+            icon={<SearchIcon />}
+          />,
+          <IconButton
+            key="notes"
+            onClick={() => navigateTo({ tag: "Notes" })}
+            icon={<NotesIcon />}
+          />,
+        ]
+      }
 
     case "Search":
       return [
@@ -47,10 +63,51 @@ function ViewMainAction() {
         />,
       ]
 
+    case "Note":
+      return [
+        <MenuButton key="menu" />,
+        <IconButton
+          key="notes"
+          onClick={() => navigateTo({ tag: "Notes" })}
+          icon={<NotesIcon />}
+        />,
+        <IconButton
+          key="edit"
+          onClick={() => navigateTo({ tag: "EditNote", id: view.id })}
+          icon={<Pencil />}
+        />,
+        <IconButton
+          key="search"
+          onClick={() => navigateTo({ tag: "Search", query: "" })}
+          icon={<SearchIcon />}
+        />,
+        <IconButton key="home" onClick={() => navigateTo({ tag: "Home" })} icon={<PlusIcon />} />,
+      ]
+
+    case "EditNote":
+      return [
+        <MenuButton key="menu" />,
+        <IconButton
+          key="notes"
+          onClick={() => navigateTo({ tag: "Notes" })}
+          icon={<NotesIcon />}
+        />,
+        <IconButton
+          key="save"
+          onClick={saveNote}
+          icon={<CheckIcon />}
+          className={noteInput === "" ? "opacity-50" : ""}
+        />,
+      ]
+
     default:
       return [
         <MenuButton key="menu" />,
-        <IconButton key="search" onClick={() => navigateTo({ tag: "Search", query: "" })} icon={<SearchIcon />} />,
+        <IconButton
+          key="search"
+          onClick={() => navigateTo({ tag: "Search", query: "" })}
+          icon={<SearchIcon />}
+        />,
         <IconButton key="home" onClick={() => navigateTo({ tag: "Home" })} icon={<PlusIcon />} />,
       ]
   }

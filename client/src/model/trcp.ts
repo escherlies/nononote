@@ -1,7 +1,7 @@
 import { createTRPCClient, createWSClient, wsLink } from "@trpc/client"
 import type { AppRouter, Unsubscribable } from "../../../server/src/web-server-rtcp"
 import { logger } from "./logger"
-import { attemptSyncNewNotes, setConnectionStatus } from "./store"
+import { attemptSyncNotes, setConnectionStatus } from "./store"
 
 const wsClient = createWSClient({
   url: "/ws",
@@ -14,7 +14,7 @@ const wsClient = createWSClient({
   },
   onOpen() {
     setConnectionStatus(true)
-    attemptSyncNewNotes()
+    attemptSyncNotes()
   },
 })
 

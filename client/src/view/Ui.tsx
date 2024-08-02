@@ -31,7 +31,11 @@ export const MenuButton = ({
   )
 }
 
-export const Button = ({ active, className, ...props }: DefaultButtonProps & { active?: boolean }) => {
+export const Button = ({
+  active,
+  className,
+  ...props
+}: DefaultButtonProps & { active?: boolean }) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
 
@@ -69,7 +73,8 @@ export const Button = ({ active, className, ...props }: DefaultButtonProps & { a
       {...props}
       onClick={handleClick}
     >
-      <div className="uppercase tracking-tight text-[40px]">{props.children}</div>
+      {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
+      <div className="w-full h-full flex justify-center items-center p-2">{props.children}</div>
     </div>
   )
 }
@@ -80,7 +85,11 @@ type DefaultButtonProps = JSX.IntrinsicAttributes &
     onClick: () => void
   }
 
-export const IconButton = ({ onClick, icon, ...props }: DefaultButtonProps & { icon: ReactNode }) => {
+export const IconButton = ({
+  onClick,
+  icon,
+  ...props
+}: DefaultButtonProps & { icon: ReactNode }) => {
   return (
     <Button onClick={onClick} {...props}>
       {icon}

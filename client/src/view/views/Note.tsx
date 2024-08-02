@@ -2,6 +2,7 @@ import { map } from "rambda"
 import { useStore } from "../../model/store"
 import { navigateTo } from "../../model/router"
 import { ReactNode } from "react"
+import { ViewSettings } from "./Settings"
 
 export function ViewNote({ noteId }: { noteId: string }) {
   const storedNotes = useStore((state) => state.notes)
@@ -25,8 +26,8 @@ export function ViewNote({ noteId }: { noteId: string }) {
         {note.text}
       </div>
       <div className="mt-auto flex gap-1 w-full flex-wrap">
-        {viewTag(new Date(note.createdAt).toDateString())}
-        {note.createdAt !== note.updatedAt && viewTag(new Date(note.updatedAt).toDateString())}
+        {viewTag(new Date(note.createdAt).toLocaleString())}
+        {note.createdAt !== note.updatedAt && viewTag(new Date(note.updatedAt).toLocaleString())}
         {map(viewTag, note.tags)}
       </div>
     </div>

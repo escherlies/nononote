@@ -10,8 +10,13 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "lib": ["es2021"],
+    "lib": [
+      "es2021"
+    ],
     "skipLibCheck": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*",
+    "../shared/**/*"
+  ]
 }

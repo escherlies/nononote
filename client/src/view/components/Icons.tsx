@@ -129,3 +129,30 @@ export const CloudOff = () => {
     </svg>
   )
 }
+
+export const Pencil = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      id="Pencil--Streamline-Sharp.svg"
+    >
+      <desc>Pencil Streamline Icon: https://streamlinehq.com</desc>
+      <g id="pencil--change-edit-modify-pencil-write-writing">
+        <path
+          id="Vector 49"
+          stroke="currentColor"
+          d="m19.5 11.5 -7 -7 3 -3 7 7 -3 3Z"
+          strokeWidth="2"
+        ></path>
+        <path
+          id="Vector 1567"
+          stroke="currentColor"
+          d="M19.5 11.5 9 22H2v-7L12.5 4.5l7 7Z"
+          strokeWidth="2"
+        ></path>
+      </g>
+    </svg>
+  )
+}

@@ -1,4 +1,4 @@
-import { closeMenu, setSeachQuery, setView } from "./store"
+import { closeMenu, initEditNote, setSeachQuery, setView } from "./store"
 import Navigo from "navigo"
 
 import { T } from "../../../shared/types"
@@ -31,7 +31,11 @@ router.on("/notes", () => setView({ tag: "Notes" }))
 router.on("/notes/:id", (match) => match && setView({ tag: "Note", id: match.data!.id }))
 
 // Edit note
-router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: match.data!.id }))
+router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: match.data!.id }), {
+  after: (match) => {
+    initEditNote(match?.data!.id)
+  },
+})
 
 // Settings
 router.on("/settings", () => setView({ tag: "Settings" }))
@@ -40,12 +44,16 @@ router.on("/settings", () => setView({ tag: "Settings" }))
 router.on("/info", () => setView({ tag: "Info" }))
 
 // Search
-router.on("/search", (match) => match && setView({ tag: "Search", query: match?.params?.q || "" }), {
-  after: (match) => {
-    const query = match?.params?.q || ""
-    setSeachQuery(query)
-  },
-})
+router.on(
+  "/search",
+  (match) => match && setView({ tag: "Search", query: match?.params?.q || "" }),
+  {
+    after: (match) => {
+      const query = match?.params?.q || ""
+      setSeachQuery(query)
+    },
+  }
+)
 
 // Not found
 router.notFound(() => setView({ tag: "NotFound" }))

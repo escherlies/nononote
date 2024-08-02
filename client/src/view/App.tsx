@@ -8,6 +8,7 @@ import { ViewNotesSearch } from "./views/Search"
 import { ViewInfo } from "./views/Info"
 import { ColorStyleTag } from "./views/settings/Color"
 import { ViewSettings } from "./views/Settings"
+import { ViewEditNote } from "./views/Edit"
 
 export function App() {
   return (
@@ -35,7 +36,7 @@ function ViewBody() {
       return <ViewNote noteId={view.id} />
 
     case "EditNote":
-      return <ViewNote noteId={view.id} />
+      return <ViewEditNote />
 
     case "Search":
       return <ViewNotesSearch />

@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { noteDecoder } from "./data"
 import { emitMessageEvent } from "./events"
-import { loadAllNotes, saveNewNote } from "./storage"
+import { loadAllNotes, loadNote, writeNoteToFile } from "./storage"
 import { v7 as uuid } from "uuid"
 
 export const notesMessages = z.union([
@@ -10,6 +10,11 @@ export const notesMessages = z.union([
   }),
   z.object({
     type: z.literal("notes:create"),
+    text: z.string(),
+  }),
+  z.object({
+    type: z.literal("notes:update"),
+    id: z.string(),
     text: z.string(),
   }),
   z.object({
@@ -45,16 +50,30 @@ export const handleNotesMessages = async (message: NotesMessages) => {
         updatedAt: new Date().toISOString(),
       }
       // Save note
-      await saveNewNote(note)
+      await writeNoteToFile(note)
 
       // Emit note to all subscribers
       return emitMessageEvent({ type: "notes:note", note })
     }
 
-    case "notes:fetch": {
-      // Fetch note
-      // TODO
-      break
+    case "notes:update": {
+      const existingNote = await loadNote(message.id)
+      if (!existingNote) {
+        // todo: send error message
+        return
+      }
+
+      const note = {
+        ...existingNote,
+        text: message.text,
+        updatedAt: new Date().toISOString(),
+      }
+
+      // Save note
+      await writeNoteToFile(note)
+
+      // Emit note to all subscribers
+      return emitMessageEvent({ type: "notes:note", note })
     }
 
     case "notes:fetch:all": {

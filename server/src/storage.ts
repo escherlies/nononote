@@ -12,7 +12,7 @@ const logger = moduleLogger("storage")
 
 // Will use a simple file-based database for now
 
-export const saveNewNote = async (note: Note) => {
+export const writeNoteToFile = async (note: Note) => {
   const formattedNote = formatNoteAsMarkdown(note)
   fs.writeFile(`${NOTES_FOLDER}/${note.id}.md`, formattedNote)
 }
@@ -33,6 +33,17 @@ export const loadAllNotes = async (): Promise<Note[]> => {
   const cleanedNotes = notes.filter((note) => note !== null)
 
   return cleanedNotes
+}
+
+export const loadNote = async (id: string): Promise<Note | null> => {
+  try {
+    const content = await fs.readFile(`${NOTES_FOLDER}/${id}.md`, "utf-8")
+    const parsed = await parseFromMarkdown(content)
+    return parsed
+  } catch (err) {
+    logger.error("Error loading note: %o", err)
+    return null
+  }
 }
 
 // Parsers
