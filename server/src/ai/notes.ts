@@ -19,7 +19,7 @@ const handleTagsGeneration = async (
   textContent: string,
   categories: string[]
 ) => {
-  if (categories.includes("shopping list")) {
+  if (categories.includes("shopping list") || categories.includes("code")) {
     // Don't generate tags for shopping lists
     return []
   }

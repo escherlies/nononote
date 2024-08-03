@@ -18,6 +18,7 @@ export type Note = z.infer<typeof noteDecoder>
 export const noteMarkdownYamlMetadataDecoder = z.object({
   id: z.string(),
   tags: z.string().nullable(),
+  categories: z.string().nullable(),
   created_at: z.string(),
   updated_at: z.string(),
 })

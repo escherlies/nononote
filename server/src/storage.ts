@@ -54,6 +54,7 @@ id: ${note.id}
 created_at: ${note.createdAt}
 updated_at: ${note.updatedAt}
 tags: ${note.tags.join(", ")}
+categories: ${note.categories.join(", ")}
 ---
 
 ${note.text}
@@ -80,6 +81,7 @@ async function parseFromMarkdown(content: string) {
       id: parsed.id,
       text: noteContent,
       tags: splitTags(parsed.tags),
+      categories: splitTags(parsed.categories),
       createdAt: parsed.created_at,
       updatedAt: parsed.updated_at,
     }

@@ -24,10 +24,15 @@ export function ViewNote({ noteId }: { noteId: string }) {
       <div className="m-auto w-full break-words h-fit overflow-scroll whitespace-pre-wrap">
         {note.text}
       </div>
-      <div className="mt-auto flex gap-1 w-full flex-wrap">
-        {viewTag(new Date(note.createdAt).toLocaleString())}
-        {note.createdAt !== note.updatedAt && viewTag(new Date(note.updatedAt).toLocaleString())}
-        {map(viewTag, note.tags)}
+      <div className="mt-auto w-full flex gap-1 flex-col">
+        {/* Date and categories */}
+        <div className="flex gap-1 w-full flex-wrap">
+          {viewTag(new Date(note.createdAt).toLocaleString())}
+          {note.createdAt !== note.updatedAt && viewTag(new Date(note.updatedAt).toLocaleString())}
+          {map(viewTag, note.categories)}
+        </div>
+        {/* Tags */}
+        <div className="flex gap-1 w-full flex-wrap">{map(viewTag, note.tags)}</div>
       </div>
     </div>
   )
