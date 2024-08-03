@@ -3,6 +3,9 @@ import * as cheerio from "cheerio"
 import { htmlToText } from "html-to-text"
 
 import { pipe } from "rambda"
+import { moduleLogger } from "../../config"
+
+const logger = moduleLogger("webpage")
 
 export async function getWebpageContent(url: string): Promise<{
   type: "metaDescription" | "bodyAsKeywords"
@@ -51,7 +54,7 @@ export async function getWebpageContent(url: string): Promise<{
 
     return { type: "bodyAsKeywords", text: processedText }
   } catch (error) {
-    console.error(`Error fetching the webpage: ${error}`)
+    logger.error(`Error fetching the webpage: ${error}`)
     return null
   }
 }

@@ -9,7 +9,9 @@ import {
 
 import { stringArrayZ } from "../data"
 
-import { GOOGLE_GENERATIVE_AI_API_KEY } from "../config"
+import { GOOGLE_GENERATIVE_AI_API_KEY, moduleLogger } from "../config"
+
+const logger = moduleLogger("ai")
 
 const genAI = new GoogleGenerativeAI(GOOGLE_GENERATIVE_AI_API_KEY)
 
@@ -46,7 +48,7 @@ const parseStringArray = async (text: string): Promise<string[]> => {
     const lowercased = literals.map((l) => l.toLowerCase())
     return lowercased
   } catch (error) {
-    console.error("Failed to parse string array:", error)
+    logger.error("Failed to parse string array:", error)
     return []
   }
 }
