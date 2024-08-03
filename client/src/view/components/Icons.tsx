@@ -10,7 +10,7 @@ import {
   EditPencil,
   MoreHoriz,
   Xmark,
-  ArrowLeft,
+  NavArrowLeft,
 } from "iconoir-react"
 
 const Icon = ({ children }: { children: React.ReactNode }) => {
@@ -113,7 +113,8 @@ export const DismissIcon = () => {
 export const GoBackIcon = () => {
   return (
     <Icon>
-      <ArrowLeft />
+      <NavArrowLeft className="-translate-x-[1px]" />
+      {/*                      ^ visually align the chevron */}
     </Icon>
   )
 }

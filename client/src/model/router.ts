@@ -27,6 +27,18 @@ router.on("/", () => setView({ tag: "Home" }))
 // Notes
 router.on("/notes", () => setView({ tag: "Notes" }))
 
+// Search
+router.on(
+  "/notes/search",
+  (match) => match && setView({ tag: "Search", query: match?.params?.q || "" }),
+  {
+    after: (match) => {
+      const query = match?.params?.q || ""
+      setSeachQuery(query)
+    },
+  }
+)
+
 // Note
 router.on("/notes/:id", (match) => match && setView({ tag: "Note", id: match.data!.id }))
 
@@ -47,18 +59,6 @@ router.on("/settings", () => setView({ tag: "Settings" }))
 // Info
 router.on("/info", () => setView({ tag: "Info" }))
 
-// Search
-router.on(
-  "/search",
-  (match) => match && setView({ tag: "Search", query: match?.params?.q || "" }),
-  {
-    after: (match) => {
-      const query = match?.params?.q || ""
-      setSeachQuery(query)
-    },
-  }
-)
-
 // Not found
 router.notFound(() => setView({ tag: "NotFound" }))
 
@@ -77,21 +77,29 @@ export const navigateTo = (view: View) => {
     case "Notes":
       return router.navigate("/notes")
 
+    case "Search":
+      return router.navigate(`/notes/search?q=${view.query}`)
+
     case "Note":
       return router.navigate(`/notes/${view.id}`)
+
+    case "EditNote":
+      return router.navigate(`/notes/${view.id}/edit`)
 
     case "Settings":
       return router.navigate("/settings")
 
     case "Info":
       return router.navigate("/info")
-
-    case "Search":
-      return router.navigate(`/search?q=${view.query}`)
-
-    case "EditNote":
-      return router.navigate(`/notes/${view.id}/edit`)
   }
+}
+
+export const goBack = () => {
+  const currentPath = window.location.pathname
+  const parentPath = currentPath.split("/").slice(0, -1).join("/")
+  if (parentPath === "") return router.navigate("/")
+
+  router.navigate(parentPath)
 }
 
 // ~~~~~~~~~~~~~~~~~ Init ~~~~~~~~~~~~~~~~ //

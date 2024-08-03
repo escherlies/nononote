@@ -1,4 +1,4 @@
-import { navigateTo } from "../../model/router"
+import { goBack, navigateTo } from "../../model/router"
 import { clearSearchQuery, saveNote, useStore } from "../../model/store"
 import {
   SaveNoteIcon,
@@ -25,7 +25,7 @@ export function Menu() {
 }
 
 const BackButton = () => {
-  return <IconButton onClick={() => window.history.back()} icon={<GoBackIcon />} />
+  return <IconButton onClick={goBack} icon={<GoBackIcon />} />
 }
 
 function ViewMainAction() {
