@@ -91,7 +91,7 @@ export const IconButton = ({
   ...props
 }: DefaultButtonProps & { icon: ReactNode; active?: boolean }) => {
   return (
-    <Button onClick={onClick} {...props}>
+    <Button onClick={onClick} active={active} {...props}>
       {icon}
     </Button>
   )

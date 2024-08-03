@@ -5,14 +5,13 @@ import {
   NotesIcon,
   Pencil,
   NewNoteIcon,
-  InfoOrHelpIcon,
   SearchIcon,
   SettingsIcon,
   DismissIcon,
   GoBackIcon,
 } from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
-import { MenuButton, IconButton } from "../Ui"
+import { IconButton } from "../Ui"
 
 export function Menu() {
   return (
@@ -45,7 +44,11 @@ function ViewMainAction() {
             icon={<NotesIcon />}
           />,
           // <MenuButton key="menu" />,
-          <IconButton onClick={() => navigateTo({ tag: "Settings" })} icon={<SettingsIcon />} />,
+          <IconButton
+            key="settings"
+            onClick={() => navigateTo({ tag: "Settings" })}
+            icon={<SettingsIcon />}
+          />,
         ]
       }
 

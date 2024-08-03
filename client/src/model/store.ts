@@ -68,6 +68,7 @@ export const saveNewNote = async () => {
     id: "tmp_" + String(new Date().valueOf()),
     text: noteInput,
     tags: [],
+    categories: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -100,6 +101,7 @@ export const updateNote = async (noteId: string) => {
     id: noteId,
     text: noteInput,
     tags: [],
+    categories: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -200,6 +202,7 @@ export const startSubscription = async () => {
             )
             return { notes: [...data.notes, ...updatedNotes] }
           })
+          break
         }
 
         default:
@@ -297,11 +300,9 @@ export const updateSettings = (fn: (settings: Settings) => Settings) => {
 export const initEditNote = (noteId: string) => {
   const note = useStore.getState().notes.find((n) => n.id === noteId)
   if (!note) {
-    console.error("Note not found")
+    logger.error("Note not found")
     return setError("Note not found")
   }
-
-  console.log("note", note)
 
   setNoteInput(note.text)
 }

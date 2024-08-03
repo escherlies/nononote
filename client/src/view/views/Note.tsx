@@ -2,7 +2,6 @@ import { map } from "rambda"
 import { useStore } from "../../model/store"
 import { navigateTo } from "../../model/router"
 import { ReactNode } from "react"
-import { ViewSettings } from "./Settings"
 
 export function ViewNote({ noteId }: { noteId: string }) {
   const storedNotes = useStore((state) => state.notes)

@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { updateSettings, useStore } from "../../../model/store"
 import { Settings } from "../../../model/settings"
 
