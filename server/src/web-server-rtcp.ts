@@ -6,8 +6,9 @@ import { observable, Unsubscribable } from "@trpc/server/observable"
 import { applyWSSHandler } from "@trpc/server/adapters/ws"
 
 import { publicProcedure, router } from "./trpc"
-import { message, Message, emitMessageEvent, listenForMessage } from "./events"
+import { Message, emitMessageEvent, listenForMessage } from "./events"
 import { moduleLogger } from "./config"
+import { notesMessages } from "./notes"
 
 const logger = moduleLogger("trpc")
 
@@ -18,7 +19,7 @@ const appRouter1 = router({
     .mutation(async ({ input }) => {
       return `Hello, ${input}!`
     }),
-  message: publicProcedure.input(message).mutation(async (opts) => {
+  message: publicProcedure.input(notesMessages).mutation(async (opts) => {
     const { input } = opts
     emitMessageEvent(input)
   }),

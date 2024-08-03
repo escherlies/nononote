@@ -7,9 +7,7 @@ import { moduleLogger } from "./config"
 
 const logger = moduleLogger("events")
 
-// Message parser
-export const message = notesMessages
-export type Message = z.infer<typeof message>
+export type Message = z.infer<typeof notesMessages>
 
 const appMessageEvents = new EventEmitter()
 

@@ -1,11 +1,10 @@
 import { z } from "zod"
-import { Note, noteDecoder } from "./data"
+import { noteDecoder } from "./data"
 import { emitMessageEvent } from "./events"
 import { loadAllNotes, loadNote, writeNoteToFile } from "./storage"
 import { v7 as uuid } from "uuid"
-import { generateCategoriesFromNoteText, generateTagsFromNoteText } from "./ai"
-import { shouldGenerateTags } from "./model"
 import { moduleLogger } from "./config"
+import { classifyNoteContent } from "./ai/notes"
 
 const logger = moduleLogger("notes")
 
@@ -47,16 +46,21 @@ export const handleNotesMessages = async (message: NotesMessages) => {
       // Create note
       const id = "no_" + uuid()
 
-      const noteUnclassified = {
+      const { categories, tags } = await classifyNoteContent(
+        message.text
+      ).catch((error) => {
+        logger.error("Error classifying note content: %o", error)
+        return { categories: [] as string[], tags: [] as string[] }
+      })
+
+      const note = {
         id: id,
         text: message.text,
-        tags: [],
-        categories: [],
+        tags: tags,
+        categories: categories,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }
-
-      const note = await classifyNote(noteUnclassified)
 
       // Save note
       await writeNoteToFile(note)
@@ -93,17 +97,4 @@ export const handleNotesMessages = async (message: NotesMessages) => {
     default:
       break
   }
-}
-
-const classifyNote = async (note: Note) => {
-  // Generate categories
-  const categories = await generateCategoriesFromNoteText(note.text)
-
-  const tags = shouldGenerateTags(categories)
-    ? await generateTagsFromNoteText(note.text)
-    : []
-
-  logger.debug("Classified note %o", { note, categories, tags })
-
-  return { ...note, categories, tags }
 }

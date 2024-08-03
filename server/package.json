@@ -5,6 +5,7 @@
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@types/bun": "^1.1.6",
+    "@types/html-to-text": "^9.0.4",
     "eslint": "^8.56.0",
     "globals": "^15.8.0",
     "typescript-eslint": "^7.17.0"
@@ -17,9 +18,12 @@
     "@trpc/client": "^11.0.0-rc.467",
     "@trpc/server": "^11.0.0-rc.467",
     "@types/uuid": "^10.0.0",
+    "cheerio": "^1.0.0-rc.12",
     "fastify": "^4.28.1",
+    "html-to-text": "^9.0.5",
     "pino": "^9.3.1",
     "pino-pretty": "^11.2.1",
+    "rambda": "^9.2.1",
     "uuid": "^10.0.0",
     "yaml": "^2.5.0",
     "zod": "^3.23.8"

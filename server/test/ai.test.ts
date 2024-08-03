@@ -1,9 +1,6 @@
-import { expect, test } from "bun:test"
-import { createTagsFromNotePrompt } from "../src/ai/prompts"
-import {
-  generateCategoriesFromNoteText,
-  generateTagsFromNoteText,
-} from "../src/ai"
+import { test } from "bun:test"
+import { generateCategoriesFromText, generateTagsFromText } from "../src/ai/ai"
+import { classifyNoteContent } from "../src/ai/notes"
 
 const testPrompts = [
   {
@@ -73,12 +70,12 @@ const testPrompts = [
   },
 ]
 
-test("createTagsFromNotePrompt", async () => {
+test.skip("createTagsFromNotePrompt", async () => {
   const sample = testPrompts[4]
-  const tags = await generateTagsFromNoteText(sample.note)
+  const tags = await generateTagsFromText(sample.note)
   console.log("Generated tags:", tags)
 
-  const categories = await generateCategoriesFromNoteText(sample.note)
+  const categories = await generateCategoriesFromText(sample.note)
   console.log("Generated categories:", categories)
 
   // for (const { note, tags } of testPrompts) {
@@ -86,4 +83,12 @@ test("createTagsFromNotePrompt", async () => {
   //   const result = JSON.parse(await generateText({ model, prompt }))
   //   expect(result).toEqual(tags)
   // }
+})
+
+test.only("create tags from note containing a link", async () => {
+  const note = "https://affxwrks.com/collections/shop-all"
+  const { tags, categories } = await classifyNoteContent(note)
+
+  console.log("Tags:", tags)
+  console.log("Categories:", categories)
 })
