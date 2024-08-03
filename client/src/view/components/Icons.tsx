@@ -12,19 +12,49 @@ import {
   Xmark,
   NavArrowLeft,
 } from "iconoir-react"
+import { useStore } from "../../model/store"
 
 const Icon = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <IconoirProvider
-      iconProps={{
-        strokeWidth: 2,
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      {children}
-    </IconoirProvider>
-  )
+  const theme = useStore((state) => state.settings.theme)
+
+  switch (theme) {
+    case "brutalist":
+      return (
+        <IconoirProvider
+          iconProps={{
+            strokeWidth: 2,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {children}
+        </IconoirProvider>
+      )
+    case "space-craft":
+      return (
+        <IconoirProvider
+          iconProps={{
+            strokeWidth: 2,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {children}
+        </IconoirProvider>
+      )
+    case "future":
+      return (
+        <IconoirProvider
+          iconProps={{
+            strokeWidth: 1.5,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {children}
+        </IconoirProvider>
+      )
+  }
 }
 
 // ##################################################################### //

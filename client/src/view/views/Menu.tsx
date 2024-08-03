@@ -14,17 +14,40 @@ import { SearchInput } from "../components/SearchInput"
 import { IconButton } from "../Ui"
 
 export function Menu() {
-  return (
-    <div className="relative w-full">
-      <div className="flex gap-5 justify-between bg-neutral-200/50 rounded-lg p-1">
-        <ViewMainAction />
-      </div>
-    </div>
-  )
+  const theme = useStore((state) => state.settings.theme)
+
+  switch (theme) {
+    case "future":
+      return (
+        <div className="relative w-full">
+          <div className="flex gap-5 justify-between rounded-lg">
+            {/* ?! Cant decide on a theme :) */}
+            {/* <div className="flex gap-5 justify-between rounded-lg bg-background-secondary p-1"> */}
+            <ViewMainAction />
+          </div>
+        </div>
+      )
+    case "space-craft":
+      return (
+        <div className="relative w-full">
+          <div className="flex gap-5 justify-between bg-background-secondary rounded-lg p-1">
+            <ViewMainAction />
+          </div>
+        </div>
+      )
+    case "brutalist":
+      return (
+        <div className="relative w-full">
+          <div className="flex gap-5 justify-between bg-background-secondary rounded-lg p-1">
+            <ViewMainAction />
+          </div>
+        </div>
+      )
+  }
 }
 
-const BackButton = () => {
-  return <IconButton onClick={goBack} icon={<GoBackIcon />} />
+const BackButton = ({ className }: { className?: string }) => {
+  return <IconButton onClick={goBack} icon={<GoBackIcon />} className={className} />
 }
 
 function ViewMainAction() {
@@ -38,6 +61,12 @@ function ViewMainAction() {
         return <IconButton className="m-auto" onClick={saveNote} icon={<SaveNoteIcon />} />
       } else {
         return [
+          // todo: fix this :D
+          <IconButton
+            onClick={() => ""}
+            icon={<GoBackIcon />}
+            className="opacity-50 pointer-events-none"
+          />,
           <IconButton
             key="notes"
             onClick={() => navigateTo({ tag: "Notes" })}

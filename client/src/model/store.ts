@@ -24,6 +24,7 @@ export const useStore = create(() => ({
   unsyncedNewNotes: [] as Note[],
   unsyncedUpdatedNotes: [] as Note[],
   settings: loadSettings() as Settings,
+  isMobile: window.innerWidth < 768,
 }))
 
 // Actions/Reducers

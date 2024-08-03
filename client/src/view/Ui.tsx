@@ -35,6 +35,62 @@ export const Button = ({
   className,
   ...props
 }: DefaultButtonProps & { active?: boolean }) => {
+  const theme = useStore((state) => state.settings.theme)
+
+  switch (theme) {
+    case "future":
+      return <FutureButton active={active} className={className} {...props} />
+    case "space-craft":
+      return <FutureButton active={active} className={className} {...props} />
+    case "brutalist":
+      return <BrutalistButton active={active} className={className} {...props} />
+  }
+}
+
+export const FutureButton = ({
+  active,
+  className,
+  ...props
+}: DefaultButtonProps & { active?: boolean }) => {
+  // Use a state to animate a click event. This should last for 400ms.
+  const [clicked, setClicked] = useState(false)
+
+  const handleClick = () => {
+    setClicked(true)
+    setTimeout(() => setClicked(false), 75)
+    props.onClick && props.onClick()
+  }
+
+  return (
+    <div
+      className={`
+    w-[60px] min-w-[60px] h-[60px]
+    flex items-center justify-center 
+    bg-background-secondary
+    rounded
+    cursor-pointer
+    transition-all duration-75
+    ${className}
+    `}
+      onMouseDown={() => setClicked(true)}
+      onMouseUp={() => setClicked(false)}
+      onMouseLeave={() => setClicked(false)}
+      {...props}
+      onClick={handleClick}
+    >
+      {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
+      <div className="w-full h-full flex justify-center items-center p-[14px]">
+        {props.children}
+      </div>
+    </div>
+  )
+}
+
+export const BrutalistButton = ({
+  active,
+  className,
+  ...props
+}: DefaultButtonProps & { active?: boolean }) => {
   // Use a state to animate a click event. This should last for 400ms.
   const [clicked, setClicked] = useState(false)
 
