@@ -1,8 +1,13 @@
 import { z } from "zod"
-import { noteDecoder } from "./data"
+import { Note, noteDecoder } from "./data"
 import { emitMessageEvent } from "./events"
 import { loadAllNotes, loadNote, writeNoteToFile } from "./storage"
 import { v7 as uuid } from "uuid"
+import { generateCategoriesFromNoteText, generateTagsFromNoteText } from "./ai"
+import { shouldGenerateTags } from "./model"
+import { moduleLogger } from "./config"
+
+const logger = moduleLogger("notes")
 
 export const notesMessages = z.union([
   z.object({
@@ -42,13 +47,17 @@ export const handleNotesMessages = async (message: NotesMessages) => {
       // Create note
       const id = "no_" + uuid()
 
-      const note = {
+      const noteUnclassified = {
         id: id,
         text: message.text,
         tags: [],
+        categories: [],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }
+
+      const note = await classifyNote(noteUnclassified)
+
       // Save note
       await writeNoteToFile(note)
 
@@ -84,4 +93,17 @@ export const handleNotesMessages = async (message: NotesMessages) => {
     default:
       break
   }
+}
+
+const classifyNote = async (note: Note) => {
+  // Generate categories
+  const categories = await generateCategoriesFromNoteText(note.text)
+
+  const tags = shouldGenerateTags(categories)
+    ? await generateTagsFromNoteText(note.text)
+    : []
+
+  logger.debug("Classified note %o", { note, categories, tags })
+
+  return { ...note, categories, tags }
 }

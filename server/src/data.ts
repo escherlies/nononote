@@ -1,11 +1,12 @@
 import z from "zod"
 
-export const tagsDecoder = z.array(z.string())
+export const stringArrayZ = z.array(z.string())
 
 export const noteDecoder = z.object({
   id: z.string(),
   text: z.string(),
-  tags: tagsDecoder,
+  tags: stringArrayZ,
+  categories: stringArrayZ,
   createdAt: z.string(),
   updatedAt: z.string(),
 })

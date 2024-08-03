@@ -25,3 +25,6 @@ const getEnv = (name: string) => {
 }
 
 export const NOTES_FOLDER = getEnv("NOTES_FOLDER")
+export const GOOGLE_GENERATIVE_AI_API_KEY = getEnv(
+  "GOOGLE_GENERATIVE_AI_API_KEY"
+)
