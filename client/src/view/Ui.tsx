@@ -106,7 +106,7 @@ export const BrutalistButton = ({
     } else if (active) {
       return "-translate-x-[1px] -translate-y-[1px] shadow-active"
     } else {
-      return "-translate-x-[4px] -translate-y-[4px] shadow hover:shadow-hover hover:-translate-x-[3px] hover:-translate-y-[3px]"
+      return "-translate-x-[4px] -translate-y-[4px] shadow hover:shadow-hover hover:-translate-x-[2px] hover:-translate-y-[2px]"
     }
   }
 
