@@ -12,7 +12,7 @@ import { ViewEditNote } from "./views/Edit"
 
 export function App() {
   return (
-    <div className="w-dvw h-dvh bg-background-primary flex text-color-primary">
+    <div className="w-dvw h-dvh bg-background-primary flex text-color-text-primary">
       <Layout body={<ViewBody />} footer={<Menu />} />
       <ColorStyleTag />
     </div>

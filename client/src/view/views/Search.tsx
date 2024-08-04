@@ -52,7 +52,10 @@ export function ViewNotesSearch() {
 
         return (
           <div key={index} className="">
-            <div className="cursor-pointer select-none" onClick={() => navigateTo(tag("Note", { id: note.id }))}>
+            <div
+              className="cursor-pointer select-none"
+              onClick={() => navigateTo(tag("Note", { id: note.id }))}
+            >
               <HighlightedText text={note.text} match={result.terms} />
             </div>
           </div>
@@ -68,7 +71,10 @@ function HighlightedText({ text, match }: { text: string; match: string[] }) {
   return (
     <span>
       {parts.map((part, index) => (
-        <span key={index} className={match.includes(part) ? "bg-color-primary text-background-primary" : ""}>
+        <span
+          key={index}
+          className={match.includes(part) ? "bg-color-accent text-background-primary" : ""}
+        >
           {part}
         </span>
       ))}

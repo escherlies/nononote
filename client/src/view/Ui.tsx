@@ -22,7 +22,7 @@ export const MenuButton = ({
 
   return (
     <Button {...props} onClick={toggleMenu} active={menuOpen}>
-      {/* <div className="w-[54px] h-[54px] rounded-full bg-color-primary"></div> */}
+      {/* <div className="w-[54px] h-[54px] rounded-full bg-color-accent"></div> */}
       <div className="w-full h-full flex justify-center items-center p-1">
         <MoreActionsIcon />
       </div>
@@ -115,7 +115,7 @@ export const BrutalistButton = ({
   return (
     <div
       className={`
-    border-[3px] border-color-primary w-[68px] min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
+    border-[3px] border-color-accent w-[68px] min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     rounded-lg
     cursor-pointer
     transition-all duration-75

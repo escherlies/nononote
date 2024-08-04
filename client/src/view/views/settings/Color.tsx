@@ -2,24 +2,76 @@ import { updateSettings, useStore } from "../../../model/store"
 import { Settings } from "../../../model/settings"
 
 const schemes = [
-  { tag: "blue-on-white", colors: ["#001aff", "#fffefd", "#f2f2f2", "#e6e6e6"], kind: "light" },
-  { tag: "teal-on-pale-blue", colors: ["#1b2c2e", "#f7fbfc", "#e0f1f2", "#cfe8ea"], kind: "light" },
-  { tag: "white-on-blue", colors: ["#f3f5f4", "#001a8f", "#002080", "#0033cc"], kind: "dark" },
   {
-    tag: "light-gray-on-charcoa",
-    colors: ["#e9eae9", "#25272e", "#36383d", "#4a4a4f"],
+    tag: "blue-on-white",
+    colors: {
+      colorAccent: "#001aff",
+      backgroundPrimary: "#fffefd",
+      backgroundSecondary: "#f2f2f2",
+      backgroundTertiary: "#e6e6e6",
+      colorTextPrimary: "#001a1a", // dark blue for text on light background
+    },
+    kind: "light",
+  },
+  {
+    tag: "white-on-blue",
+    colors: {
+      colorAccent: "#f3f5f4",
+      backgroundPrimary: "#001a8f",
+      backgroundSecondary: "#002080",
+      backgroundTertiary: "#0033cc",
+      colorTextPrimary: "#f3f5f4", // white for text on dark blue background
+    },
     kind: "dark",
   },
-  { tag: "cream-on-black", colors: ["#f8f8e3", "#252325", "#393839", "#4d4d4d"], kind: "dark" },
-  { tag: "orange-on-white", colors: ["#FF5F1F", "#ffffff", "#f5f5f5", "#E9E9E9"], kind: "light" },
+  {
+    tag: "light-gray-on-white",
+    colors: {
+      colorAccent: "#25272e", // charcoal color for accent
+      backgroundPrimary: "#e9eae9", // light gray for primary background
+      backgroundSecondary: "#f2f2f2", // slightly darker light gray for secondary background
+      backgroundTertiary: "#d9d9d9", // another shade of light gray for tertiary background
+      colorTextPrimary: "#25272e", // charcoal color for text on light gray background
+    },
+    kind: "light",
+  },
+  {
+    tag: "light-gray-on-charcoa",
+    colors: {
+      colorAccent: "#e9eae9",
+      backgroundPrimary: "#25272e",
+      backgroundSecondary: "#36383d",
+      backgroundTertiary: "#4a4a4f",
+      colorTextPrimary: "#e9eae9", // light gray for text on charcoal background
+    },
+    kind: "dark",
+  },
+  {
+    tag: "orange-on-white",
+    colors: {
+      colorAccent: "#FF5F1F",
+      backgroundPrimary: "#ffffff",
+      backgroundSecondary: "#f5f5f5",
+      backgroundTertiary: "#E9E9E9",
+      colorTextPrimary: "#4d4d4d", // dark gray for text on white background
+    },
+    kind: "light",
+  },
   {
     tag: "orange-on-dark-gray",
-    colors: ["#FF5F1F", "#333333", "#4d4d4d", "#666666"],
+    colors: {
+      colorAccent: "#FF5F1F",
+      backgroundPrimary: "#333333",
+      backgroundSecondary: "#4d4d4d",
+      backgroundTertiary: "#666666",
+      colorTextPrimary: "#FF5F1F", // orange for text on dark gray background
+    },
     kind: "dark",
   },
 ] as const
 
 export type Scheme = (typeof schemes)[number]
+export type ColorScheme = Scheme["colors"]
 
 export const getCurrentScheme = (settings: Settings, systemDarkMode: boolean) => {
   const selector = (() => {
@@ -40,13 +92,14 @@ export const getCurrentScheme = (settings: Settings, systemDarkMode: boolean) =>
   return scheme
 }
 
-const cssString = (colors: readonly [string, string, string, string]) => {
+const cssString = (colors: ColorScheme) => {
   return `
 :root {
-  --color-primary: ${colors[0]};
-  --background-primary: ${colors[1]};
-  --background-secondary: ${colors[2]};
-  --background-tertiary: ${colors[3]};
+  --color-accent: ${colors.colorAccent};
+  --background-primary: ${colors.backgroundPrimary};
+  --background-secondary: ${colors.backgroundSecondary};
+  --background-tertiary: ${colors.backgroundTertiary};
+  --color-text-primary: ${colors.colorTextPrimary};
 }`
 }
 
@@ -81,8 +134,8 @@ const ColorDropdown = ({ schemes, selectedScheme, handleSchemeChange }: ColorDro
         key={scheme.tag}
         value={scheme.tag}
         style={{
-          backgroundColor: scheme.colors[1],
-          color: scheme.colors[0],
+          backgroundColor: scheme.colors.backgroundPrimary,
+          color: scheme.colors.colorTextPrimary,
         }}
       >
         {scheme.tag}

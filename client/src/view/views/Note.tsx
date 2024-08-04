@@ -42,7 +42,7 @@ function viewTag(tag: string): ReactNode {
   return (
     <div
       key={tag}
-      className="text-xs bg-color-primary px-0.5 text-white uppercase dark:text-background-primary cursor-pointer"
+      className="text-xs bg-color-accent px-0.5 text-white uppercase dark:text-background-primary cursor-pointer"
       onClick={() => navigateTo({ tag: "Search", query: tag })}
     >
       {tag}

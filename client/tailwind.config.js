@@ -5,16 +5,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "color-primary": "var(--color-primary)",
+        "color-accent": "var(--color-accent)",
+        "color-text-primary": "var(--color-text-primary)",
         "background-primary": "var(--background-primary)",
         "background-secondary": "var(--background-secondary)",
         "background-tertiary": "var(--background-tertiary)",
       },
       boxShadow: {
-        DEFAULT: `var(--color-primary) 4px 4px`,
-        hover: `var(--color-primary) 3px 3px`,
-        down: `var(--color-primary) 0px 0px`,
-        active: `var(--color-primary) 1px 1px`,
+        DEFAULT: `var(--color-accent) 4px 4px`,
+        hover: `var(--color-accent) 3px 3px`,
+        down: `var(--color-accent) 0px 0px`,
+        active: `var(--color-accent) 1px 1px`,
       },
       fontFamily: {
         sans: [

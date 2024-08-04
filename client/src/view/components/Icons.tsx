@@ -25,6 +25,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
             strokeWidth: 2,
             width: "100%",
             height: "100%",
+            color: "var(--color-accent)",
           }}
         >
           {children}
@@ -37,6 +38,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
             strokeWidth: 2,
             width: "100%",
             height: "100%",
+            color: "var(--color-accent)",
           }}
         >
           {children}
@@ -49,6 +51,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
             strokeWidth: 1.5,
             width: "100%",
             height: "100%",
+            color: "var(--color-accent)",
           }}
         >
           {children}

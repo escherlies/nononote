@@ -8,9 +8,9 @@
 
 select {
   appearance: none;
-  background-color: var(--color-primary);
+  background-color: var(--color-accent);
   color: var(--background-primary);
-  border: 0px solid var(--color-primary);
+  border: 0px solid var(--color-accent);
   padding: 0;
   border-radius: 0;
   cursor: pointer;
@@ -28,12 +28,12 @@ select {
 /* Dark mode media */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #f3f5f4;
+    --color-accent: #f3f5f4;
     --background-primary: #000cbb;
   }
 }
 
 ::selection {
-  background-color: var(--color-primary);
+  background-color: var(--color-accent);
   color: var(--background-primary);
 }

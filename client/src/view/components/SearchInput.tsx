@@ -3,7 +3,9 @@ import { setSeachQuery, useStore } from "../../model/store"
 import { JSX } from "react/jsx-runtime"
 
 export function SearchInput(
-  props: JSX.IntrinsicAttributes & ClassAttributes<HTMLInputElement> & InputHTMLAttributes<HTMLInputElement>
+  props: JSX.IntrinsicAttributes &
+    ClassAttributes<HTMLInputElement> &
+    InputHTMLAttributes<HTMLInputElement>
 ) {
   const value = useStore((state) => state.searchQuery)
   // auto focus input using ref and useEffect
@@ -13,7 +15,7 @@ export function SearchInput(
   }, [])
 
   return (
-    <div className="w-full overflow-hidden border-[3px] border-color-primary h-[68px] rounded-lg px-4 flex items-center shadow-inner">
+    <div className="w-full overflow-hidden border-[3px] border-color-accent h-[68px] rounded-lg px-4 flex items-center shadow-inner">
       <input
         id="note-input"
         ref={inputRef}
