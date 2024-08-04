@@ -63,16 +63,15 @@ function ViewMainAction() {
         return [
           // TODO: fix this :D
           <IconButton
-            onClick={() => ""}
-            icon={<GoBackIcon />}
-            className="opacity-50 pointer-events-none"
-          />,
-          <IconButton
             key="notes"
             onClick={() => navigateTo({ tag: "Notes" })}
             icon={<NotesIcon />}
           />,
-          // <MenuButton key="menu" />,
+          <IconButton
+            key="search"
+            onClick={() => navigateTo({ tag: "Search", query: "" })}
+            icon={<SearchIcon />}
+          />,
           <IconButton
             key="settings"
             onClick={() => navigateTo({ tag: "Settings" })}
