@@ -108,3 +108,37 @@ export const goBack = () => {
 document.addEventListener("DOMContentLoaded", () => {
   router.resolve(window.location.pathname + window.location.search)
 })
+
+// ##################################################################### //
+// ################################ Misc ############################### //
+// ##################################################################### //
+
+// Get view name
+
+export const getViewName = (view: View): string => {
+  switch (view.tag) {
+    case "Home":
+      return "New Note"
+
+    case "Notes":
+      return "Notes"
+
+    case "Search":
+      return "Search"
+
+    case "Note":
+      return "Note"
+
+    case "EditNote":
+      return "Edit Note"
+
+    case "Settings":
+      return "Settings"
+
+    case "Info":
+      return "Info"
+
+    case "NotFound":
+      return "Not Found"
+  }
+}

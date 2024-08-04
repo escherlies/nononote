@@ -53,7 +53,7 @@ const schemes = [
       backgroundPrimary: "#ffffff",
       backgroundSecondary: "#f5f5f5",
       backgroundTertiary: "#E9E9E9",
-      colorTextPrimary: "#4d4d4d",
+      colorTextPrimary: "#1E1E1E",
     },
     kind: "light",
   },

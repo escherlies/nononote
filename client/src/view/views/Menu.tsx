@@ -1,5 +1,6 @@
-import { goBack, navigateTo } from "../../model/router"
-import { clearSearchQuery, saveNote, useStore } from "../../model/store"
+import { map } from "rambda"
+import { goBack, navigateTo, View } from "../../model/router"
+import { clearInput, clearSearchQuery, saveNote, useStore } from "../../model/store"
 import {
   SaveNoteIcon,
   NotesIcon,
@@ -15,6 +16,13 @@ import { IconButton } from "../Ui"
 
 export function Menu() {
   const theme = useStore((state) => state.settings.theme)
+  const view = useStore((state) => state.view)
+  const noteInput = useStore((state) => state.noteInput)
+  const searchQuery = useStore((state) => state.searchQuery)
+
+  const items = getItems({ view, noteInput, searchQuery })
+  const uiButtons = map((item) => item.item, items)
+  const descriptions = map((item) => item.description, items)
 
   switch (theme) {
     case "future":
@@ -23,15 +31,20 @@ export function Menu() {
           <div className="flex gap-5 justify-between rounded-lg">
             {/* ?! Cant decide on a theme :) */}
             {/* <div className="flex gap-5 justify-between rounded-lg bg-background-secondary p-1"> */}
-            <ViewMainAction />
+            {items.map((item) => item.item)}
           </div>
         </div>
       )
     case "space-craft":
       return (
         <div className="relative w-full">
-          <div className="flex gap-5 justify-between bg-background-secondary rounded-lg p-1">
-            <ViewMainAction />
+          <div className="flex flex-col outline outline-[1.5px] outline-color-text-primary rounded-lg">
+            <div className="flex gap-5 justify-between p-2">{uiButtons}</div>
+            <div className="flex justify-between text-xs uppercase font-medium text-center bg-color-text-primary text-background-primary rounded-b-lg border-[1.5px] border-neutral-900 px-2">
+              {descriptions.map((description) => (
+                <Description key={description}>{description}</Description>
+              ))}
+            </div>
           </div>
         </div>
       )
@@ -39,7 +52,7 @@ export function Menu() {
       return (
         <div className="relative w-full">
           <div className="flex gap-5 justify-between bg-background-secondary rounded-lg p-1">
-            <ViewMainAction />
+            {uiButtons}
           </div>
         </div>
       )
@@ -49,101 +62,191 @@ export function Menu() {
 const BackButton = ({ className }: { className?: string }) => {
   return <IconButton onClick={goBack} icon={<GoBackIcon />} className={className} />
 }
-
-function ViewMainAction() {
-  const view = useStore((state) => state.view)
-  const noteInput = useStore((state) => state.noteInput)
-  const searchQuery = useStore((state) => state.searchQuery)
-
+function getItems({
+  view,
+  noteInput,
+  searchQuery,
+}: {
+  view: View
+  noteInput: string
+  searchQuery: string
+}): { item: JSX.Element; description: string }[] {
   switch (view.tag) {
     case "Home":
       if (noteInput !== "") {
-        return <IconButton className="m-auto" onClick={saveNote} icon={<SaveNoteIcon />} />
+        return [
+          {
+            item: <IconButton onClick={clearInput} icon={<DismissIcon />} />,
+            description: "Abort",
+          },
+          {
+            item: <IconButton onClick={saveNote} icon={<SaveNoteIcon />} />,
+            description: "Save",
+          },
+        ]
       } else {
         return [
-          // TODO: fix this :D
-          <IconButton
-            key="notes"
-            onClick={() => navigateTo({ tag: "Notes" })}
-            icon={<NotesIcon />}
-          />,
-          <IconButton
-            key="search"
-            onClick={() => navigateTo({ tag: "Search", query: "" })}
-            icon={<SearchIcon />}
-          />,
-          <IconButton
-            key="settings"
-            onClick={() => navigateTo({ tag: "Settings" })}
-            icon={<SettingsIcon />}
-          />,
+          {
+            item: (
+              <IconButton
+                key="notes"
+                onClick={() => navigateTo({ tag: "Notes" })}
+                icon={<NotesIcon />}
+              />
+            ),
+            description: "Notes",
+          },
+          {
+            item: (
+              <IconButton
+                key="search"
+                onClick={() => navigateTo({ tag: "Search", query: "" })}
+                icon={<SearchIcon />}
+              />
+            ),
+            description: "Search",
+          },
+          {
+            item: (
+              <IconButton
+                key="settings"
+                onClick={() => navigateTo({ tag: "Settings" })}
+                icon={<SettingsIcon />}
+              />
+            ),
+            description: "Settings",
+          },
         ]
       }
 
     case "Search":
       return [
-        <BackButton key="back" />,
-        <SearchInput key="search-input" />,
-        searchQuery === "" ? (
-          <IconButton
-            key="home"
-            onClick={() => navigateTo({ tag: "Home" })}
-            icon={<NewNoteIcon />}
-          />
-        ) : (
-          <IconButton key="notes" onClick={clearSearchQuery} icon={<DismissIcon />} />
-        ),
+        {
+          item: <BackButton key="back" />,
+          description: "Back",
+        },
+        {
+          item: <SearchInput key="search-input" />,
+          description: "Search Input",
+        },
+        searchQuery === ""
+          ? {
+              item: (
+                <IconButton
+                  key="home"
+                  onClick={() => navigateTo({ tag: "Home" })}
+                  icon={<NewNoteIcon />}
+                />
+              ),
+              description: "New",
+            }
+          : {
+              item: <IconButton key="notes" onClick={clearSearchQuery} icon={<DismissIcon />} />,
+              description: "Clear Search",
+            },
       ]
 
     case "Note":
       return [
-        <BackButton key="back" />,
-        <IconButton
-          key="edit"
-          onClick={() => navigateTo({ tag: "EditNote", id: view.id })}
-          icon={<Pencil />}
-        />,
-        <IconButton
-          key="home"
-          onClick={() => navigateTo({ tag: "Home" })}
-          icon={<NewNoteIcon />}
-        />,
+        {
+          item: <BackButton key="back" />,
+          description: "Back",
+        },
+        {
+          item: (
+            <IconButton
+              key="edit"
+              onClick={() => navigateTo({ tag: "EditNote", id: view.id })}
+              icon={<Pencil />}
+            />
+          ),
+          description: "Edit",
+        },
+        {
+          item: (
+            <IconButton
+              key="home"
+              onClick={() => navigateTo({ tag: "Home" })}
+              icon={<NewNoteIcon />}
+            />
+          ),
+          description: "Home",
+        },
       ]
 
     case "EditNote":
       return [
-        <BackButton key="back" />,
-        <IconButton
-          key="save"
-          onClick={saveNote}
-          icon={<SaveNoteIcon />}
-          className={noteInput === "" ? "opacity-50" : ""}
-        />,
+        {
+          item: <BackButton key="back" />,
+          description: "Back",
+        },
+        {
+          item: (
+            <IconButton
+              key="save"
+              onClick={saveNote}
+              icon={<SaveNoteIcon />}
+              className={noteInput === "" ? "opacity-50" : ""}
+            />
+          ),
+          description: "Save",
+        },
       ]
 
     case "Notes":
       return [
-        <BackButton key="back" />,
-        <IconButton
-          key="search"
-          onClick={() => navigateTo({ tag: "Search", query: "" })}
-          icon={<SearchIcon />}
-        />,
-        <IconButton
-          key="home"
-          onClick={() => navigateTo({ tag: "Home" })}
-          icon={<NewNoteIcon />}
-        />,
+        {
+          item: <BackButton key="back" />,
+          description: "Back",
+        },
+        {
+          item: (
+            <IconButton
+              key="search"
+              onClick={() => navigateTo({ tag: "Search", query: "" })}
+              icon={<SearchIcon />}
+            />
+          ),
+          description: "Search",
+        },
+        {
+          item: (
+            <IconButton
+              key="home"
+              onClick={() => navigateTo({ tag: "Home" })}
+              icon={<NewNoteIcon />}
+            />
+          ),
+          description: "Home",
+        },
       ]
 
     default:
       return [
-        <BackButton key="back" />,
-        <IconButton
-          key="home"
-          onClick={() => navigateTo({ tag: "Home" })}
-          icon={<NewNoteIcon />}
-        />,
+        {
+          item: <BackButton key="back" />,
+          description: "Back",
+        },
+        {
+          item: (
+            <IconButton
+              key="home"
+              onClick={() => navigateTo({ tag: "Home" })}
+              icon={<NewNoteIcon />}
+            />
+          ),
+          description: "Home",
+        },
       ]
   }
+}
+
+const Description = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex-1 group">
+      <div className="min-w-[60px] w-fit text-center mx-auto group-first:mr-auto group-first:mx-0 group-last:mx-0 group-last:ml-auto">
+        {children}
+      </div>
+    </div>
+  )
 }

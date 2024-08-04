@@ -35,7 +35,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
       return (
         <IconoirProvider
           iconProps={{
-            strokeWidth: 2,
+            strokeWidth: 1.5,
             width: "100%",
             height: "100%",
             color: "var(--color-accent)",
