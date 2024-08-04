@@ -16,19 +16,17 @@ export function NoteInput() {
 
   return (
     <div className="h-full w-full overflow-hidden">
-      <form action="">
-        <textarea
-          id="note-input"
-          ref={inputRef}
-          rows={10}
-          cols={50}
-          value={noteInput}
-          onChange={(e) => setNoteInput(e.target.value)}
-          spellCheck={false}
-          placeholder="New note..."
-          className="bg-transparent outline-none text-lg resize-none w-full h-full"
-        />
-      </form>
+      <textarea
+        id="note-input"
+        ref={inputRef}
+        rows={10}
+        cols={50}
+        value={noteInput}
+        onChange={(e) => setNoteInput(e.target.value)}
+        spellCheck={false}
+        placeholder="New note..."
+        className="bg-transparent outline-none text-lg resize-none w-full h-full"
+      />
     </div>
   )
 }
