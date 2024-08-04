@@ -2,6 +2,7 @@ import { map } from "rambda"
 import { useStore } from "../../model/store"
 import { navigateTo } from "../../model/router"
 import { ReactNode } from "react"
+import Markdown from "../components/Markdown"
 
 export function ViewNote({ noteId }: { noteId: string }) {
   const storedNotes = useStore((state) => state.notes)
@@ -21,9 +22,10 @@ export function ViewNote({ noteId }: { noteId: string }) {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="m-auto w-full break-words h-fit overflow-scroll whitespace-pre-wrap">
-        {note.text}
-      </div>
+      <Markdown
+        className="m-auto w-full break-words h-fit overflow-scroll whitespace-pre-wrap"
+        content={note.text}
+      />
       <div className="mt-auto w-full flex gap-1 flex-col">
         {/* Date and categories */}
         <div className="flex gap-1 w-full flex-wrap">
