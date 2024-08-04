@@ -23,7 +23,7 @@ export function ViewNote({ noteId }: { noteId: string }) {
   return (
     <div className="flex h-full w-full flex-col">
       <Markdown
-        className="m-auto w-full break-words h-fit overflow-scroll whitespace-pre-wrap"
+        className="prose prose-neutral whitespace-pre-wrap break-words"
         content={note.text}
       />
       <div className="mt-auto w-full flex gap-1 flex-col">
