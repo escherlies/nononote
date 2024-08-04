@@ -61,7 +61,7 @@ function ViewMainAction() {
         return <IconButton className="m-auto" onClick={saveNote} icon={<SaveNoteIcon />} />
       } else {
         return [
-          // todo: fix this :D
+          // TODO: fix this :D
           <IconButton
             onClick={() => ""}
             icon={<GoBackIcon />}

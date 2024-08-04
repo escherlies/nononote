@@ -72,7 +72,7 @@ export const handleNotesMessages = async (message: NotesMessages) => {
     case "notes:update": {
       const existingNote = await loadNote(message.id)
       if (!existingNote) {
-        // todo: send error message
+        // TODO: send error message
         return
       }
 

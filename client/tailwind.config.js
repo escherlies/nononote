@@ -27,7 +27,7 @@ module.exports = {
         ],
       },
       borderRadius: {
-        // todo: make this configurable for the different themes
+        // TODO: make this configurable for the different themes
         DEFAULT: "10px",
         lg: "14px",
       },
