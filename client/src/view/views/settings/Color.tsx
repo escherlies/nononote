@@ -9,7 +9,7 @@ const schemes = [
       backgroundPrimary: "#fffefd",
       backgroundSecondary: "#f2f2f2",
       backgroundTertiary: "#e6e6e6",
-      colorTextPrimary: "#001a1a", // dark blue for text on light background
+      colorTextPrimary: "#001a1a",
     },
     kind: "light",
   },
@@ -20,18 +20,18 @@ const schemes = [
       backgroundPrimary: "#001a8f",
       backgroundSecondary: "#002080",
       backgroundTertiary: "#0033cc",
-      colorTextPrimary: "#f3f5f4", // white for text on dark blue background
+      colorTextPrimary: "#f3f5f4",
     },
     kind: "dark",
   },
   {
     tag: "light-gray-on-white",
     colors: {
-      colorAccent: "#25272e", // charcoal color for accent
-      backgroundPrimary: "#e9eae9", // light gray for primary background
-      backgroundSecondary: "#f2f2f2", // slightly darker light gray for secondary background
-      backgroundTertiary: "#d9d9d9", // another shade of light gray for tertiary background
-      colorTextPrimary: "#25272e", // charcoal color for text on light gray background
+      colorAccent: "#25272e",
+      backgroundPrimary: "#f2f2f2",
+      backgroundSecondary: "#e9eae9",
+      backgroundTertiary: "#d9d9d9",
+      colorTextPrimary: "#25272e",
     },
     kind: "light",
   },
@@ -42,7 +42,7 @@ const schemes = [
       backgroundPrimary: "#25272e",
       backgroundSecondary: "#36383d",
       backgroundTertiary: "#4a4a4f",
-      colorTextPrimary: "#e9eae9", // light gray for text on charcoal background
+      colorTextPrimary: "#e9eae9",
     },
     kind: "dark",
   },
@@ -53,7 +53,7 @@ const schemes = [
       backgroundPrimary: "#ffffff",
       backgroundSecondary: "#f5f5f5",
       backgroundTertiary: "#E9E9E9",
-      colorTextPrimary: "#4d4d4d", // dark gray for text on white background
+      colorTextPrimary: "#4d4d4d",
     },
     kind: "light",
   },
@@ -64,7 +64,7 @@ const schemes = [
       backgroundPrimary: "#333333",
       backgroundSecondary: "#4d4d4d",
       backgroundTertiary: "#666666",
-      colorTextPrimary: "#FF5F1F", // orange for text on dark gray background
+      colorTextPrimary: "#FF5F1F",
     },
     kind: "dark",
   },

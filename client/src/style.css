@@ -6,6 +6,18 @@
   font-size: 22px;
 }
 
+/* Prevent mobile bounce */
+
+html {
+  overscroll-behavior: none;
+}
+
+/* Prevent double-tap zoom but allows other gestures */
+
+body {
+  touch-action: manipulation;
+}
+
 select {
   appearance: none;
   background-color: var(--color-accent);
