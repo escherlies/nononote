@@ -22,10 +22,7 @@ export function ViewNote({ noteId }: { noteId: string }) {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <Markdown
-        className="prose prose-neutral whitespace-pre-wrap break-words"
-        content={note.text}
-      />
+      <Markdown className="prose prose-neutral" content={note.text} />
       <div className="mt-auto w-full flex gap-1 flex-col">
         {/* Date and categories */}
         <div className="flex gap-1 w-full flex-wrap">
