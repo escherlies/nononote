@@ -17,15 +17,6 @@ module.exports = {
         down: `var(--color-accent) 0px 0px`,
         active: `var(--color-accent) 1px 1px`,
       },
-      fontFamily: {
-        sans: [
-          '"Inter var", sans-serif',
-          {
-            fontFeatureSettings: '"cv11", "ss01"',
-            fontVariationSettings: '"opsz" 32',
-          },
-        ],
-      },
       borderRadius: {
         // TODO: make this configurable for the different themes
         DEFAULT: "10px",
