@@ -24,7 +24,22 @@ export function ViewNotes() {
   return (
     <div className="flex flex-col gap-10 w-full">
       {map((note) => {
-        const lines = note.text.split("\n").filter((line) => line.trim() !== "")
+        const lines = note.text
+          // Split the text into lines
+          .split("\n")
+          // Remove links and special characters
+          .map((line) => {
+            const isLink = line.includes("http")
+            if (isLink) {
+              // Keep only the domain name
+              return line.split("/")[2]
+            } else {
+              // Replace all non-alphanumeric characters exept whitespaces with an empty string
+              return line.replace(/[^a-zA-Z0-9\s]/g, "")
+            }
+          })
+          // Remove empty lines
+          .filter((line) => line.trim() !== "")
 
         const firstLine = head(lines)
         const rest = tail(lines).join(" · ")
