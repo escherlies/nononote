@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client"
 
 import "./model/router"
 import "./model/sounds"
+import { loadIntroNotes } from "./model/intro"
 
 import { initBindings } from "./model/keyboard"
 
@@ -16,6 +17,9 @@ if (container) {
 } else {
   throw new Error("No container found")
 }
+
+// Load intro notes
+loadIntroNotes()
 
 // Load unsynced new notes
 loadUnsyncedNewNotes()
