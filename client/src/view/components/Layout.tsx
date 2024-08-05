@@ -51,11 +51,10 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
           outline outline-[1.5px] outline-color-text-primary rounded-lg
           flex-grow
           overflow-auto
-          pt-2
           `}
         >
           <ViewNameTag viewName={viewName} />
-          <div className="overflow-auto h-full p-4 flex-grow">{body}</div>
+          <div className="overflow-auto h-full flex-grow p-4">{body}</div>
         </div>
         <div className="w-full">{footer}</div>
       </div>
@@ -82,9 +81,10 @@ function ViewNameTag({ viewName }: { viewName: string }) {
       className={`flex justify-center text-xs
         uppercase font-medium text-center
         bg-color-text-primary text-background-primary
-        rounded-bl-lg border-[1.5px] border-neutral-900
+        rounded-bl-lg
         w-1/3
         absolute top-0 right-0
+        outline outline-background-primary outline-[1.5px]
         `}
     >
       {viewName}
