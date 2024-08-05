@@ -51,7 +51,7 @@ export function Menu() {
     case "brutalist":
       return (
         <div className="relative w-full">
-          <div className="flex gap-5 justify-between bg-background-secondary rounded-lg p-1">
+          <div className="flex gap-5 justify-between xbg-background-secondary rounded-lg p-1">
             {uiButtons}
           </div>
         </div>

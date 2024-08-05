@@ -7,6 +7,7 @@ const SettingsSchema = z.object({
   }),
   darkMode: z.enum(["auto", "on", "off"]),
   theme: z.enum(["future", "space-craft", "brutalist"]),
+  buttonSound: z.boolean(),
 })
 
 export type Settings = z.infer<typeof SettingsSchema>
@@ -18,6 +19,7 @@ const defaultSettings: Settings = {
   },
   darkMode: "auto",
   theme: "future",
+  buttonSound: true,
 }
 
 export const saveSettings = (settings: Settings) => {

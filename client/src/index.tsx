@@ -1,6 +1,8 @@
 import { createRoot } from "react-dom/client"
 
 import "./model/router"
+import "./model/sounds"
+
 import { initBindings } from "./model/keyboard"
 
 import { App } from "./view/App"

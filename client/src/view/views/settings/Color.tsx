@@ -181,6 +181,13 @@ export const ColorSchemeSelector = () => {
     }))
   }
 
+  const handleButttonSoundChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    updateSettings((currentSettings) => ({
+      ...currentSettings,
+      buttonSound: event.target.value === "true",
+    }))
+  }
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {/* Light scheme */}
@@ -213,6 +220,20 @@ export const ColorSchemeSelector = () => {
         <option value="future">Future</option>
         <option value="space-craft">Space Craft</option>
         <option value="brutalist">Brutalist</option>
+      </select>
+
+      {/* Button Sounds */}
+      <label htmlFor="buttonSound">
+        Button Sounds <br />
+        <span className="text-xs">(Brutalist Theme only): </span>
+      </label>
+      <select
+        id="buttonSound"
+        value={String(settings.buttonSound)}
+        onChange={handleButttonSoundChange}
+      >
+        <option value="true">On</option>
+        <option value="false">Off</option>
       </select>
     </div>
   )
