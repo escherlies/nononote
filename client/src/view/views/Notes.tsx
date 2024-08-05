@@ -1,4 +1,4 @@
-import { map, prop, sortBy } from "rambda"
+import { head, map, prop, sortBy, tail } from "rambda"
 import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
@@ -23,23 +23,31 @@ export function ViewNotes() {
 
   return (
     <div className="flex flex-col gap-10 w-full">
-      {map(
-        (note) => (
+      {map((note) => {
+        const lines = note.text.split("\n").filter((line) => line.trim() !== "")
+
+        const firstLine = head(lines)
+        const rest = tail(lines).join(" · ")
+
+        return (
           <div
             key={note.id}
             className="cursor-pointer select-none"
             onClick={() => navigateTo(tag("Note", { id: note.id }))}
           >
-            <div className="line-clamp-2 font-bold">{note.text}</div>
+            <div className="line-clamp-2">
+              <span className="font-bold">{firstLine}</span>
+              {rest && " · "}
+              {rest}
+            </div>
             {note.isNew && (
               <div className="w-4" title="Unsynced">
                 <UnsyncedIcon />
               </div>
             )}
           </div>
-        ),
-        notes
-      )}
+        )
+      }, notes)}
     </div>
   )
 }
