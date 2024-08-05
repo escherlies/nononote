@@ -11,8 +11,8 @@ export function Layout({ body, footer }: LayoutProps) {
   const theme = useStore((state) => state.settings.theme)
 
   switch (theme) {
-    case "future":
-      return <FutureLayout body={body} footer={footer} />
+    case "modern":
+      return <ModernLayout body={body} footer={footer} />
     case "space-craft":
       return <SpaceCraftLayout body={body} footer={footer} />
     case "brutalist":
@@ -25,7 +25,7 @@ type LayoutType = {
   footer: ReactNode
 }
 
-export function FutureLayout({ body, footer }: LayoutType) {
+export function ModernLayout({ body, footer }: LayoutType) {
   return (
     <div className="h-svh w-full p-4 flex sm:p-10">
       <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">

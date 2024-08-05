@@ -25,7 +25,7 @@ export function Menu() {
   const descriptions = map((item) => item.description, items)
 
   switch (theme) {
-    case "future":
+    case "modern":
       return (
         <div className="relative w-full">
           <div className="flex gap-5 justify-between rounded-lg">

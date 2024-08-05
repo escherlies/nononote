@@ -39,7 +39,7 @@ export const Button = ({
   const theme = useStore((state) => state.settings.theme)
 
   switch (theme) {
-    case "future":
+    case "modern":
       return <FlatButton active={active} className={className} {...props} />
     case "space-craft":
       return <FlatButton active={active} className={className} {...props} />

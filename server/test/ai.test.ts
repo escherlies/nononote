@@ -64,9 +64,9 @@ const testPrompts = [
     tags: ["backup", "server data", "maintenance"],
   },
   {
-    note: "Had a great time catching up with old friends over dinner. We reminisced about college days and talked about future plans.",
+    note: "Had a great time catching up with old friends over dinner. We reminisced about college days and talked about modern plans.",
     categories: ["journal"],
-    tags: ["catching up", "friends", "dinner", "college days", "future plans"],
+    tags: ["catching up", "friends", "dinner", "college days", "modern plans"],
   },
 ]
 

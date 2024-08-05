@@ -6,7 +6,7 @@ const SettingsSchema = z.object({
     light: z.string(),
   }),
   darkMode: z.enum(["auto", "on", "off"]),
-  theme: z.enum(["future", "space-craft", "brutalist"]),
+  theme: z.enum(["modern", "space-craft", "brutalist"]),
   buttonSound: z.boolean(),
 })
 
@@ -18,7 +18,7 @@ const defaultSettings: Settings = {
     dark: "white-on-blue",
   },
   darkMode: "auto",
-  theme: "future",
+  theme: "modern",
   buttonSound: true,
 }
 

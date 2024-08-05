@@ -44,7 +44,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
           {children}
         </IconoirProvider>
       )
-    case "future":
+    case "modern":
       return (
         <IconoirProvider
           iconProps={{

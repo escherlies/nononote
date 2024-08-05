@@ -17,7 +17,7 @@ export function SearchInput(
   }, [])
 
   switch (theme) {
-    case "future":
+    case "modern":
       return (
         <div className="w-full overflow-hidden h-[60px] rounded-lg px-4 flex items-center bg-background-secondary">
           <input

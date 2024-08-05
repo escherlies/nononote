@@ -177,7 +177,7 @@ export const ColorSchemeSelector = () => {
   const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     updateSettings((currentSettings) => ({
       ...currentSettings,
-      theme: event.target.value as "future" | "space-craft" | "brutalist",
+      theme: event.target.value as "modern" | "space-craft" | "brutalist",
     }))
   }
 
@@ -217,7 +217,7 @@ export const ColorSchemeSelector = () => {
       {/* Theme */}
       <label htmlFor="theme">Theme: </label>
       <select id="theme" value={settings.theme} onChange={handleThemeChange}>
-        <option value="future">Future</option>
+        <option value="modern">Modern</option>
         <option value="space-craft">Space Craft</option>
         <option value="brutalist">Brutalist</option>
       </select>
