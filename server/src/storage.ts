@@ -3,6 +3,7 @@ import yaml from "yaml"
 
 import { Note, noteMarkdownYamlMetadataDecoder } from "./data"
 import { moduleLogger, NOTES_FOLDER } from "./config"
+import { reduce } from "rambda"
 
 const logger = moduleLogger("storage")
 
@@ -64,14 +65,10 @@ ${note.text}
 
 async function parseFromMarkdown(content: string) {
   try {
-    const contentParts = content.split("---")
+    const { header, body } = parseYamlFromYamlHeaderMarkdown(content)
 
-    if (contentParts.length < 3) {
-      throw new Error("Invalid markdown format")
-    }
-
-    const yamlContent = contentParts[1].trim()
-    const noteContent = contentParts[2].trim()
+    const yamlContent = header
+    const noteContent = body
 
     const metadata = yaml.parse(yamlContent)
 
@@ -96,4 +93,57 @@ async function parseFromMarkdown(content: string) {
 const splitTags = (tags: string | null) => {
   if (!tags) return []
   return tags.split(",").map((tag) => tag.trim())
+}
+
+type Acc = {
+  header: null | string[]
+  body: null | string[]
+}
+
+type Res = {
+  header: string
+  body: string
+}
+
+function parseYamlFromYamlHeaderMarkdown(content: string): Res {
+  // Use line parsing to get the yaml header
+  const lines = content.split("\n")
+  const res = reduce(
+    (acc, line) => {
+      // Start of yaml header
+      if (line === "---" && acc.header === null) {
+        // Start of yaml header
+        return { header: [], body: null }
+      }
+
+      // End of yaml header
+      if (line === "---" && acc.body === null) {
+        return { header: acc.header, body: [] }
+      }
+
+      // Inside yaml header
+      if (acc.header !== null && acc.body === null) {
+        acc.header.push(line)
+        return acc
+      }
+
+      // Inside body
+      if (acc.body !== null) {
+        acc.body.push(line)
+        return acc
+      }
+
+      return acc
+    },
+    { header: null, body: null } as Acc,
+    lines
+  )
+
+  if (res.header === null || res.body === null) {
+    throw new Error("Invalid markdown format")
+  }
+
+  console.log(res.header.join("\n"))
+
+  return { header: res.header.join("\n"), body: res.body.join("\n") }
 }
