@@ -54,7 +54,7 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
           `}
         >
           <ViewNameTag viewName={viewName} />
-          <div className="overflow-auto h-full flex-grow p-4">{body}</div>
+          <div className="overflow-auto h-full flex-grow p-4 pt-8">{body}</div>
         </div>
         <div className="w-full">{footer}</div>
       </div>
