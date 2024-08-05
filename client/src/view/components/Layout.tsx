@@ -27,7 +27,7 @@ type LayoutType = {
 
 export function ModernLayout({ body, footer }: LayoutType) {
   return (
-    <div className="h-svh w-full p-4 flex sm:p-10">
+    <div className="h-svh w-full p-4 flex sm:p-4">
       <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">
         <div className="relative flex-grow overflow-scroll bg-background-secondary rounded-lg p-4">
           {body}
@@ -43,7 +43,7 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
   const viewName = getViewName(view)
 
   return (
-    <div className="h-svh w-full p-4 flex sm:p-10">
+    <div className="h-svh w-full p-4 flex sm:p-4">
       <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">
         <div
           className={`
@@ -64,7 +64,7 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
 
 export function BrutalistLayout({ body, footer }: LayoutType) {
   return (
-    <div className="h-svh w-full p-4 flex sm:p-10">
+    <div className="h-svh w-full p-4 flex sm:p-4">
       <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-4 w-full">
         <div className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-lg p-4">
           {body}

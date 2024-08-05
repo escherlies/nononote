@@ -128,7 +128,7 @@ type ColorDropdownProps = {
 }
 
 const ColorDropdown = ({ schemes, selectedScheme, handleSchemeChange }: ColorDropdownProps) => (
-  <select value={selectedScheme} onChange={handleSchemeChange}>
+  <select value={selectedScheme} onChange={handleSchemeChange} className="text-sm text-center">
     {schemes.map((scheme) => (
       <option
         key={scheme.tag}
@@ -208,7 +208,12 @@ export const ColorSchemeSelector = () => {
 
       {/* Dark mode */}
       <label htmlFor="darkMode">Dark Mode: </label>
-      <select id="darkMode" value={settings.darkMode} onChange={handleDarkModeChange}>
+      <select
+        id="darkMode"
+        value={settings.darkMode}
+        onChange={handleDarkModeChange}
+        className="text-sm text-center"
+      >
         <option value="auto">Auto</option>
         <option value="on">On</option>
         <option value="off">Off</option>
@@ -216,7 +221,12 @@ export const ColorSchemeSelector = () => {
 
       {/* Theme */}
       <label htmlFor="theme">Theme: </label>
-      <select id="theme" value={settings.theme} onChange={handleThemeChange}>
+      <select
+        id="theme"
+        value={settings.theme}
+        onChange={handleThemeChange}
+        className="text-sm text-center"
+      >
         <option value="modern">Modern</option>
         <option value="space-craft">Space Craft</option>
         <option value="brutalist">Brutalist</option>
@@ -231,6 +241,7 @@ export const ColorSchemeSelector = () => {
         id="buttonSound"
         value={String(settings.buttonSound)}
         onChange={handleButttonSoundChange}
+        className="h-fit text-sm text-center"
       >
         <option value="true">On</option>
         <option value="false">Off</option>

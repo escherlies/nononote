@@ -17,11 +17,6 @@ module.exports = {
         down: `var(--color-accent) 0px 0px`,
         active: `var(--color-accent) 1px 1px`,
       },
-      borderRadius: {
-        // TODO: make this configurable for the different themes
-        DEFAULT: "10px",
-        lg: "14px",
-      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
