@@ -7,7 +7,7 @@ import { useStore } from "../../model/store"
 import { find } from "rambda"
 
 const miniSearch = new MiniSearch({
-  fields: ["text"],
+  fields: ["tags", "text", "categories"],
   searchOptions: {
     prefix: true,
     fuzzy: 0.2,
@@ -46,6 +46,8 @@ export function ViewNotesSearch() {
       {results.map((result, index) => {
         const note = find((note) => note.id === result.id, notes)
 
+        const matches = Object.keys(result.match)
+
         if (!note) {
           return null
         }
@@ -57,6 +59,12 @@ export function ViewNotesSearch() {
               onClick={() => navigateTo(tag("Note", { id: note.id }))}
             >
               <HighlightedText text={note.text} match={result.terms} />
+              <HighlightTags
+                tags={note.tags.filter((tag) => matches.includes(tag.toLowerCase()))}
+              />
+              <HighlightTags
+                tags={note.categories.filter((tag) => matches.includes(tag.toLowerCase()))}
+              />
             </div>
           </div>
         )
@@ -73,11 +81,28 @@ function HighlightedText({ text, match }: { text: string; match: string[] }) {
       {parts.map((part, index) => (
         <span
           key={index}
-          className={match.includes(part) ? "bg-color-accent text-background-primary" : ""}
+          className={
+            match.includes(part.toLowerCase()) ? "bg-color-accent text-background-primary" : ""
+          }
         >
           {part}
         </span>
       ))}
     </span>
+  )
+}
+
+function HighlightTags({ tags }: { tags: string[] }) {
+  return (
+    <div className="flex gap-1 flex-wrap">
+      {tags.map((tag, index) => (
+        <div
+          key={index}
+          className="text-xs bg-color-accent px-0.5 text-white uppercase dark:text-background-primary cursor-pointer"
+        >
+          {tag}
+        </div>
+      ))}
+    </div>
   )
 }

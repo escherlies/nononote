@@ -57,9 +57,9 @@ export function SearchInput(
             ref={inputRef}
             value={value}
             spellCheck={false}
-            className="bg-transparent outline-none resize-none w-full text-3xl italic uppercase translate-y-0.5"
+            className="bg-transparent outline-none resize-none w-full text-3xl italic uppercase"
             onChange={(e) => setSeachQuery(e.target.value)}
-            placeholder="Search"
+            placeholder="..."
             {...props}
           />
         </div>
