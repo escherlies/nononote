@@ -30,7 +30,6 @@ export function Input(props: Props) {
             spellCheck={false}
             className="bg-transparent outline-none resize-none w-full text-2xl italic translate-y-0.5"
             onChange={(e) => props.onText(e.target.value)}
-            {...props}
           />
         </div>
       )
@@ -44,7 +43,6 @@ export function Input(props: Props) {
             spellCheck={false}
             className="bg-transparent outline-none resize-none w-full text-2xl italic translate-y-0.5"
             onChange={(e) => props.onText(e.target.value)}
-            {...props}
           />
         </div>
       )
@@ -58,7 +56,6 @@ export function Input(props: Props) {
             spellCheck={false}
             className="bg-transparent outline-none resize-none w-full text-3xl italic uppercase"
             onChange={(e) => props.onText(e.target.value)}
-            {...props}
           />
         </div>
       )

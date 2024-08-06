@@ -76,11 +76,11 @@ function getItems({
       if (noteInput !== "") {
         return [
           {
-            item: <IconButton onClick={clearInput} icon={<DismissIcon />} />,
+            item: <IconButton key="abort" onClick={clearInput} icon={<DismissIcon />} />,
             description: "Abort",
           },
           {
-            item: <IconButton onClick={saveNote} icon={<SaveNoteIcon />} />,
+            item: <IconButton key="save" onClick={saveNote} icon={<SaveNoteIcon />} />,
             description: "Save",
           },
         ]

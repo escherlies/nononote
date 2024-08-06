@@ -27,10 +27,15 @@ type LayoutType = {
 
 export function ModernLayout({ body, footer }: LayoutType) {
   return [
-    <div className="relative flex-grow overflow-scroll bg-background-secondary rounded-lg p-4">
+    <div
+      key="body"
+      className="relative flex-grow overflow-scroll bg-background-secondary rounded-lg p-4"
+    >
       {body}
     </div>,
-    <div className="w-full max-w-sm mx-auto">{footer}</div>,
+    <div key="footer" className="w-full max-w-sm mx-auto">
+      {footer}
+    </div>,
   ]
 }
 
@@ -40,6 +45,7 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
 
   return [
     <div
+      key="body"
       className={`
           relative
           outline outline-[1.5px] outline-color-text-primary rounded-lg
@@ -50,16 +56,23 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
       <ViewNameTag viewName={viewName} />
       <div className="overflow-auto h-full flex-grow p-4 pt-8">{body}</div>
     </div>,
-    <div className="w-full">{footer}</div>,
+    <div key="footer" className="w-full">
+      {footer}
+    </div>,
   ]
 }
 
 export function BrutalistLayout({ body, footer }: LayoutType) {
   return [
-    <div className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-lg p-4">
+    <div
+      key="body"
+      className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-lg p-4"
+    >
       {body}
     </div>,
-    <div className="w-full max-w-sm mx-auto">{footer}</div>,
+    <div key="footer" className="w-full max-w-sm mx-auto">
+      {footer}
+    </div>,
   ]
 }
 
