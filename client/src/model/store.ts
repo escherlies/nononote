@@ -25,7 +25,7 @@ export const useStore = create(() => ({
   unsyncedUpdatedNotes: [] as Note[],
   settings: loadSettings() as Settings,
   isMobile: window.innerWidth < 768,
-  authToken: storage.getItem("auth-token"),
+  authToken: null as Maybe<string>,
   user: null as Maybe<User>,
 }))
 

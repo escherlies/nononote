@@ -5,6 +5,14 @@ import { useStore } from "./store"
 const API_URL = "/api"
 const apiRoute = (path: string) => `${API_URL}${path}`
 
+export const initAuth = async () => {
+  const authToken = storage.getItem("auth-token")
+  if (authToken) {
+    useStore.setState({ authToken })
+    auth.refreshToken(authToken)
+  }
+}
+
 export const sendMessage = async (message: Message) => {
   // Send message to server
   const response = await fetch(apiRoute("/message"), {
@@ -56,5 +64,28 @@ export const auth = {
 
     useStore.setState({ authToken: json.jwt })
     storage.setItem("auth-token", json.jwt)
+  },
+  refreshToken: async (authToken: string) => {
+    try {
+      const response = await fetch(authRoute("/refresh-token"), {
+        method: "POST",
+        headers: {
+          Authorization: authToken,
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to refresh token")
+      }
+
+      const json = (await response.json()) as { jwt: string }
+
+      useStore.setState({ authToken: json.jwt })
+      storage.setItem("auth-token", json.jwt)
+    } catch (error) {
+      storage.removeItem("auth-token")
+      useStore.setState({ authToken: null })
+      useStore.setState({ error: String(error) })
+    }
   },
 }

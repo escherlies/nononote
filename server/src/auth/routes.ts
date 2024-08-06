@@ -1,9 +1,14 @@
-import { FastifyInstance } from "fastify"
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
 import { generateMagicCode, verifyMagicCode } from "./auth"
-import { signJwt } from "./jwt"
+import { signJwt, verifyJwt } from "./jwt"
 import { sendMagicCode } from "../email"
+import monzod from "../db"
+
+interface AuthenticatedRequest extends FastifyRequest {
+  user?: { id: string } // Replace `YourUserType` with the type returned from `verifyJwt`
+}
 
 export default function authRouter(app: FastifyInstance, opts: never, done: () => void) {
   // Get magic code
@@ -47,5 +52,46 @@ export default function authRouter(app: FastifyInstance, opts: never, done: () =
     },
   })
 
+  // Refresh token
+  app.withTypeProvider<ZodTypeProvider>().route({
+    method: "post",
+    url: "/refresh-token",
+    schema: {
+      description: "Refresh token",
+      headers: z.object({
+        authorization: z.string(),
+      }),
+    },
+    preHandler: authenticateUser,
+    handler: async (req: AuthenticatedRequest, res) => {
+      const user = await monzod.cols.users.findOne({ id: req.user!.id })
+
+      if (!user) {
+        return res.status(400).send("User not found")
+      }
+      const jwt = signJwt({ id: req.user!.id })
+      return res.send({ jwt })
+    },
+  })
+
   done()
+}
+
+const authenticateUser = async (req: AuthenticatedRequest, reply: FastifyReply, done: () => void) => {
+  const bearer = req.headers.authorization
+  if (!bearer) {
+    return reply.status(401).send("Unauthorized")
+  }
+
+  const token = bearer.replace("Bearer ", "")
+  const user = verifyJwt(token)
+  if (!user) {
+    return reply.status(401).send("Unauthorized")
+  }
+
+  req.user = user
+
+  done()
+
+  return reply
 }
