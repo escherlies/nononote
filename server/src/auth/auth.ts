@@ -21,7 +21,7 @@ const getOrCreateUser = async (email: string) => {
   const user = {
     id: safeid("u_"),
     name: toLower(email.split("@")[0] || "Noname"),
-    emails: [toLower(email)],
+    email: toLower(email),
     // password: bcrypt.hashSync(initialPassword, saltRounds),
   }
   const res = await monzod.cols.users.insertOne(user)

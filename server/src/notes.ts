@@ -42,20 +42,25 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
       const existingNote = await monzod.cols.notes.findOne({ id: message.id, userId: context.user.id })
       if (!existingNote) {
         // TODO: send error message
+        logger.error("Note not found for update: %o %o", message.id, context.user.id)
         return
       }
 
-      const note = {
-        ...existingNote,
-        text: message.text,
-        updatedAt: new Date().toISOString(),
+      // Save note
+      const updatedNote = await monzod.cols.notes.findOneAndUpdate(
+        { id: message.id },
+        { $set: { text: message.text, updatedAt: new Date().toISOString() } },
+        { returnDocument: "after" }
+      )
+
+      if (!updatedNote) {
+        logger.error("Failed to update note: %o", message.id)
+        // TODO: send error message
+        return
       }
 
-      // Save note
-      await writeNoteToFile(note)
-
       // Emit note to all subscribers
-      return emitMessageEvent({ context, message: { type: "notes:note", note } })
+      return emitMessageEvent({ context, message: { type: "notes:note", note: updatedNote } })
     }
 
     case "notes:fetch:all": {
