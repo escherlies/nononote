@@ -9,11 +9,38 @@ import { ViewInfo } from "./views/Info"
 import { ColorStyleTag } from "./views/settings/Color"
 import { ViewSettings } from "./views/Settings"
 import { ViewEditNote } from "./views/Edit"
+import { Auth, SignIn } from "./views/Auth"
+import { ReactNode } from "react"
 
 export function App() {
+  const authToken = useStore((state) => state.authToken)
+
+  if (!authToken) {
+    return (
+      <Container>
+        <Auth />
+      </Container>
+    )
+  }
+
+  return (
+    <Container>
+      <Layout body={<ViewBody />} footer={<Menu />} />
+    </Container>
+  )
+}
+
+type Props = {
+  children: ReactNode
+}
+function Container({ children }: Props) {
   return (
     <div className="w-dvw h-dvh bg-background-primary flex text-color-text-primary">
-      <Layout body={<ViewBody />} footer={<Menu />} />
+      <div className="h-svh w-full p-4 flex sm:p-4">
+        <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">
+          {children}
+        </div>
+      </div>
       <ColorStyleTag />
     </div>
   )

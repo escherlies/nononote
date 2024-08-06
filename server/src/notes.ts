@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { noteDecoder } from "./data"
-import { emitMessageEvent } from "./events"
-import { loadAllNotes, loadNote, writeNoteToFile } from "./storage"
-import { v7 as uuid } from "uuid"
+import { noteDecoder } from "./data/note"
+import { emitMessageEvent, MessageWithContext } from "./events"
+import { loadAllNotes, loadNote, writeNoteToFile } from "./file-storage"
 import { moduleLogger } from "./config"
 import { classifyNoteContent } from "./ai/notes"
+import monzod from "./db"
 
 const logger = moduleLogger("notes")
 
@@ -38,35 +38,34 @@ export const notesMessages = z.union([
   }),
 ])
 
-type NotesMessages = z.infer<typeof notesMessages>
+export const handleNotesMessages = async ({ context, message }: MessageWithContext) => {
+  if (context.user === null) {
+    logger.error("Unauthorized user")
+    return
+  }
 
-export const handleNotesMessages = async (message: NotesMessages) => {
   switch (message.type) {
     case "notes:create": {
-      // Create note
-      const id = "no_" + uuid()
-
-      const { categories, tags } = await classifyNoteContent(
-        message.text
-      ).catch((error) => {
+      const { categories, tags } = await classifyNoteContent(message.text).catch((error) => {
         logger.error("Error classifying note content: %o", error)
         return { categories: [] as string[], tags: [] as string[] }
       })
 
       const note = {
-        id: id,
+        id: monzod.cols.notes.generateId(),
         text: message.text,
         tags: tags,
         categories: categories,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
+        userId: context.user.id,
       }
 
       // Save note
-      await writeNoteToFile(note)
+      monzod.cols.notes.insertOne(note)
 
       // Emit note to all subscribers
-      return emitMessageEvent({ type: "notes:note", note })
+      return emitMessageEvent({ context, message: { type: "notes:note", note } })
     }
 
     case "notes:update": {
@@ -86,12 +85,12 @@ export const handleNotesMessages = async (message: NotesMessages) => {
       await writeNoteToFile(note)
 
       // Emit note to all subscribers
-      return emitMessageEvent({ type: "notes:note", note })
+      return emitMessageEvent({ context, message: { type: "notes:note", note } })
     }
 
     case "notes:fetch:all": {
       const notes = await loadAllNotes()
-      return emitMessageEvent({ type: "notes:got-notes", notes })
+      return emitMessageEvent({ context, message: { type: "notes:got-notes", notes } })
     }
 
     default:

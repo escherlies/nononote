@@ -1,14 +1,15 @@
 import { moduleLogger } from "./config"
+import monzod from "./db"
 import { run } from "./web-server"
-
-import "./web-server-rtcp"
 
 const logger = moduleLogger("index")
 
 async function main() {
   logger.info("Starting server...")
 
-  // Start the web server
+  logger.info("Connecting to database...")
+  await monzod.connect()
+
   logger.info("Starting web server...")
   run()
 }

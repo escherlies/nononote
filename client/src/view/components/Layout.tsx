@@ -26,53 +26,41 @@ type LayoutType = {
 }
 
 export function ModernLayout({ body, footer }: LayoutType) {
-  return (
-    <div className="h-svh w-full p-4 flex sm:p-4">
-      <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">
-        <div className="relative flex-grow overflow-scroll bg-background-secondary rounded-lg p-4">
-          {body}
-        </div>
-        <div className="w-full max-w-sm mx-auto">{footer}</div>
-      </div>
-    </div>
-  )
+  return [
+    <div className="relative flex-grow overflow-scroll bg-background-secondary rounded-lg p-4">
+      {body}
+    </div>,
+    <div className="w-full max-w-sm mx-auto">{footer}</div>,
+  ]
 }
 
 export function SpaceCraftLayout({ body, footer }: LayoutType) {
   const view = useStore((state) => state.view)
   const viewName = getViewName(view)
 
-  return (
-    <div className="h-svh w-full p-4 flex sm:p-4">
-      <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">
-        <div
-          className={`
+  return [
+    <div
+      className={`
           relative
           outline outline-[1.5px] outline-color-text-primary rounded-lg
           flex-grow
           overflow-auto
           `}
-        >
-          <ViewNameTag viewName={viewName} />
-          <div className="overflow-auto h-full flex-grow p-4 pt-8">{body}</div>
-        </div>
-        <div className="w-full">{footer}</div>
-      </div>
-    </div>
-  )
+    >
+      <ViewNameTag viewName={viewName} />
+      <div className="overflow-auto h-full flex-grow p-4 pt-8">{body}</div>
+    </div>,
+    <div className="w-full">{footer}</div>,
+  ]
 }
 
 export function BrutalistLayout({ body, footer }: LayoutType) {
-  return (
-    <div className="h-svh w-full p-4 flex sm:p-4">
-      <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-4 w-full">
-        <div className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-lg p-4">
-          {body}
-        </div>
-        <div className="w-full max-w-sm mx-auto">{footer}</div>
-      </div>
-    </div>
-  )
+  return [
+    <div className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-lg p-4">
+      {body}
+    </div>,
+    <div className="w-full max-w-sm mx-auto">{footer}</div>,
+  ]
 }
 
 function ViewNameTag({ viewName }: { viewName: string }) {

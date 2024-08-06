@@ -56,7 +56,7 @@ export const FlatButton = ({
   return (
     <div
       className={`
-    w-[60px] min-w-[60px] h-[60px]
+    w-fit min-w-[60px] h-[60px]
     flex items-center justify-center 
     bg-background-secondary
     rounded
@@ -112,7 +112,7 @@ export const BrutalistButton = ({
   return (
     <div
       className={`
-    border-[3px] border-color-accent w-[68px] min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
+    border-[3px] border-color-accent w-fit min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     rounded-lg
     cursor-pointer
     transition-all duration-75
@@ -120,7 +120,7 @@ export const BrutalistButton = ({
     ${className}
     `}
       onPointerDown={() => handleSetClicked(true)}
-      onPointerUp={() => clickOnRealese()}
+      onPointerUp={() => handleSetClicked(false)}
       onPointerLeave={() => handleSetClicked(false)}
       onPointerCancel={() => handleSetClicked(false)}
       {...props}
@@ -147,6 +147,19 @@ export const IconButton = ({
   return (
     <Button onClick={onClick} active={active} {...props}>
       {icon}
+    </Button>
+  )
+}
+
+export const TextButton = ({
+  onClick,
+  children,
+  active,
+  ...props
+}: DefaultButtonProps & { active?: boolean }) => {
+  return (
+    <Button onClick={onClick} active={active} {...props}>
+      {children}
     </Button>
   )
 }

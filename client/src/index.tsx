@@ -33,5 +33,3 @@ darkModeMedia.addEventListener("change", (e) => {
   useStore.setState({ darkMode: e.matches })
 })
 useStore.setState({ darkMode: darkModeMedia.matches })
-
-startSubscription()

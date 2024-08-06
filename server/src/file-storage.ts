@@ -1,7 +1,7 @@
 import fs from "fs/promises"
 import yaml from "yaml"
 
-import { Note, noteMarkdownYamlMetadataDecoder } from "./data"
+import { Note, noteMarkdownYamlMetadataDecoder } from "./data/note"
 import { moduleLogger, NOTES_FOLDER } from "./config"
 import { reduce } from "rambda"
 

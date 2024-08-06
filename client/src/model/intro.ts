@@ -1,6 +1,6 @@
 import welcome from "url:../../assets/notes/Welcome.md"
 import shortcuts from "url:../../assets/notes/Shortcuts.md"
-import { Note } from "../../../server/src/data"
+import { Note } from "../../../server/src/data/note"
 import { useStore } from "./store"
 
 export async function loadIntroNotes() {

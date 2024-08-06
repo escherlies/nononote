@@ -1,9 +1,9 @@
 {
   "/api": {
-    "target": "http://0.0.0.0:4000"
-  },
-  "/ws": {
-    "target": "http://0.0.0.0:4001",
+    "target": "http://0.0.0.0:8000",
     "ws": true
+  },
+  "/auth": {
+    "target": "http://0.0.0.0:8000"
   }
 }

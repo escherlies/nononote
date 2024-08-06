@@ -1,11 +1,13 @@
 import { create } from "zustand"
-import trpc, { Unsubscribable } from "./trcp"
 import { logger } from "./logger"
 import { navigateTo, View } from "./router"
 import { Maybe } from "../../../shared/types"
-import { Note } from "../../../server/src/data"
+import { Note } from "../../../server/src/data/note"
 import { loadSettings, saveSettings, Settings } from "./settings"
 import { monacoInstance } from "../view/components/Monaco"
+import { User } from "../../../server/src/data/user"
+import { sendMessage } from "./api"
+import { storage } from "./storage"
 
 // Store
 
@@ -14,8 +16,6 @@ export const useStore = create(() => ({
   counter: 0,
   noteInput: "",
   notes: [] as Note[],
-  testData: null as Maybe<string>,
-  testSubscription: null as Maybe<Unsubscribable>,
   menuOpen: false,
   view: { tag: "Home" } as View,
   darkMode: false,
@@ -25,6 +25,8 @@ export const useStore = create(() => ({
   unsyncedUpdatedNotes: [] as Note[],
   settings: loadSettings() as Settings,
   isMobile: window.innerWidth < 768,
+  authToken: storage.getItem("auth-token"),
+  user: null as Maybe<User>,
 }))
 
 // Actions/Reducers
@@ -58,6 +60,11 @@ export const saveNote = async () => {
 }
 
 export const saveNewNote = async () => {
+  const user = useStore.getState().user
+  if (!user) {
+    return setError("User not found")
+  }
+
   const noteInput = useStore.getState().noteInput.trim()
   const isConnected = useStore.getState().isConnected
 
@@ -81,7 +88,7 @@ export const saveNewNote = async () => {
   }
 
   try {
-    await trpc.api.message.mutate({ type: "notes:create", text: noteInput })
+    await sendMessage({ type: "notes:create", text: noteInput })
   } catch (error) {
     cacheNewNote(note)
     setError(String(error))
@@ -98,7 +105,7 @@ export const updateNote = async (noteId: string) => {
     return
   }
 
-  const note: Note = {
+  const note: Omit<Note, "userId"> = {
     id: noteId,
     text: noteInput,
     tags: [],
@@ -114,7 +121,7 @@ export const updateNote = async (noteId: string) => {
   }
 
   try {
-    await trpc.api.message.mutate({ type: "notes:update", id: noteId, text: noteInput })
+    await sendMessage({ type: "notes:update", id: noteId, text: noteInput })
   } catch (error) {
     cacheUpdatedNote(note)
     setError(String(error))
@@ -167,70 +174,63 @@ export const toggleMenu = () => {
   useStore.setState((state) => ({ menuOpen: !state.menuOpen }))
 }
 
-export const getTestData = async () => {
-  const result = await trpc.api.hello.mutate("World")
-  logger.debug(result)
-  useStore.setState({ testData: result })
-}
+// export const startSubscription = async (authToken: string) => {
+//   console.log("Starting subscription...")
 
-export const startSubscription = async () => {
-  const existingSubscription = useStore.getState().testSubscription
-  if (existingSubscription) {
-    return
-  }
+//   const existingSubscription = useStore.getState().testSubscription
+//   if (existingSubscription) {
+//     return
+//   }
 
-  const subscription = trpc.api.notes.subscribe(undefined, {
-    onStarted() {
-      logger.debug("started")
+//   const subscription = trpc.api.notes.subscribe(
+//     { authToken: authToken },
+//     {
+//       onStarted() {
+//         logger.debug("started")
 
-      // Fetch all notes
-      trpc.api.message.mutate({ type: "notes:fetch:all" })
-    },
-    onData(data) {
-      logger.debug("data", data)
-      switch (data.type) {
-        case "notes:note":
-          useStore.setState((state) => {
-            const updatedNotes = state.notes.filter((note) => note.id !== data.note.id)
-            return { notes: [data.note, ...updatedNotes] }
-          })
-          break
+//         // Fetch all notes
+//         trpc.api.message.mutate({ type: "notes:fetch:all" }).catch((error) => {
+//           setError(String(error))
+//         })
+//       },
+//       onData(data) {
+//         logger.debug("data", data)
+//         switch (data.type) {
+//           case "notes:note":
+//             useStore.setState((state) => {
+//               const updatedNotes = state.notes.filter((note) => note.id !== data.note.id)
+//               return { notes: [data.note, ...updatedNotes] }
+//             })
+//             break
 
-        case "notes:got-notes": {
-          useStore.setState((state) => {
-            const updatedNotes = state.notes.filter(
-              (note) => !data.notes.some((n) => n.id === note.id)
-            )
-            return { notes: [...data.notes, ...updatedNotes] }
-          })
-          break
-        }
+//           case "notes:got-notes": {
+//             useStore.setState((state) => {
+//               const updatedNotes = state.notes.filter(
+//                 (note) => !data.notes.some((n) => n.id === note.id)
+//               )
+//               return { notes: [...data.notes, ...updatedNotes] }
+//             })
+//             break
+//           }
 
-        default:
-          break
-      }
-    },
-    onError(err) {
-      logger.error("error", err)
-    },
-    onComplete() {
-      logger.debug("completed")
-    },
-    onStopped() {
-      logger.debug("stopped")
-    },
-  })
+//           default:
+//             break
+//         }
+//       },
+//       onError(err) {
+//         logger.error("error", err)
+//       },
+//       onComplete() {
+//         logger.debug("completed")
+//       },
+//       onStopped() {
+//         logger.debug("stopped")
+//       },
+//     }
+//   )
 
-  useStore.setState({ testSubscription: subscription })
-}
-
-export const stopSubscription = () => {
-  const subscription = useStore.getState().testSubscription
-  if (subscription) {
-    subscription.unsubscribe()
-    useStore.setState({ testSubscription: null })
-  }
-}
+//   useStore.setState({ testSubscription: subscription })
+// }
 
 export const setView = (view: View) => {
   useStore.setState({ view, menuOpen: false })
@@ -271,7 +271,7 @@ export const attemptSyncNotes = async () => {
   // Attempt to sync new notes
   for await (const note of unsyncedNewNotes) {
     try {
-      await trpc.api.message.mutate({ type: "notes:create", text: note.text })
+      await sendMessage({ type: "notes:create", text: note.text })
       removeCachedNote(note.id)
     } catch (error) {
       setError(String(error))
@@ -282,7 +282,7 @@ export const attemptSyncNotes = async () => {
   const unsyncedUpdatedNotes = useStore.getState().unsyncedUpdatedNotes
   for await (const note of unsyncedUpdatedNotes) {
     try {
-      await trpc.api.message.mutate({ type: "notes:update", id: note.id, text: note.text })
+      await sendMessage({ type: "notes:update", id: note.id, text: note.text })
       removeCachedUpdatedNote(note.id)
     } catch (error) {
       setError(String(error))

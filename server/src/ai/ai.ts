@@ -7,7 +7,7 @@ import {
   createTagsFromWebpageMetaPrompt,
 } from "./prompts"
 
-import { stringArrayZ } from "../data"
+import { stringArrayZ } from "../data/note"
 
 import { GOOGLE_GENERATIVE_AI_API_KEY, moduleLogger } from "../config"
 
