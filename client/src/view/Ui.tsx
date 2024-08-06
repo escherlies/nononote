@@ -42,7 +42,7 @@ export const Button = ({
     case "modern":
       return <FlatButton active={active} className={className} {...props} />
     case "space-craft":
-      return <FlatButton active={active} className={className} {...props} />
+      return <SpaceButton active={active} className={className} {...props} />
     case "brutalist":
       return <BrutalistButton active={active} className={className} {...props} />
   }
@@ -60,9 +60,39 @@ export const FlatButton = ({
     min-w-[60px] h-[60px]
     flex items-center justify-center 
     bg-background-secondary
-    rounded
+    rounded-lg
     cursor-pointer                            
     transition-all duration-75
+    dark:border-[1.5px] border-color-accent
+    ${className}
+    `}
+      {...props}
+    >
+      {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
+      <div className="w-fit h-full flex justify-center items-center p-[14px] gap-2">
+        {props.children}
+      </div>
+    </div>
+  )
+}
+
+//
+export const SpaceButton = ({
+  active,
+  className,
+  ...props
+}: DefaultButtonProps & { active?: boolean }) => {
+  return (
+    <div
+      className={`
+    w-fit
+    min-w-[60px] h-[60px]
+    flex items-center justify-center 
+    bg-background-secondary
+    rounded-lg
+    cursor-pointer                            
+    transition-all duration-75
+    dark:bg-neutral-800/30
     ${className}
     `}
       {...props}

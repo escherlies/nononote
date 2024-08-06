@@ -14,12 +14,12 @@ const schemes = [
     kind: "light",
   },
   {
-    tag: "white-on-blue",
+    tag: "blue-on-night",
     colors: {
-      colorAccent: "#f3f5f4",
-      backgroundPrimary: "#001a8f",
-      backgroundSecondary: "#002080",
-      backgroundTertiary: "#0033cc",
+      colorAccent: "#001aff",
+      backgroundPrimary: "#0D0A0B",
+      backgroundSecondary: "#0D0A0B",
+      backgroundTertiary: "#0D0A0B",
       colorTextPrimary: "#f3f5f4",
     },
     kind: "dark",
@@ -36,12 +36,12 @@ const schemes = [
     kind: "light",
   },
   {
-    tag: "light-gray-on-charcoa",
+    tag: "light-gray-on-night",
     colors: {
       colorAccent: "#e9eae9",
-      backgroundPrimary: "#25272e",
-      backgroundSecondary: "#36383d",
-      backgroundTertiary: "#4a4a4f",
+      backgroundPrimary: "#0D0A0B",
+      backgroundSecondary: "#0D0A0B",
+      backgroundTertiary: "#0D0A0B",
       colorTextPrimary: "#e9eae9",
     },
     kind: "dark",
@@ -58,12 +58,12 @@ const schemes = [
     kind: "light",
   },
   {
-    tag: "orange-on-dark-gray",
+    tag: "orange-on-night",
     colors: {
       colorAccent: "#FF5F1F",
-      backgroundPrimary: "#333333",
-      backgroundSecondary: "#4d4d4d",
-      backgroundTertiary: "#666666",
+      backgroundPrimary: "#0D0A0B",
+      backgroundSecondary: "#0D0A0B",
+      backgroundTertiary: "#0D0A0B",
       colorTextPrimary: "#ffffff",
     },
     kind: "dark",
@@ -73,17 +73,19 @@ const schemes = [
 export type Scheme = (typeof schemes)[number]
 export type ColorScheme = Scheme["colors"]
 
+export const getUserDarkModePreference = (settings: Settings, systemDarkMode: boolean) => {
+  switch (settings.darkMode) {
+    case "auto":
+      return systemDarkMode ? "dark" : "light"
+    case "on":
+      return "dark"
+    case "off":
+      return "light"
+  }
+}
+
 export const getCurrentScheme = (settings: Settings, systemDarkMode: boolean) => {
-  const selector = (() => {
-    switch (settings.darkMode) {
-      case "auto":
-        return systemDarkMode ? "dark" : "light"
-      case "on":
-        return "dark"
-      case "off":
-        return "light"
-    }
-  })()
+  const selector = getUserDarkModePreference(settings, systemDarkMode)
 
   const scheme = schemes.find((s) => s.tag === settings.colorScheme[selector])
   if (!scheme) {

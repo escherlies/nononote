@@ -7,7 +7,7 @@ import { loadIntroNotes } from "./model/intro"
 import { initBindings } from "./model/keyboard"
 
 import { App } from "./view/App"
-import { loadUnsyncedNewNotes, useStore } from "./model/store"
+import { loadUnsyncedNewNotes, toggleDarkMode, useStore } from "./model/store"
 import { initAuth } from "./model/api"
 
 // Mount react app
@@ -31,9 +31,9 @@ initBindings()
 // Add dark mode media event listener
 const darkModeMedia = window.matchMedia("(prefers-color-scheme: dark)")
 darkModeMedia.addEventListener("change", (e) => {
-  useStore.setState({ darkMode: e.matches })
+  toggleDarkMode(e.matches)
 })
-useStore.setState({ darkMode: darkModeMedia.matches })
+toggleDarkMode(darkModeMedia.matches)
 
 // Init auth
 initAuth()

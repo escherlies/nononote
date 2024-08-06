@@ -9,6 +9,7 @@ import { User } from "../../../server/src/data/user"
 import { publish } from "./api"
 import { storage } from "./storage"
 import { initializeWebSocket } from "./websocket"
+import { getUserDarkModePreference } from "../view/views/settings/Color"
 
 // Store
 
@@ -30,6 +31,13 @@ export const useStore = create(() => ({
   user: null as Maybe<User>,
   connection: null as Maybe<WebSocket>,
 }))
+
+// Subscriptions
+
+useStore.subscribe((state) => {
+  const selector = getUserDarkModePreference(state.settings, state.darkMode)
+  document.body.classList.toggle("dark", selector === "dark")
+})
 
 // Actions/Reducers
 
@@ -193,8 +201,8 @@ export const setConnectionStatus = (isConnected: boolean) => {
   useStore.setState({ isConnected })
 }
 
-export const toggleDarkMode = () => {
-  useStore.setState((state) => ({ darkMode: !state.darkMode }))
+export const toggleDarkMode = (darkMode: boolean) => {
+  useStore.setState((state) => ({ darkMode: darkMode }))
 }
 
 export const loadUnsyncedNewNotes = () => {
