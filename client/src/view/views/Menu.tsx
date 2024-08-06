@@ -156,6 +156,7 @@ function getItems({
           item: (
             <IconButton
               key="edit"
+              className={view.id.includes("intro-") ? "hidden" : undefined}
               onClick={() => navigateTo({ tag: "EditNote", id: view.id })}
               icon={<Pencil />}
             />
