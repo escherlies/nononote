@@ -1,7 +1,7 @@
 import { toLower } from "rambda"
 import monzod from "../db"
 import { genMagicCode, safeid, safeid32 } from "../nanoid"
-import bcrypt from "bcrypt"
+// import bcrypt from "bcrypt"
 import { User } from "../data/user"
 import { sendPasswordResetEmail } from "../email"
 import { moduleLogger } from "../config"
@@ -22,7 +22,7 @@ const getOrCreateUser = async (email: string) => {
     id: safeid("u_"),
     name: toLower(email.split("@")[0] || "Noname"),
     emails: [toLower(email)],
-    password: bcrypt.hashSync(initialPassword, saltRounds),
+    // password: bcrypt.hashSync(initialPassword, saltRounds),
   }
   const res = await monzod.cols.users.insertOne(user)
 
@@ -84,100 +84,100 @@ export const verifyMagicCode = async ({ magicCode, email }: { magicCode: string;
   return res
 }
 
-// sign up with email, password and name
-type SignUpParams = {
-  email: string
-  password: string
-  name: string
-}
-export const signUpWithPassword = async ({ email, password, name }: SignUpParams) => {
-  const existingUser = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
-  console.log({ existingUser })
+// // sign up with email, password and name
+// type SignUpParams = {
+//   email: string
+//   password: string
+//   name: string
+// }
+// export const signUpWithPassword = async ({ email, password, name }: SignUpParams) => {
+//   const existingUser = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
+//   console.log({ existingUser })
 
-  if (existingUser) {
-    return loginWithPassword(email, password)
-  }
+//   if (existingUser) {
+//     return loginWithPassword(email, password)
+//   }
 
-  const encrypted = await bcrypt.hash(password, saltRounds)
-  const user: User = {
-    emails: [toLower(email)],
-    password: encrypted,
-    name: name,
-    id: safeid("user_"),
-  }
+//   const encrypted = await bcrypt.hash(password, saltRounds)
+//   const user: User = {
+//     emails: [toLower(email)],
+//     password: encrypted,
+//     name: name,
+//     id: safeid("user_"),
+//   }
 
-  const res = await monzod.cols.users.insertOne(user)
+//   const res = await monzod.cols.users.insertOne(user)
 
-  if (!res.acknowledged) {
-    logger.fatal("signUpWithPassword: mongo user insertin: %o")
-    throw new Error("Error creating user")
-  }
+//   if (!res.acknowledged) {
+//     logger.fatal("signUpWithPassword: mongo user insertin: %o")
+//     throw new Error("Error creating user")
+//   }
 
-  return user
-}
+//   return user
+// }
 
-// very simple password login
-export const loginWithPassword = async (email: string, password: string) => {
-  const user = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
+// // very simple password login
+// export const loginWithPassword = async (email: string, password: string) => {
+//   const user = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
 
-  if (!user) {
-    return null
-  }
+//   if (!user) {
+//     return null
+//   }
 
-  const match = await bcrypt.compare(password, user.password)
+//   const match = await bcrypt.compare(password, user.password)
 
-  if (match) {
-    return user
-  }
+//   if (match) {
+//     return user
+//   }
 
-  return null
-}
+//   return null
+// }
 
-// request magic code for password reset
-export const requestPasswordResetEmail = async (origin: string, email: string): Promise<void> => {
-  const existingUser = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
-  if (!existingUser) {
-    throw new Error("User not found")
-  }
+// // request magic code for password reset
+// export const requestPasswordResetEmail = async (origin: string, email: string): Promise<void> => {
+//   const existingUser = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
+//   if (!existingUser) {
+//     throw new Error("User not found")
+//   }
 
-  // Invalidate existing
-  await monzod.cols.magicCodes.deleteMany({ email: toLower(email) })
+//   // Invalidate existing
+//   await monzod.cols.magicCodes.deleteMany({ email: toLower(email) })
 
-  const magicCode = await generateMagicCode(email)
-  const resetLink = `${origin}/set-new-password?email=${encodeURIComponent(email)}&magicCode=${encodeURIComponent(
-    magicCode
-  )}`
-  // send magic code to user's email
-  existingUser.emails.forEach((email) => {
-    sendPasswordResetEmail({
-      to: email,
-      resetLink,
-    })
-  })
-}
+//   const magicCode = await generateMagicCode(email)
+//   const resetLink = `${origin}/set-new-password?email=${encodeURIComponent(email)}&magicCode=${encodeURIComponent(
+//     magicCode
+//   )}`
+//   // send magic code to user's email
+//   existingUser.emails.forEach((email) => {
+//     sendPasswordResetEmail({
+//       to: email,
+//       resetLink,
+//     })
+//   })
+// }
 
-// password reset function
-export const resetPassword = async (email: string, newPassword: string, magicCode: string) => {
-  const user = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
-  if (!user) {
-    throw new Error("User not found")
-  }
-  const existingMagicCode = await monzod.cols.magicCodes.findOne({
-    email: toLower(email),
-    magicCode,
-    magicCodeExpiresAt: { $gt: new Date().valueOf() },
-  })
-  if (!existingMagicCode) {
-    throw new Error("Invalid magic code")
-  }
-  const encrypted = await bcrypt.hash(newPassword, saltRounds)
-  const res = await monzod.cols.users.updateOne({ _id: user._id }, { $set: { password: encrypted } })
-  if (!res.acknowledged) {
-    logger.fatal("resetPassword: mongo user update: %o")
-    throw new Error("Error resetting password")
-  }
-  // delete magic codes
-  void monzod.cols.magicCodes.deleteMany({ email: toLower(email) })
+// // password reset function
+// export const resetPassword = async (email: string, newPassword: string, magicCode: string) => {
+//   const user = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
+//   if (!user) {
+//     throw new Error("User not found")
+//   }
+//   const existingMagicCode = await monzod.cols.magicCodes.findOne({
+//     email: toLower(email),
+//     magicCode,
+//     magicCodeExpiresAt: { $gt: new Date().valueOf() },
+//   })
+//   if (!existingMagicCode) {
+//     throw new Error("Invalid magic code")
+//   }
+//   const encrypted = await bcrypt.hash(newPassword, saltRounds)
+//   const res = await monzod.cols.users.updateOne({ _id: user._id }, { $set: { password: encrypted } })
+//   if (!res.acknowledged) {
+//     logger.fatal("resetPassword: mongo user update: %o")
+//     throw new Error("Error resetting password")
+//   }
+//   // delete magic codes
+//   void monzod.cols.magicCodes.deleteMany({ email: toLower(email) })
 
-  return user
-}
+//   return user
+// }

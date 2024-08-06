@@ -5,10 +5,10 @@ dev:
   bun --watch src/index.ts
 
 build:
-  bun build src/index.ts
+  bun build src/index.ts --outdir ./build --target bun
 
 run:
-  NODE_ENV=production bun src/index.ts
+  NODE_ENV=production bun run build/index.ts
 
 clean:
   rm -rf ./dist ./node_modules

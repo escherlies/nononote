@@ -5,7 +5,7 @@ export const user = z
     id: z.string(),
     name: z.string(),
     emails: z.array(z.string().email()),
-    password: z.string(),
+    // password: z.string(),
   })
   .strict()
 

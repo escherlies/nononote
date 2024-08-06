@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 127.0.0.1:27017:27017
+    volumes:
+      - ~/.data/mongodb/data/db:/data/db
+      - ~/.data/mongodb/data/util:/data/util
+
+  nononote:
+    image: ghcr.io/escherlies/nononote/app:latest
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 127.0.0.1:8000:8000
+    env_file:
+      - ~/.data/nononote/.env

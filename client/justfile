@@ -9,7 +9,7 @@ dev:
 
 build:
   #!/bin/bash
-  . ../../scripts/version.sh
+  . ../scripts/version.sh
   npx parcel build \
     --no-cache \
     --no-source-maps \

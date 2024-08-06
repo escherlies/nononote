@@ -17,10 +17,8 @@
   "dependencies": {
     "@fastify/websocket": "^10.0.1",
     "@google/generative-ai": "^0.16.0",
-    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/uuid": "^10.0.0",
-    "bcrypt": "^5.1.1",
     "cheerio": "^1.0.0-rc.12",
     "emailjs": "^4.0.3",
     "fastify": "^4.28.1",
