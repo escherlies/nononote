@@ -10,7 +10,7 @@
 }
 
 :root {
-  @apply text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px];
+  @apply text-[18px] sm:text-[18px] md:text-[20px] lg:text-[22px];
 }
 
 /* Prevent mobile bounce */

@@ -37,7 +37,7 @@ function Container({ children }: Props) {
   const error = useStore((state) => state.error)
 
   return (
-    <div className="w-dvw h-dvh bg-background-primary flex text-color-text-primary">
+    <div className="w-dvw h-dvh bg-background-primary flex text-color-accent">
       <div className="h-svh w-full p-4 flex sm:p-4">
         <div className="flex flex-col m-auto max-w-sm h-full max-h-[800px] gap-2 w-full">
           {children}

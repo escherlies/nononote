@@ -7,12 +7,12 @@ export const ViewSettings = () => {
   return (
     <div className="flex flex-col gap-4 h-full">
       <ColorSchemeSelector />
-      <TextButton onClick={logOut} className="mt-auto">
-        <div className="h-full flex gap-2 break-keep whitespace-nowrap">
+      <div className="mt-auto">
+        <TextButton onClick={logOut}>
           <LogOutIcon />
           <div>Log out</div>
-        </div>
-      </TextButton>
+        </TextButton>
+      </div>
     </div>
   )
 }

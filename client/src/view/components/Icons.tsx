@@ -24,8 +24,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
         <IconoirProvider
           iconProps={{
             strokeWidth: 2,
-            width: "100%",
-            height: "100%",
+            width: "40px",
+            height: "40px",
             color: "var(--color-accent)",
           }}
         >
@@ -37,8 +37,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
         <IconoirProvider
           iconProps={{
             strokeWidth: 1.5,
-            width: "100%",
-            height: "100%",
+            width: "30px",
+            height: "30px",
             color: "var(--color-accent)",
           }}
         >
@@ -50,8 +50,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
         <IconoirProvider
           iconProps={{
             strokeWidth: 1.5,
-            width: "100%",
-            height: "100%",
+            width: "30px",
+            height: "30px",
             color: "var(--color-accent)",
           }}
         >

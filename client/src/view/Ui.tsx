@@ -24,7 +24,7 @@ export const MenuButton = ({
   return (
     <Button {...props} onClick={toggleMenu} active={menuOpen}>
       {/* <div className="w-[54px] h-[54px] rounded-full bg-color-accent"></div> */}
-      <div className="w-full h-full flex justify-center items-center p-1">
+      <div className="w-full h-full flex justify-center items-center p-1 gap-2">
         <MoreActionsIcon />
       </div>
     </Button>
@@ -56,18 +56,19 @@ export const FlatButton = ({
   return (
     <div
       className={`
-    w-fit min-w-[60px] h-[60px]
+    w-fit
+    min-w-[60px] h-[60px]
     flex items-center justify-center 
     bg-background-secondary
     rounded
-    cursor-pointer
+    cursor-pointer                            
     transition-all duration-75
     ${className}
     `}
       {...props}
     >
       {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
-      <div className="w-full h-full flex justify-center items-center p-[14px]">
+      <div className="w-fit h-full flex justify-center items-center p-[14px] gap-2">
         {props.children}
       </div>
     </div>
@@ -112,7 +113,7 @@ export const BrutalistButton = ({
   return (
     <div
       className={`
-    border-[3px] border-color-accent w-fit min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
+    border-[3px] border-color-accent min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     rounded-lg
     cursor-pointer
     transition-all duration-75
@@ -127,7 +128,9 @@ export const BrutalistButton = ({
       // onClick={handleClick}
     >
       {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
-      <div className="w-full h-full flex justify-center items-center p-2">{props.children}</div>
+      <div className="w-fit h-full flex justify-center items-center p-2 gap-2">
+        {props.children}
+      </div>
     </div>
   )
 }
@@ -158,7 +161,12 @@ export const TextButton = ({
   ...props
 }: DefaultButtonProps & { active?: boolean }) => {
   return (
-    <Button onClick={onClick} active={active} {...props}>
+    <Button
+      onClick={onClick}
+      active={active}
+      {...props}
+      className="text-xl font-bold text-color-accent uppercase whitespace-nowrap"
+    >
       {children}
     </Button>
   )
