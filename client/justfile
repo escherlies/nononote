@@ -8,7 +8,7 @@ dev:
     src/index.html
 
 build:
-  #!/bin/bash
+  #!/bin/sh
   . ../scripts/version.sh
   npx parcel build \
     --no-cache \

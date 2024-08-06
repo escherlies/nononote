@@ -2,27 +2,31 @@ FROM ghcr.io/escherlies/nixnode/nixnode:latest
 
 USER root
 
-# Install dependencies
-
 # Install bun
 RUN nix-env -i bun
 
-# Install client dependencies
-WORKDIR /app/client
-COPY client/package*.json ./
-RUN npm ci
+# Copy scripts and shared files
+COPY ./scripts /app/scripts
+COPY ./shared /app/shared
 
-# Build client
-COPY client/ ./
-RUN npm run build
+# Serevr app
 
-# Install server dependencies
-WORKDIR /app/server/
-COPY server/package*.json ./
+WORKDIR /app/server
+
+COPY ./server .
+
 RUN just install
 
-# Build server
-COPY server/ ./
+RUN just build
+
+# Client app
+
+WORKDIR /app/client
+
+COPY ./client .
+
+RUN npm ci
+
 RUN just build
 
 # Run
