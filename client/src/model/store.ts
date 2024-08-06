@@ -6,8 +6,9 @@ import { Note } from "../../../server/src/data/note"
 import { loadSettings, saveSettings, Settings } from "./settings"
 import { monacoInstance } from "../view/components/Monaco"
 import { User } from "../../../server/src/data/user"
-import { sendMessage } from "./api"
+import { publish } from "./api"
 import { storage } from "./storage"
+import { initializeWebSocket } from "./websocket"
 
 // Store
 
@@ -88,7 +89,7 @@ export const saveNewNote = async () => {
   }
 
   try {
-    await sendMessage({ type: "notes:create", text: noteInput })
+    await publish({ type: "notes:create", text: noteInput })
   } catch (error) {
     cacheNewNote(note)
     setError(String(error))
@@ -121,7 +122,7 @@ export const updateNote = async (noteId: string) => {
   }
 
   try {
-    await sendMessage({ type: "notes:update", id: noteId, text: noteInput })
+    await publish({ type: "notes:update", id: noteId, text: noteInput })
   } catch (error) {
     cacheUpdatedNote(note)
     setError(String(error))
@@ -174,64 +175,6 @@ export const toggleMenu = () => {
   useStore.setState((state) => ({ menuOpen: !state.menuOpen }))
 }
 
-// export const startSubscription = async (authToken: string) => {
-//   console.log("Starting subscription...")
-
-//   const existingSubscription = useStore.getState().testSubscription
-//   if (existingSubscription) {
-//     return
-//   }
-
-//   const subscription = trpc.api.notes.subscribe(
-//     { authToken: authToken },
-//     {
-//       onStarted() {
-//         logger.debug("started")
-
-//         // Fetch all notes
-//         trpc.api.message.mutate({ type: "notes:fetch:all" }).catch((error) => {
-//           setError(String(error))
-//         })
-//       },
-//       onData(data) {
-//         logger.debug("data", data)
-//         switch (data.type) {
-//           case "notes:note":
-//             useStore.setState((state) => {
-//               const updatedNotes = state.notes.filter((note) => note.id !== data.note.id)
-//               return { notes: [data.note, ...updatedNotes] }
-//             })
-//             break
-
-//           case "notes:got-notes": {
-//             useStore.setState((state) => {
-//               const updatedNotes = state.notes.filter(
-//                 (note) => !data.notes.some((n) => n.id === note.id)
-//               )
-//               return { notes: [...data.notes, ...updatedNotes] }
-//             })
-//             break
-//           }
-
-//           default:
-//             break
-//         }
-//       },
-//       onError(err) {
-//         logger.error("error", err)
-//       },
-//       onComplete() {
-//         logger.debug("completed")
-//       },
-//       onStopped() {
-//         logger.debug("stopped")
-//       },
-//     }
-//   )
-
-//   useStore.setState({ testSubscription: subscription })
-// }
-
 export const setView = (view: View) => {
   useStore.setState({ view, menuOpen: false })
 }
@@ -271,7 +214,7 @@ export const attemptSyncNotes = async () => {
   // Attempt to sync new notes
   for await (const note of unsyncedNewNotes) {
     try {
-      await sendMessage({ type: "notes:create", text: note.text })
+      await publish({ type: "notes:create", text: note.text })
       removeCachedNote(note.id)
     } catch (error) {
       setError(String(error))
@@ -282,7 +225,7 @@ export const attemptSyncNotes = async () => {
   const unsyncedUpdatedNotes = useStore.getState().unsyncedUpdatedNotes
   for await (const note of unsyncedUpdatedNotes) {
     try {
-      await sendMessage({ type: "notes:update", id: note.id, text: note.text })
+      await publish({ type: "notes:update", id: note.id, text: note.text })
       removeCachedUpdatedNote(note.id)
     } catch (error) {
       setError(String(error))
@@ -306,4 +249,18 @@ export const initEditNote = (noteId: string) => {
   }
 
   setNoteInput(note.text)
+}
+
+export const handleAuth = (authToken: string) => {
+  useStore.setState({ authToken })
+  storage.setItem("auth-token", authToken)
+
+  // Init websockets
+  initializeWebSocket(authToken)
+}
+
+export const handleAuthError = (error: string) => {
+  useStore.setState({ error })
+  useStore.setState({ authToken: null })
+  storage.removeItem("auth-token")
 }

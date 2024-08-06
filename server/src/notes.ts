@@ -8,36 +8,6 @@ import monzod from "./db"
 
 const logger = moduleLogger("notes")
 
-export const notesMessages = z.union([
-  z.object({
-    type: z.literal("noop"),
-  }),
-  z.object({
-    type: z.literal("notes:create"),
-    text: z.string(),
-  }),
-  z.object({
-    type: z.literal("notes:update"),
-    id: z.string(),
-    text: z.string(),
-  }),
-  z.object({
-    type: z.literal("notes:note"),
-    note: noteDecoder,
-  }),
-  z.object({
-    type: z.literal("notes:fetch"),
-    id: z.string(),
-  }),
-  z.object({
-    type: z.literal("notes:fetch:all"),
-  }),
-  z.object({
-    type: z.literal("notes:got-notes"),
-    notes: z.array(noteDecoder),
-  }),
-])
-
 export const handleNotesMessages = async ({ context, message }: MessageWithContext) => {
   if (context.user === null) {
     logger.error("Unauthorized user")

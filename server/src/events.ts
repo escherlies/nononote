@@ -2,18 +2,17 @@ import { EventEmitter } from "node:events"
 
 import { z } from "zod"
 
-import { handleNotesMessages, notesMessages } from "./notes"
 import { moduleLogger } from "./config"
 import { Maybe } from "../../shared/types"
+import { AppMsg } from "./messages"
+import { handleNotesMessages } from "./notes"
 
 const logger = moduleLogger("events")
-
-export type Message = z.infer<typeof notesMessages>
 
 const appMessageEvents = new EventEmitter()
 
 export type MessageWithContext = {
-  message: Message
+  message: AppMsg
   context: {
     user: Maybe<{ id: string }>
   }

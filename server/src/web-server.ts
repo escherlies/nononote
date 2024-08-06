@@ -10,7 +10,7 @@ const app = Fastify({
 })
 
 // Register websocket support
-// app.register(ws)
+app.register(ws)
 
 async function setUp() {
   app.setValidatorCompiler(validatorCompiler)
