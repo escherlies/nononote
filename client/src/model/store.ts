@@ -28,6 +28,7 @@ export const useStore = create(() => ({
   isMobile: window.innerWidth < 768,
   authToken: null as Maybe<string>,
   user: null as Maybe<User>,
+  connection: null as Maybe<WebSocket>,
 }))
 
 // Actions/Reducers
@@ -61,11 +62,6 @@ export const saveNote = async () => {
 }
 
 export const saveNewNote = async () => {
-  const user = useStore.getState().user
-  if (!user) {
-    return setError("User not found")
-  }
-
   const noteInput = useStore.getState().noteInput.trim()
   const isConnected = useStore.getState().isConnected
 
@@ -263,4 +259,24 @@ export const handleAuthError = (error: string) => {
   useStore.setState({ error })
   useStore.setState({ authToken: null })
   storage.removeItem("auth-token")
+}
+
+export const logOut = () => {
+  useStore.setState({ authToken: null })
+  storage.removeItem("auth-token")
+}
+
+export const setConnection = (connection: WebSocket) => {
+  useStore.setState({ connection })
+  useStore.setState({ isConnected: true })
+}
+
+export const onSubscriptionReady = () => {
+  attemptSyncNotes()
+  publish({ type: "notes:fetch:all" })
+}
+
+export const removeConnection = () => {
+  useStore.setState({ connection: null })
+  useStore.setState({ isConnected: false })
 }

@@ -11,6 +11,7 @@ import {
   MoreHoriz,
   Xmark,
   NavArrowLeft,
+  LogOut,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -148,6 +149,14 @@ export const GoBackIcon = () => {
     <Icon>
       <NavArrowLeft className="-translate-x-[1px]" />
       {/*                      ^ visually align the chevron */}
+    </Icon>
+  )
+}
+
+export const LogOutIcon = () => {
+  return (
+    <Icon>
+      <LogOut />
     </Icon>
   )
 }

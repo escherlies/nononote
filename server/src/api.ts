@@ -2,8 +2,9 @@ import { FastifyInstance } from "fastify"
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { verifyJwt } from "./auth/jwt"
 import { Maybe } from "../../shared/types"
-import { emitMessageEvent } from "./events"
+import { emitMessageEvent, listenForMessage } from "./events"
 import { appMsg } from "./messages"
+import { path } from "rambda"
 
 export default function api(app: FastifyInstance, opts: never, done: () => void) {
   // Hello
@@ -28,6 +29,19 @@ export default function api(app: FastifyInstance, opts: never, done: () => void)
   app.get("/ws", { websocket: true }, (socket, req) => {
     let user: Maybe<{ id: string }> = null
 
+    // Subscribe to messages
+    const unsub = listenForMessage((messageWithContext) => {
+      if (user === null) {
+        return
+      }
+      if (user.id !== path("user.id", messageWithContext.context)) {
+        return
+      }
+
+      socket.send(JSON.stringify(messageWithContext.message))
+    })
+
+    // Listen for messages
     socket.on("message", (msg) => {
       const stringMessage = msg.toString()
       if (stringMessage === "ping") {
@@ -60,6 +74,17 @@ export default function api(app: FastifyInstance, opts: never, done: () => void)
         socket.send("Invalid message")
       }
     })
+
+    socket.on("open", () => {
+      console.log("Client connected")
+    })
+
+    socket.on("close", () => {
+      console.log("Client disconnected")
+    })
+
+    socket.send("Connected")
+    console.log("Client connected")
   })
 
   done()

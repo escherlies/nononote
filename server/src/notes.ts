@@ -39,7 +39,7 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
     }
 
     case "notes:update": {
-      const existingNote = await loadNote(message.id)
+      const existingNote = await monzod.cols.notes.findOne({ id: message.id, userId: context.user.id })
       if (!existingNote) {
         // TODO: send error message
         return
@@ -59,7 +59,7 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
     }
 
     case "notes:fetch:all": {
-      const notes = await loadAllNotes()
+      const notes = await monzod.cols.notes.find({ userId: context.user.id }).toArray()
       return emitMessageEvent({ context, message: { type: "notes:got-notes", notes } })
     }
 

@@ -2,7 +2,7 @@ import { ViewHome } from "./views/Home"
 import { ViewNotes } from "./views/Notes"
 import { Layout } from "./components/Layout"
 import { Menu } from "./views/Menu"
-import { useStore } from "../model/store"
+import { setError, useStore } from "../model/store"
 import { ViewNote } from "./views/Note"
 import { ViewNotesSearch } from "./views/Search"
 import { ViewInfo } from "./views/Info"
@@ -34,6 +34,8 @@ type Props = {
   children: ReactNode
 }
 function Container({ children }: Props) {
+  const error = useStore((state) => state.error)
+
   return (
     <div className="w-dvw h-dvh bg-background-primary flex text-color-text-primary">
       <div className="h-svh w-full p-4 flex sm:p-4">
@@ -41,6 +43,14 @@ function Container({ children }: Props) {
           {children}
         </div>
       </div>
+      {error && (
+        <div className="fixed top-0 left-0 right-0 z-50 bg-red-500 text-white p-2 flex gap-4 items-center">
+          <div>{error}</div>
+          <div className="ml-auto text-xs cursor-pointer" onClick={() => setError(null)}>
+            CLOSE
+          </div>
+        </div>
+      )}
       <ColorStyleTag />
     </div>
   )

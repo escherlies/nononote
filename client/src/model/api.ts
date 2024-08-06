@@ -1,6 +1,6 @@
-import { type Message } from "../../../server/src/events"
+import { AppMsg } from "../../../server/src/messages"
 import { storage } from "./storage"
-import { handleAuth, handleAuthError, useStore } from "./store"
+import { handleAuth, handleAuthError, setError, useStore } from "./store"
 
 const API_URL = "/api"
 const apiRoute = (path: string) => `${API_URL}${path}`
@@ -12,19 +12,16 @@ export const initAuth = async () => {
   }
 }
 
-export const publish = async (message: Message) => {
-  // Send message to server
-  const response = await fetch(apiRoute("/message"), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(message),
-  })
+export const publish = async (message: AppMsg) => {
+  console.log("Publishing message:", message)
 
-  if (!response.ok) {
-    throw new Error("Failed to send message")
+  const connection = useStore.getState().connection
+  if (!connection) {
+    setError("Not connected to server")
+    return
   }
+
+  connection.send(JSON.stringify(message))
 }
 
 const AUTH_URL = "/auth"

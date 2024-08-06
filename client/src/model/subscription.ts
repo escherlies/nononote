@@ -1,8 +1,11 @@
 import { appMsg } from "../../../server/src/messages"
+import { logger } from "./logger"
 import { useStore } from "./store"
 
 export async function onSubscriptionData(message: JSON) {
   const res = await appMsg.safeParseAsync(message)
+
+  logger.debug("Received message: %o", res)
 
   if (!res.success) {
     console.error("Failed to parse message: ", res.error)
