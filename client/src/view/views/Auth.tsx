@@ -3,6 +3,8 @@ import { TextButton } from "../Ui"
 import { auth } from "../../model/api"
 import { Input } from "../components/Input"
 
+import svgLogo from "url:../../../assets/logo.svg"
+
 export function Auth() {
   return (
     <div className="m-auto">
@@ -28,6 +30,7 @@ export function SignIn() {
   if (emailSend) {
     return (
       <div className="flex gap-4 flex-col">
+        <img src={svgLogo} alt="Logo" className="h-28 mb-4 mr-auto" />
         <div className="text-3xl font-bold">Sign In</div>
         <Input type="text" placeholder="Magic Code" value={magicCode} onText={setMagicCode} />
         <TextButton className="px-8 w-full" onClick={verifyMagicCode}>
@@ -39,6 +42,7 @@ export function SignIn() {
 
   return (
     <div className="flex gap-4 flex-col">
+      <img src={svgLogo} alt="Logo" className="h-28 mb-4 mr-auto" />
       <div className="text-3xl font-bold">Sign In</div>
       <Input type="email" placeholder="Email" value={email} onText={setEmail} />
       <TextButton className="px-8 w-full" onClick={signIn}>
