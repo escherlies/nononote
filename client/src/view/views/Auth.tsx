@@ -3,7 +3,7 @@ import { TextButton } from "../Ui"
 import { auth } from "../../model/api"
 import { Input } from "../components/Input"
 
-import svgLogo from "url:../../../assets/logo.svg"
+import svgLogo from "url:../../../assets/Logo.svg"
 
 export function Auth() {
   return (
