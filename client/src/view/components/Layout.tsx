@@ -29,7 +29,7 @@ export function ModernLayout({ body, footer }: LayoutType) {
   return [
     <div
       key="body"
-      className="relative flex-grow overflow-scroll bg-background-secondary rounded-xl p-4 dark:border dark:border-color-accent"
+      className="relative flex-grow overflow-scroll bg-background-secondary rounded-xl p-4"
     >
       {body}
     </div>,

@@ -63,7 +63,6 @@ export const FlatButton = ({
     rounded-xl
     cursor-pointer                            
     transition-all duration-75
-    dark:border-[1.5px] border-color-accent
     ${className}
     `}
       {...props}
