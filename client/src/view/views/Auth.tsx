@@ -32,7 +32,14 @@ export function SignIn() {
       <div className="flex gap-4 flex-col">
         <img src={svgLogo} alt="Logo" className="h-28 mb-4 mr-auto" />
         <div className="text-3xl font-bold">Sign In</div>
-        <Input type="text" placeholder="Magic Code" value={magicCode} onText={setMagicCode} />
+        <Input
+          key="magic-code"
+          id="magic-code"
+          type="text"
+          placeholder="Magic Code"
+          value={magicCode}
+          onText={setMagicCode}
+        />
         <TextButton className="px-8 w-full" onClick={verifyMagicCode}>
           Sign In
         </TextButton>
@@ -44,7 +51,14 @@ export function SignIn() {
     <div className="flex gap-4 flex-col">
       <img src={svgLogo} alt="Logo" className="h-28 mb-4 mr-auto" />
       <div className="text-3xl font-bold">Sign In</div>
-      <Input type="email" placeholder="Email" value={email} onText={setEmail} />
+      <Input
+        key="email"
+        id="email"
+        type="email"
+        placeholder="Email"
+        value={email}
+        onText={setEmail}
+      />
       <TextButton className="px-8 w-full" onClick={signIn}>
         Send Magic Code
       </TextButton>

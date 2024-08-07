@@ -1,6 +1,6 @@
 import { AppMsg } from "../../../server/src/messages"
 import { storage } from "./storage"
-import { handleAuth, handleAuthError, setError, useStore } from "./store"
+import { handleAuth, handleAuthError, logOut, setError, useStore } from "./store"
 
 const API_URL = "/api"
 const apiRoute = (path: string) => `${API_URL}${path}`
@@ -8,7 +8,11 @@ const apiRoute = (path: string) => `${API_URL}${path}`
 export const initAuth = async () => {
   const authToken = storage.getItem("auth-token")
   if (authToken) {
-    auth.refreshToken(authToken)
+    auth.refreshToken(authToken).catch((error) => {
+      handleAuthError(String(error))
+    })
+  } else {
+    logOut()
   }
 }
 

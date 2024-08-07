@@ -46,9 +46,11 @@ export const generateMagicCode = async (email: string): Promise<string> => {
 
   if (existing) {
     logger.debug("sendMagicCode: existing magic code: %o", existing)
-    throw new Error(
-      "A magic code has already been sent to this email address. Please check your inbox. If you can't find it, please check your spam folder. If you still can't find it, please try again in five minutes."
-    )
+    // throw new Error(
+    //   "A magic code has already been sent to this email address. Please check your inbox. If you can't find it, please check your spam folder. If you still can't find it, please try again in five minutes."
+    // )
+
+    return existing.magicCode
   }
 
   const res = await monzod.cols.magicCodes.insertOne({

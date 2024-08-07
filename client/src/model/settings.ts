@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { storage } from "./storage"
 
 const SettingsSchema = z.object({
   colorScheme: z.object({
@@ -12,22 +13,22 @@ const SettingsSchema = z.object({
 
 export type Settings = z.infer<typeof SettingsSchema>
 
-const defaultSettings: Settings = {
+export const defaultSettings: Settings = {
   colorScheme: {
-    light: "blue-on-gray",
-    dark: "white-on-blue",
+    light: "blue-on-white",
+    dark: "blue-on-night",
   },
   darkMode: "auto",
-  theme: "modern",
+  theme: "brutalist",
   buttonSound: true,
 }
 
 export const saveSettings = (settings: Settings) => {
-  localStorage.setItem("nononotes:settings", JSON.stringify(settings))
+  storage.setItem("settings", JSON.stringify(settings))
 }
 
 export const loadSettings = (): Settings => {
-  const settings = localStorage.getItem("nononotes:settings")
+  const settings = storage.getItem("settings")
 
   if (!settings) {
     return defaultSettings

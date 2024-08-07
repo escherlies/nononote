@@ -21,6 +21,13 @@ export function Input(props: Props) {
     }
   }, [])
 
+  const jsxProps = {
+    ...props,
+    value: undefined,
+    onText: undefined,
+    autoFocus: undefined,
+  }
+
   switch (theme) {
     case "modern":
       return (
@@ -30,6 +37,7 @@ export function Input(props: Props) {
             spellCheck={false}
             className="bg-transparent outline-none resize-none w-full text-2xl italic translate-y-0.5"
             onChange={(e) => props.onText(e.target.value)}
+            {...jsxProps}
           />
         </div>
       )
@@ -38,11 +46,11 @@ export function Input(props: Props) {
       return (
         <div className="w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary">
           <input
-            id="note-input"
             ref={inputRef}
             spellCheck={false}
             className="bg-transparent outline-none resize-none w-full text-2xl italic translate-y-0.5"
             onChange={(e) => props.onText(e.target.value)}
+            {...jsxProps}
           />
         </div>
       )
@@ -51,11 +59,11 @@ export function Input(props: Props) {
       return (
         <div className="w-full overflow-hidden border-[3px] border-color-accent h-[68px] rounded-xl px-4 flex items-center">
           <input
-            id="note-input"
             ref={inputRef}
             spellCheck={false}
             className="bg-transparent outline-none resize-none w-full text-3xl italic uppercase"
             onChange={(e) => props.onText(e.target.value)}
+            {...jsxProps}
           />
         </div>
       )

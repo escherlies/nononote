@@ -265,13 +265,18 @@ export const handleAuth = (authToken: string) => {
 
 export const handleAuthError = (error: string) => {
   useStore.setState({ error })
-  useStore.setState({ authToken: null })
-  storage.removeItem("auth-token")
+  logOut()
 }
 
 export const logOut = () => {
   useStore.setState({ authToken: null })
   storage.removeItem("auth-token")
+
+  // Reset settings
+  updateSettings(() => ({
+    ...loadSettings(),
+    darkMode: "auto",
+  }))
 }
 
 export const setConnection = (connection: WebSocket) => {
