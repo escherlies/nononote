@@ -88,3 +88,29 @@ export const auth = {
     }
   },
 }
+
+export const uploadVoiceNote = async (audio: Blob) => {
+  const authToken = useStore.getState().authToken
+  if (!authToken) {
+    setError("Not authenticated")
+    return
+  }
+
+  const formData = new FormData()
+  formData.append("audio", audio)
+
+  const response = await fetch(apiRoute("/upload-voice-note"), {
+    method: "POST",
+    headers: {
+      Authorization: authToken,
+    },
+    body: formData,
+  })
+
+  if (!response.ok) {
+    setError("Failed to upload voice note")
+    return
+  }
+
+  // No reponse body expected
+}

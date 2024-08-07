@@ -16,6 +16,7 @@ import {
   CloudSync,
   Microphone,
   MicrophoneCheck,
+  RefreshDouble,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -185,6 +186,22 @@ export const StopRecording = () => {
   return (
     <Icon>
       <MicrophoneCheck />
+    </Icon>
+  )
+}
+
+export const UploadingIcon = () => {
+  return (
+    <Icon>
+      <RefreshDouble />
+    </Icon>
+  )
+}
+
+export const UploadDoneIcon = () => {
+  return (
+    <Icon>
+      <Check />
     </Icon>
   )
 }

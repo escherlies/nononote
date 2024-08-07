@@ -1,14 +1,10 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
-import { generateMagicCode, verifyMagicCode } from "./auth"
+import { AuthenticatedRequest, authenticateUser, generateMagicCode, verifyMagicCode } from "./auth"
 import { signJwt, verifyJwt } from "./jwt"
 import { sendMagicCode } from "../email"
 import monzod from "../db"
-
-interface AuthenticatedRequest extends FastifyRequest {
-  user?: { id: string } // Replace `YourUserType` with the type returned from `verifyJwt`
-}
 
 export default function authRouter(app: FastifyInstance, opts: never, done: () => void) {
   // Get magic code
@@ -75,23 +71,4 @@ export default function authRouter(app: FastifyInstance, opts: never, done: () =
   })
 
   done()
-}
-
-const authenticateUser = async (req: AuthenticatedRequest, reply: FastifyReply, done: () => void) => {
-  const bearer = req.headers.authorization
-  if (!bearer) {
-    return reply.status(401).send("Unauthorized")
-  }
-
-  const token = bearer.replace("Bearer ", "")
-  const user = verifyJwt(token)
-  if (!user) {
-    return reply.status(401).send("Unauthorized")
-  }
-
-  req.user = user
-
-  done()
-
-  return reply
 }

@@ -24,9 +24,7 @@ Note:
 }
 
 // Prompt for the task of extracting the tags from a webpage as plaintext.
-export const createTagsFromWebpageKeywordsPrompt = (
-  textContent: string
-): string => {
+export const createTagsFromWebpageKeywordsPrompt = (textContent: string): string => {
   return `The following is a list of keywords extracted from a webpage.
 Generate tags that describe what the webpage is about, using the most general categories possible.
 Ignore common webpage keywords like “terms”, “log in”, “sign up”, etc. 
@@ -39,9 +37,7 @@ Text:
 }
 
 // Prompt for the task of extracting the tags from a webpage as plaintext.
-export const createTagsFromWebpageMetaPrompt = (
-  textContent: string
-): string => {
+export const createTagsFromWebpageMetaPrompt = (textContent: string): string => {
   return `The following is the meta description of a webpage.
 Generate tags that describe what the webpage is about, using the most general categories possible.
 The text input may be in any language.
@@ -50,4 +46,9 @@ Output the tags as a JSON array.
   
 Here is the meta description:
 "${textContent}"`
+}
+
+// Prompt for the task of transcribing a voice note.
+export const transcribeVoiceNotePrompt = (): string => {
+  return "Generate a transcript of the speech."
 }

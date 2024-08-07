@@ -15,6 +15,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@fastify/multipart": "^8.3.0",
     "@fastify/websocket": "^10.0.1",
     "@google/generative-ai": "^0.16.0",
     "@types/jsonwebtoken": "^9.0.6",

@@ -5,11 +5,13 @@ import {
   createTagsFromNotePrompt,
   createTagsFromWebpageKeywordsPrompt,
   createTagsFromWebpageMetaPrompt,
+  transcribeVoiceNotePrompt,
 } from "./prompts"
 
 import { stringArrayZ } from "../data/note"
 
 import { GOOGLE_GENERATIVE_AI_API_KEY, moduleLogger } from "../config"
+import { FileMetadataResponse } from "@google/generative-ai/dist/server/server"
 
 const logger = moduleLogger("ai")
 
@@ -31,10 +33,7 @@ const geminiProModel = genAI.getGenerativeModel({
   },
 })
 
-const generateFromTextWithPrompt = async (
-  model: GenerativeModel,
-  prompt: string
-): Promise<string> => {
+const generateFromTextWithPrompt = async (model: GenerativeModel, prompt: string): Promise<string> => {
   const result = await model.generateContent(prompt)
   const response = await result.response
   const text = response.text()
@@ -54,21 +53,13 @@ const parseStringArray = async (text: string): Promise<string[]> => {
 }
 
 export async function generateTagsFromText(content: string): Promise<string[]> {
-  const text = await generateFromTextWithPrompt(
-    geminiFlashModel,
-    createTagsFromNotePrompt(content)
-  )
+  const text = await generateFromTextWithPrompt(geminiFlashModel, createTagsFromNotePrompt(content))
 
   return parseStringArray(text)
 }
 
-export async function generateCategoriesFromText(
-  content: string
-): Promise<string[]> {
-  const text = await generateFromTextWithPrompt(
-    geminiFlashModel,
-    createCategoriesFromNotePrompt(content)
-  )
+export async function generateCategoriesFromText(content: string): Promise<string[]> {
+  const text = await generateFromTextWithPrompt(geminiFlashModel, createCategoriesFromNotePrompt(content))
 
   return parseStringArray(text)
 }
@@ -81,19 +72,37 @@ export async function generateTagsFromWebpage(
   switch (type) {
     case "bodyAsKeywords":
       // Use the pro model for body text
-      text = await generateFromTextWithPrompt(
-        geminiProModel,
-        createTagsFromWebpageKeywordsPrompt(content)
-      )
+      text = await generateFromTextWithPrompt(geminiProModel, createTagsFromWebpageKeywordsPrompt(content))
       break
     case "metaDescription":
       // Use the flash model for meta descriptions
-      text = await generateFromTextWithPrompt(
-        geminiFlashModel,
-        createTagsFromWebpageMetaPrompt(content)
-      )
+      text = await generateFromTextWithPrompt(geminiFlashModel, createTagsFromWebpageMetaPrompt(content))
       break
   }
 
   return parseStringArray(text)
+}
+
+// ##################################################################### //
+// ############################### Voice ############################### //
+// ##################################################################### //
+
+export async function transcribeVoiceNote(voiceNote: FileMetadataResponse): Promise<string> {
+  const result = await genAI
+    .getGenerativeModel({
+      model: "gemini-1.5-flash",
+    })
+    .generateContent([
+      {
+        fileData: {
+          mimeType: voiceNote.mimeType,
+          fileUri: voiceNote.uri,
+        },
+      },
+      transcribeVoiceNotePrompt(),
+    ])
+
+  const text = result.response.text()
+
+  return text
 }

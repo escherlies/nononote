@@ -5,10 +5,35 @@ import { genMagicCode, safeid, safeid32 } from "../nanoid"
 import { User } from "../data/user"
 import { sendPasswordResetEmail } from "../email"
 import { moduleLogger } from "../config"
+import { FastifyReply, FastifyRequest } from "fastify"
+import { verifyJwt } from "./jwt"
 
 const logger = moduleLogger("auth")
 
 const saltRounds = 10
+
+export interface AuthenticatedRequest extends FastifyRequest {
+  user?: { id: string } // Replace `YourUserType` with the type returned from `verifyJwt`
+}
+
+export const authenticateUser = async (req: AuthenticatedRequest, reply: FastifyReply, done: () => void) => {
+  const bearer = req.headers.authorization
+  if (!bearer) {
+    return reply.status(401).send("Unauthorized")
+  }
+
+  const token = bearer.replace("Bearer ", "")
+  const user = verifyJwt(token)
+  if (!user) {
+    return reply.status(401).send("Unauthorized")
+  }
+
+  req.user = user
+
+  done()
+
+  return reply
+}
 
 const getOrCreateUser = async (email: string) => {
   const existing = await monzod.cols.users.findOne({ email: toLower(email) })
