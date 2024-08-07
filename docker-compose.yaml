@@ -11,6 +11,7 @@ services:
   nononote:
     image: ghcr.io/binaryplease/nononote/app:latest
     restart: always
+    entrypoint: ["/app/scripts/entrypoint.sh"]
     depends_on:
       - mongo
     ports:
@@ -18,4 +19,4 @@ services:
     env_file:
       - ~/.data/nononote/.env
     volumes:
-      - /var/www/nononote:/app/client/build
+      - /var/www/nononote:/var/www/nononote
