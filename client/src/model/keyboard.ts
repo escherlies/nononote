@@ -23,14 +23,8 @@ function handleKeyDown(event: KeyboardEvent) {
         navigateTo({ tag: "Search", query: "" })
         break
       case "enter":
-        {
-          event.preventDefault()
-          if (view.tag === "Home") {
-            saveNote()
-          } else {
-            navigateTo({ tag: "Home" })
-          }
-        }
+        event.preventDefault()
+        saveNote()
         break
 
       default:

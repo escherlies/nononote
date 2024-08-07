@@ -15,10 +15,12 @@ const setIsCached = (isNew: boolean) => (note: Note) => {
 export function ViewNotes() {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
+  const unsyncedUpdatedNotes = useStore((state) => state.unsyncedUpdatedNotes)
 
   const allNotes = [
     ...map(setIsCached(false), storedNotes),
     ...map(setIsCached(true), unsyncedNewNotes),
+    ...map(setIsCached(true), unsyncedUpdatedNotes),
   ]
 
   const notesWithoutDeleted = allNotes.filter((note) => !note.deleted)
@@ -51,7 +53,7 @@ export function ViewNotes() {
         return (
           <div
             key={note.id}
-            className="cursor-pointer select-none"
+            className="cursor-pointer select-none flex justify-between items-center gap-2"
             onClick={() => navigateTo(tag("Note", { id: note.id }))}
           >
             <div className="line-clamp-2">
@@ -60,7 +62,7 @@ export function ViewNotes() {
               {rest}
             </div>
             {note.isNew && (
-              <div className="w-4" title="Unsynced">
+              <div className="w-5 min-w-5" title="Sync in progress...">
                 <UnsyncedIcon />
               </div>
             )}

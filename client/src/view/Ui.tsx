@@ -176,9 +176,19 @@ export const IconButton = ({
   active,
   ...props
 }: DefaultButtonProps & { icon: ReactNode; active?: boolean }) => {
+  const theme = useStore((state) => state.settings.theme)
+
+  const iconClas = (() => {
+    if (theme === "brutalist") {
+      return "w-[35px] h-[35px]"
+    } else {
+      return "w-[28px] h-[28px]"
+    }
+  })()
+
   return (
     <Button onClick={onClick} active={active} {...props}>
-      {icon}
+      <div className={iconClas}>{icon}</div>
     </Button>
   )
 }

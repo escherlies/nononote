@@ -13,6 +13,7 @@ import {
   NavArrowLeft,
   LogOut,
   MultiplePagesXmark,
+  CloudSync,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -25,8 +26,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
         <IconoirProvider
           iconProps={{
             strokeWidth: 2,
-            width: "40px",
-            height: "40px",
+            width: "100%",
+            height: "100%",
             color: "var(--color-accent)",
           }}
         >
@@ -38,8 +39,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
         <IconoirProvider
           iconProps={{
             strokeWidth: 1.5,
-            width: "30px",
-            height: "30px",
+            width: "100%",
+            height: "100%",
             color: "var(--color-accent)",
           }}
         >
@@ -51,8 +52,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
         <IconoirProvider
           iconProps={{
             strokeWidth: 1.5,
-            width: "30px",
-            height: "30px",
+            width: "100%",
+            height: "100%",
             color: "var(--color-accent)",
           }}
         >
@@ -116,7 +117,7 @@ export const SaveNoteIcon = () => {
 export const UnsyncedIcon = () => {
   return (
     <Icon>
-      <CloudXmark />
+      <CloudSync />
     </Icon>
   )
 }
