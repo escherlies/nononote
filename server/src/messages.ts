@@ -15,6 +15,10 @@ export const appMsg = z.union([
     text: z.string(),
   }),
   z.object({
+    type: z.literal("notes:delete"),
+    id: z.string(),
+  }),
+  z.object({
     type: z.literal("notes:note"),
     note: noteDecoder,
   }),

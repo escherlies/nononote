@@ -12,6 +12,7 @@ import {
   Xmark,
   NavArrowLeft,
   LogOut,
+  MultiplePagesXmark,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -157,6 +158,14 @@ export const LogOutIcon = () => {
   return (
     <Icon>
       <LogOut />
+    </Icon>
+  )
+}
+
+export const DeleteIcon = () => {
+  return (
+    <Icon>
+      <MultiplePagesXmark />
     </Icon>
   )
 }

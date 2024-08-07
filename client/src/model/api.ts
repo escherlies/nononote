@@ -15,7 +15,7 @@ export const initAuth = async () => {
     logOut()
 
     // Show disclaimer modal
-    setModal("Disclaimer")
+    setModal({ tag: "Disclaimer" })
   }
 }
 

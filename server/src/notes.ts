@@ -1,7 +1,4 @@
-import { z } from "zod"
-import { noteDecoder } from "./data/note"
 import { emitMessageEvent, MessageWithContext } from "./events"
-import { loadAllNotes, loadNote, writeNoteToFile } from "./file-storage"
 import { moduleLogger } from "./config"
 import { classifyNoteContent } from "./ai/notes"
 import monzod from "./db"
@@ -56,6 +53,24 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
       if (!updatedNote) {
         logger.error("Failed to update note: %o", message.id)
         // TODO: send error message
+        return
+      }
+
+      // Emit note to all subscribers
+      return emitMessageEvent({ context, message: { type: "notes:note", note: updatedNote } })
+    }
+
+    case "notes:delete": {
+      // Mark note as deleted
+      const updatedNote = await monzod.cols.notes.findOneAndUpdate(
+        { id: message.id, userId: context.user.id },
+        { $set: { deleted: true, updatedAt: new Date().toISOString() }, $addToSet: { tags: "deleted" } },
+        { returnDocument: "after" }
+      )
+
+      if (!updatedNote) {
+        // TODO: send error message
+        logger.error("Failed to delete note: %o", message.id)
         return
       }
 

@@ -1,16 +1,22 @@
 import { ReactNode } from "react"
-import { setModal, useStore } from "../model/store"
+import { handleDeleteNote, setModal, useStore } from "../model/store"
 import { TextButton } from "./Ui"
+import { T } from "../../../shared/types"
 
-export type Modal = "Disclaimer" | "PrivacyPolicy" | "TermsOfService"
+export type Modal =
+  | T<"Disclaimer">
+  | T<"PrivacyPolicy">
+  | T<"TermsOfService">
+  | T<"DeleteNotePrompt", { noteId: string }>
 
 export function ViewModal() {
   const modal = useStore((state) => state.modal)
 
-  switch (modal) {
-    case null:
-      return null
+  if (!modal) {
+    return null
+  }
 
+  switch (modal.tag) {
     case "Disclaimer":
       return (
         <ModalOverlay>
@@ -41,6 +47,20 @@ export function ViewModal() {
     case "TermsOfService":
       // TODO: Add terms of service
       return null
+
+    case "DeleteNotePrompt":
+      return (
+        <ModalOverlay>
+          <div className="prose prose-h1:text-color-accent prose-h1:uppercase dark:prose-invert">
+            <h1>Delete note?</h1>
+            <p>Are you sure you want to delete this note?</p>
+            <div className="flex gap-4">
+              <TextButton onClick={() => setModal(null)}>Cancel</TextButton>
+              <TextButton onClick={() => handleDeleteNote(modal.noteId)}>Delete</TextButton>
+            </div>
+          </div>
+        </ModalOverlay>
+      )
   }
 }
 

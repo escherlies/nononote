@@ -9,6 +9,7 @@ export const noteDecoder = z.object({
   categories: stringArrayZ,
   createdAt: z.string(),
   updatedAt: z.string(),
+  deleted: z.boolean().optional(),
 })
 
 export type Note = z.infer<typeof noteDecoder>

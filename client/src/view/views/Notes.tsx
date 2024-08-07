@@ -1,4 +1,4 @@
-import { head, map, prop, sortBy, tail } from "rambda"
+import { head, map, pipe, prop, reverse, sortBy, tail } from "rambda"
 import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
@@ -16,10 +16,14 @@ export function ViewNotes() {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
 
-  const notes = sortBy(prop("createdAt"), [
+  const allNotes = [
     ...map(setIsCached(false), storedNotes),
     ...map(setIsCached(true), unsyncedNewNotes),
-  ]).reverse()
+  ]
+
+  const notesWithoutDeleted = allNotes.filter((note) => !note.deleted)
+
+  const notes = reverse(sortBy(prop("createdAt"), notesWithoutDeleted))
 
   return (
     <div className="flex flex-col gap-10 w-full">

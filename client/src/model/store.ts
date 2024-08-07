@@ -26,6 +26,7 @@ export const useStore = create(() => ({
   isConnected: false,
   unsyncedNewNotes: [] as Note[],
   unsyncedUpdatedNotes: [] as Note[],
+  unsyncedDeletedNotes: [] as string[],
   settings: loadSettings() as Settings,
   isMobile: window.innerWidth < 768,
   authToken: null as Maybe<string>,
@@ -138,6 +139,21 @@ export const updateNote = async (noteId: string) => {
   clearInput()
 }
 
+export const deleteNote = async (noteId: string) => {
+  const isConnected = useStore.getState().isConnected
+
+  if (!isConnected) {
+    cacheDeletedNote(noteId)
+    return
+  }
+
+  try {
+    await publish({ type: "notes:delete", id: noteId })
+  } catch (error) {
+    setError(String(error))
+  }
+}
+
 const cacheNewNote = (note: Note) => {
   useStore.setState((state) => {
     const unsyncedNewNotes = [note, ...state.unsyncedNewNotes]
@@ -167,6 +183,22 @@ const removeCachedUpdatedNote = (noteId: string) => {
     const unsyncedUpdatedNotes = state.unsyncedUpdatedNotes.filter((n) => n.id !== noteId)
     storage.setItem("unsyncedUpdatedNotes", JSON.stringify(unsyncedUpdatedNotes))
     return { unsyncedUpdatedNotes }
+  })
+}
+
+const cacheDeletedNote = (noteId: string) => {
+  useStore.setState((state) => {
+    const unsyncedDeletedNotes = [noteId, ...state.unsyncedDeletedNotes]
+    storage.setItem("unsyncedDeletedNotes", JSON.stringify(unsyncedDeletedNotes))
+    return { unsyncedDeletedNotes }
+  })
+}
+
+export const removeCachedDeletedNote = (noteId: string) => {
+  useStore.setState((state) => {
+    const unsyncedDeletedNotes = state.unsyncedDeletedNotes.filter((n) => n !== noteId)
+    storage.setItem("unsyncedDeletedNotes", JSON.stringify(unsyncedDeletedNotes))
+    return { unsyncedDeletedNotes }
   })
 }
 
@@ -297,4 +329,11 @@ export const removeConnection = () => {
 
 export const setModal = (modal: Maybe<Modal>) => {
   useStore.setState({ modal })
+}
+
+export const handleDeleteNote = (noteId: string) => {
+  deleteNote(noteId)
+  setModal(null)
+  // Navigate to notes
+  navigateTo({ tag: "Notes" })
 }

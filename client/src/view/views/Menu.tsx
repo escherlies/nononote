@@ -1,6 +1,6 @@
 import { map } from "rambda"
 import { goBack, navigateTo, View } from "../../model/router"
-import { clearInput, clearSearchQuery, saveNote, useStore } from "../../model/store"
+import { clearInput, clearSearchQuery, saveNote, setModal, useStore } from "../../model/store"
 import {
   SaveNoteIcon,
   NotesIcon,
@@ -10,6 +10,7 @@ import {
   SettingsIcon,
   DismissIcon,
   GoBackIcon,
+  DeleteIcon,
 } from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
 import { IconButton } from "../Ui"
@@ -179,6 +180,16 @@ function getItems({
       return [
         {
           item: <BackButton key="back" />,
+          description: "Back",
+        },
+        {
+          item: (
+            <IconButton
+              key="delete"
+              onClick={() => setModal({ tag: "DeleteNotePrompt", noteId: view.id })}
+              icon={<DeleteIcon />}
+            />
+          ),
           description: "Back",
         },
         {
