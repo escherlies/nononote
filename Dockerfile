@@ -9,6 +9,9 @@ RUN nix-env -i bun
 COPY ./scripts /app/scripts
 COPY ./shared /app/shared
 
+# Set execute permissions for the entrypoint script
+RUN chmod +x /app/scripts/entrypoint.sh
+
 # Serevr app
 
 WORKDIR /app/server
