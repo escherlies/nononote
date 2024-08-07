@@ -19,7 +19,7 @@ export type MessageWithContext = {
 }
 
 export const listenForMessage = (cb: (messageEvt: MessageWithContext) => void): (() => void) => {
-  logger.debug("Got a new subscriber")
+  logger.debug("Got a new subscriber.")
   const wrappedCallback = (message: MessageWithContext) => {
     try {
       cb(message)

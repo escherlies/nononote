@@ -80,6 +80,7 @@ export default function api(app: FastifyInstance, opts: never, done: () => void)
     })
 
     socket.on("close", () => {
+      unsub()
       console.log("Client disconnected")
     })
 

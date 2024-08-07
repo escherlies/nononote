@@ -32,6 +32,7 @@ export const useStore = create(() => ({
   user: null as Maybe<User>,
   connection: null as Maybe<WebSocket>,
   modal: null as Maybe<Modal>,
+  reconnectionAttempts: 0,
 }))
 
 // Subscriptions
@@ -281,6 +282,7 @@ export const logOut = () => {
 export const setConnection = (connection: WebSocket) => {
   useStore.setState({ connection })
   useStore.setState({ isConnected: true })
+  useStore.setState({ reconnectionAttempts: 0 })
 }
 
 export const onSubscriptionReady = () => {
