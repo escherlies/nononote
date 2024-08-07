@@ -28,9 +28,9 @@ export function Menu() {
     case "modern":
       return (
         <div className="relative w-full">
-          <div className="flex gap-5 justify-between rounded-lg">
+          <div className="flex gap-5 justify-between rounded-xl">
             {/* ?! Cant decide on a theme :) */}
-            {/* <div className="flex gap-5 justify-between rounded-lg bg-background-secondary p-1"> */}
+            {/* <div className="flex gap-5 justify-between rounded-xl bg-background-secondary p-1"> */}
             {items.map((item) => item.item)}
           </div>
         </div>
@@ -38,7 +38,7 @@ export function Menu() {
     case "space-craft":
       return (
         <div className="relative w-full">
-          <div className="flex flex-col outline outline-[1.5px] outline-color-text-primary rounded-lg">
+          <div className="flex flex-col outline outline-[1.5px] outline-color-text-primary rounded-xl">
             <div className="flex gap-5 justify-between p-2">{uiButtons}</div>
             <div className="flex justify-between text-xs uppercase font-medium text-center bg-color-text-primary text-background-primary rounded-b-lg border-[1.5px] border-neutral-900 px-2">
               {descriptions.map((description) => (
@@ -51,7 +51,7 @@ export function Menu() {
     case "brutalist":
       return (
         <div className="relative w-full">
-          <div className="flex gap-5 justify-between xbg-background-secondary rounded-lg p-1">
+          <div className="flex gap-5 justify-between xbg-background-secondary rounded-xl p-1">
             {uiButtons}
           </div>
         </div>

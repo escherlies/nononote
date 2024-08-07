@@ -19,7 +19,7 @@ export function SearchInput(
   switch (theme) {
     case "modern":
       return (
-        <div className="w-full overflow-hidden h-[60px] rounded-lg px-4 flex items-center bg-background-secondary">
+        <div className="w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary">
           <input
             id="note-input"
             ref={inputRef}
@@ -35,7 +35,7 @@ export function SearchInput(
 
     case "space-craft":
       return (
-        <div className="w-full overflow-hidden h-[60px] rounded-lg px-4 flex items-center bg-background-secondary">
+        <div className="w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary">
           <input
             id="note-input"
             ref={inputRef}
@@ -51,7 +51,7 @@ export function SearchInput(
 
     case "brutalist":
       return (
-        <div className="w-full overflow-hidden border-[3px] border-color-accent h-[68px] rounded-lg px-4 flex items-center">
+        <div className="w-full overflow-hidden border-[3px] border-color-accent h-[68px] rounded-xl px-4 flex items-center">
           <input
             id="note-input"
             ref={inputRef}

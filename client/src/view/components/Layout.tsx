@@ -29,7 +29,7 @@ export function ModernLayout({ body, footer }: LayoutType) {
   return [
     <div
       key="body"
-      className="relative flex-grow overflow-scroll bg-background-secondary rounded-lg p-4 dark:border dark:border-color-accent"
+      className="relative flex-grow overflow-scroll bg-background-secondary rounded-xl p-4 dark:border dark:border-color-accent"
     >
       {body}
     </div>,
@@ -48,7 +48,7 @@ export function SpaceCraftLayout({ body, footer }: LayoutType) {
       key="body"
       className={`
           relative
-          outline outline-[1.5px] outline-color-text-primary rounded-lg
+          outline outline-[1.5px] outline-color-text-primary rounded-xl
           flex-grow
           overflow-auto
           `}
@@ -66,7 +66,7 @@ export function BrutalistLayout({ body, footer }: LayoutType) {
   return [
     <div
       key="body"
-      className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-lg p-4"
+      className="relative flex-grow overflow-scroll border-[3px] border-color-accent rounded-xl p-4"
     >
       {body}
     </div>,

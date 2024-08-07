@@ -92,7 +92,7 @@ const setMonacoThemeAndKeybindings = (scheme: Scheme) => (monaco: Monaco) => {
 const options: monaco.editor.IStandaloneEditorConstructionOptions = {
   language: "markdown",
   lineNumbers: "off", // Disable line numbers
-  roundedSelection: false, // Disable rounded selection
+  roundedSelection: false, // Disable rounded-lg selection
   scrollBeyondLastLine: false, // Disable scrolling beyond the last line
   minimap: { enabled: false }, // Disable minimap
   glyphMargin: false, // Disable glyph margin

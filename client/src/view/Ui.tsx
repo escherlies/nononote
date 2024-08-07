@@ -60,7 +60,7 @@ export const FlatButton = ({
     min-w-[60px] h-[60px]
     flex items-center justify-center 
     bg-background-secondary
-    rounded-lg
+    rounded-xl
     cursor-pointer                            
     transition-all duration-75
     dark:border-[1.5px] border-color-accent
@@ -89,7 +89,7 @@ export const SpaceButton = ({
     min-w-[60px] h-[60px]
     flex items-center justify-center 
     bg-background-secondary
-    rounded-lg
+    rounded-xl
     cursor-pointer                            
     transition-all duration-75
     dark:bg-neutral-800/30
@@ -144,7 +144,7 @@ export const BrutalistButton = ({
     <div
       className={`
     border-[3px] border-color-accent min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
-    rounded-lg
+    rounded-xl
     cursor-pointer
     transition-all duration-75
     ${clickedClassNames}
