@@ -11,7 +11,7 @@ Nononote is a simple, fast, and efficient note-taking app designed to help you o
 
 The primary goal of Nononote is to allow you to create new notes quickly. Upon opening the app, you'll be greeted with a text area where you can start typing your note immediately.
 
-- **Input anything:** You can input anything: plaintext, a URL or link, a picture¹, a screenshot¹, or an audio file¹.
+- **Input anything:** You can input anything: plaintext, a URL or link, a picture¹, a screenshot¹, or an audio file.
 - **Quick Toggle:** Use the `esc` key to switch between creating a new note and viewing all notes.
 
 ## 🔍 Searching Notes
