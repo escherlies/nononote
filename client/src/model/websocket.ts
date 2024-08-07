@@ -4,6 +4,7 @@ import { onSubscriptionData } from "./subscription"
 
 export const initializeWebSocket = async (authToken: string) => {
   const ws = new WebSocket("/api/ws")
+
   ws.onopen = () => {
     console.log("Connected to server")
     ws.send("ping")
@@ -40,15 +41,15 @@ const reconnect = (authToken: string) => {
 
   const delay = getReconnnectionDelay(reconnectionAttempts)
 
+  logger.debug(`Reconnecting attempt ${reconnectionAttempts + 1} in ${delay}ms`)
   setTimeout(() => {
-    logger.debug(`Reconnecting attempt ${reconnectionAttempts + 1} in ${delay}ms`)
+    console.log("Reconnecting...")
     initializeWebSocket(authToken)
   }, delay)
 
-  initializeWebSocket(authToken)
   useStore.setState((state) => ({ reconnectionAttempts: state.reconnectionAttempts + 1 }))
 }
 
 const getReconnnectionDelay = (reconnectionAttempts: number) => {
-  return 100 * 1.5 ** reconnectionAttempts
+  return 100 * reconnectionAttempts
 }
