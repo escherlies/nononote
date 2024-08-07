@@ -138,7 +138,7 @@ export const updateNote = async (noteId: string) => {
 const cacheNewNote = (note: Note) => {
   useStore.setState((state) => {
     const unsyncedNewNotes = [note, ...state.unsyncedNewNotes]
-    localStorage.setItem("unsyncedNewNotes", JSON.stringify(unsyncedNewNotes))
+    storage.setItem("unsyncedNewNotes", JSON.stringify(unsyncedNewNotes))
     return { unsyncedNewNotes: [note, ...state.unsyncedNewNotes] }
   })
 }
@@ -146,7 +146,7 @@ const cacheNewNote = (note: Note) => {
 const removeCachedNote = (noteId: string) => {
   useStore.setState((state) => {
     const unsyncedNewNotes = state.unsyncedNewNotes.filter((n) => n.id !== noteId)
-    localStorage.setItem("unsyncedNewNotes", JSON.stringify(unsyncedNewNotes))
+    storage.setItem("unsyncedNewNotes", JSON.stringify(unsyncedNewNotes))
     return { unsyncedNewNotes }
   })
 }
@@ -154,7 +154,7 @@ const removeCachedNote = (noteId: string) => {
 const cacheUpdatedNote = (note: Note) => {
   useStore.setState((state) => {
     const unsyncedUpdatedNotes = [note, ...state.unsyncedUpdatedNotes]
-    localStorage.setItem("unsyncedUpdatedNotes", JSON.stringify(unsyncedUpdatedNotes))
+    storage.setItem("unsyncedUpdatedNotes", JSON.stringify(unsyncedUpdatedNotes))
     return { unsyncedUpdatedNotes }
   })
 }
@@ -162,7 +162,7 @@ const cacheUpdatedNote = (note: Note) => {
 const removeCachedUpdatedNote = (noteId: string) => {
   useStore.setState((state) => {
     const unsyncedUpdatedNotes = state.unsyncedUpdatedNotes.filter((n) => n.id !== noteId)
-    localStorage.setItem("unsyncedUpdatedNotes", JSON.stringify(unsyncedUpdatedNotes))
+    storage.setItem("unsyncedUpdatedNotes", JSON.stringify(unsyncedUpdatedNotes))
     return { unsyncedUpdatedNotes }
   })
 }
@@ -206,7 +206,7 @@ export const toggleDarkMode = (darkMode: boolean) => {
 }
 
 export const loadUnsyncedNewNotes = () => {
-  const unsyncedNewNotes = localStorage.getItem("unsyncedNewNotes")
+  const unsyncedNewNotes = storage.getItem("unsyncedNewNotes")
   if (unsyncedNewNotes) {
     useStore.setState({ unsyncedNewNotes: JSON.parse(unsyncedNewNotes) })
   }
