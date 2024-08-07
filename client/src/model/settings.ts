@@ -18,7 +18,7 @@ export const defaultSettings: Settings = {
     light: "blue-on-white",
     dark: "blue-on-night",
   },
-  darkMode: "off", // TODO: Change to "auto" when we fixed the dark mode themes
+  darkMode: "auto",
   theme: "brutalist",
   buttonSound: true,
 }
