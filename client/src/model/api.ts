@@ -1,6 +1,6 @@
 import { AppMsg } from "../../../server/src/messages"
 import { storage } from "./storage"
-import { handleAuth, handleAuthError, logOut, setError, useStore } from "./store"
+import { handleAuth, handleAuthError, logOut, setError, setModal, useStore } from "./store"
 
 const API_URL = "/api"
 const apiRoute = (path: string) => `${API_URL}${path}`
@@ -13,6 +13,9 @@ export const initAuth = async () => {
     })
   } else {
     logOut()
+
+    // Show disclaimer modal
+    setModal("Disclaimer")
   }
 }
 

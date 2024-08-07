@@ -10,6 +10,7 @@ import { publish } from "./api"
 import { storage } from "./storage"
 import { initializeWebSocket } from "./websocket"
 import { getUserDarkModePreference } from "../view/views/settings/Color"
+import { Modal } from "../view/Modal"
 
 // Store
 
@@ -30,6 +31,7 @@ export const useStore = create(() => ({
   authToken: null as Maybe<string>,
   user: null as Maybe<User>,
   connection: null as Maybe<WebSocket>,
+  modal: null as Maybe<Modal>,
 }))
 
 // Subscriptions
@@ -289,4 +291,8 @@ export const onSubscriptionReady = () => {
 export const removeConnection = () => {
   useStore.setState({ connection: null })
   useStore.setState({ isConnected: false })
+}
+
+export const setModal = (modal: Maybe<Modal>) => {
+  useStore.setState({ modal })
 }

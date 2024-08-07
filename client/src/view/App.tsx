@@ -11,6 +11,7 @@ import { ViewSettings } from "./views/Settings"
 import { ViewEditNote } from "./views/Edit"
 import { Auth } from "./views/Auth"
 import { ReactNode } from "react"
+import { ViewModal } from "./Modal"
 
 export function App() {
   const authToken = useStore((state) => state.authToken)
@@ -43,6 +44,10 @@ function Container({ children }: Props) {
           {children}
         </div>
       </div>
+      {/* Modal overlay */}
+      <ViewModal />
+
+      {/* Error overlay */}
       {error && (
         <div className="fixed top-0 left-0 right-0 z-50 bg-red-500 text-white p-2 flex gap-4 items-center">
           <div>{error}</div>
