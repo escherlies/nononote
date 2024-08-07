@@ -1,6 +1,8 @@
+import { isEmpty } from "rambda"
 import { appMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
 import { useStore } from "./store"
+import { navigateTo } from "./router"
 
 export async function onSubscriptionData(message: JSON) {
   const res = await appMsg.safeParseAsync(message)
@@ -23,6 +25,11 @@ export async function onSubscriptionData(message: JSON) {
       break
 
     case "notes:got-notes": {
+      if (isEmpty(data.notes)) {
+        // Navigate to /notes/intro-welcome
+        navigateTo({ tag: "Note", id: "intro-welcome" })
+        return
+      }
       useStore.setState((state) => {
         const updatedNotes = state.notes.filter((note) => !data.notes.some((n) => n.id === note.id))
         return { notes: [...data.notes, ...updatedNotes] }
