@@ -14,6 +14,8 @@ import {
   LogOut,
   MultiplePagesXmark,
   CloudSync,
+  Microphone,
+  MicrophoneCheck,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -167,6 +169,22 @@ export const DeleteIcon = () => {
   return (
     <Icon>
       <MultiplePagesXmark />
+    </Icon>
+  )
+}
+
+export const StartRecording = () => {
+  return (
+    <Icon>
+      <Microphone />
+    </Icon>
+  )
+}
+
+export const StopRecording = () => {
+  return (
+    <Icon>
+      <MicrophoneCheck />
     </Icon>
   )
 }

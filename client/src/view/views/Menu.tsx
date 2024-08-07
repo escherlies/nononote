@@ -14,6 +14,7 @@ import {
 } from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
 import { IconButton } from "../Ui"
+import { VoiceRecorder } from "../components/VoiceRecorder"
 
 export function Menu() {
   const theme = useStore((state) => state.settings.theme)
@@ -116,6 +117,10 @@ function getItems({
               />
             ),
             description: "Settings",
+          },
+          {
+            item: <VoiceRecorder key="mic" />,
+            description: "Voice",
           },
         ]
       }
