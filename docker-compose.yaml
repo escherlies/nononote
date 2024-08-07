@@ -17,3 +17,5 @@ services:
       - 127.0.0.1:8000:8000
     env_file:
       - ~/.data/nononote/.env
+    volumes:
+      - /var/www/nononote:/app/client/build

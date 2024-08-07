@@ -29,5 +29,8 @@ RUN npm ci
 
 RUN just build
 
+# Set workdir
+WORKDIR /app/server
+
 # Run
 CMD ["just", "run"]
