@@ -9,7 +9,7 @@ services:
       - ~/.data/mongodb/data/util:/data/util
 
   nononote:
-    image: ghcr.io/escherlies/nononote/app:latest
+    image: ghcr.io/binaryplease/nononote/app:latest
     restart: always
     depends_on:
       - mongo

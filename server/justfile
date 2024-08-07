@@ -8,7 +8,7 @@ build:
   bun build src/index.ts --outdir ./build --target bun
 
 run:
-  NODE_ENV=production bun run build/index.ts
+  NODE_ENV=production bun run build/index.js
 
 clean:
   rm -rf ./dist ./node_modules
