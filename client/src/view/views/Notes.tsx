@@ -2,7 +2,7 @@ import { head, map, prop, sortBy, tail } from "rambda"
 import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
-import { Note } from "../../../../server/src/data"
+import { Note } from "../../../../server/src/data/note"
 import { UnsyncedIcon } from "../components/Icons"
 
 const setIsCached = (isNew: boolean) => (note: Note) => {
