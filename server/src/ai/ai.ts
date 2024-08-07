@@ -5,6 +5,7 @@ import {
   createTagsFromNotePrompt,
   createTagsFromWebpageKeywordsPrompt,
   createTagsFromWebpageMetaPrompt,
+  generateImageDescriptionPrompt,
   transcribeVoiceNotePrompt,
 } from "./prompts"
 
@@ -100,6 +101,30 @@ export async function transcribeVoiceNote(voiceNote: FileMetadataResponse): Prom
         },
       },
       transcribeVoiceNotePrompt(),
+    ])
+
+  const text = result.response.text()
+
+  return text
+}
+
+// ##################################################################### //
+// ############################### Images ############################## //
+// ##################################################################### //
+
+export async function describeImage(image: FileMetadataResponse): Promise<string> {
+  const result = await genAI
+    .getGenerativeModel({
+      model: "gemini-1.5-flash",
+    })
+    .generateContent([
+      {
+        fileData: {
+          mimeType: image.mimeType,
+          fileUri: image.uri,
+        },
+      },
+      generateImageDescriptionPrompt(),
     ])
 
   const text = result.response.text()

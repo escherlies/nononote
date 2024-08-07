@@ -17,6 +17,8 @@ import {
   Microphone,
   MicrophoneCheck,
   RefreshDouble,
+  Upload,
+  MediaImagePlus,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -202,6 +204,14 @@ export const UploadDoneIcon = () => {
   return (
     <Icon>
       <Check />
+    </Icon>
+  )
+}
+
+export const UploadIcon = () => {
+  return (
+    <Icon>
+      <MediaImagePlus />
     </Icon>
   )
 }

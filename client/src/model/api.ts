@@ -99,7 +99,7 @@ export const uploadVoiceNote = async (audio: Blob) => {
   const formData = new FormData()
   formData.append("audio", audio)
 
-  const response = await fetch(apiRoute("/upload-voice-note"), {
+  const response = await fetch(apiRoute("/upload-image"), {
     method: "POST",
     headers: {
       Authorization: authToken,
@@ -109,6 +109,32 @@ export const uploadVoiceNote = async (audio: Blob) => {
 
   if (!response.ok) {
     setError("Failed to upload voice note")
+    return
+  }
+
+  // No reponse body expected
+}
+
+export const uploadImage = async (image: File) => {
+  const authToken = useStore.getState().authToken
+  if (!authToken) {
+    setError("Not authenticated")
+    return
+  }
+
+  const formData = new FormData()
+  formData.append("image", image)
+
+  const response = await fetch(apiRoute("/upload-image"), {
+    method: "POST",
+    headers: {
+      Authorization: authToken,
+    },
+    body: formData,
+  })
+
+  if (!response.ok) {
+    setError("Failed to upload image")
     return
   }
 

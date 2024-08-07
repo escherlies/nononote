@@ -15,6 +15,7 @@ import {
 import { SearchInput } from "../components/SearchInput"
 import { IconButton } from "../Ui"
 import { VoiceRecorder } from "../components/VoiceRecorder"
+import { ViewFileUpload } from "../components/FileUpload"
 
 export function Menu() {
   const theme = useStore((state) => state.settings.theme)
@@ -117,6 +118,10 @@ function getItems({
               />
             ),
             description: "Settings",
+          },
+          {
+            item: <ViewFileUpload key="file-upload" />,
+            description: "Upload",
           },
           {
             item: <VoiceRecorder key="mic" />,
