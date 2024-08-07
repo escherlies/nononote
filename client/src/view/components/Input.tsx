@@ -1,6 +1,7 @@
 import { ClassAttributes, InputHTMLAttributes, useEffect, useRef } from "react"
 import { useStore } from "../../model/store"
 import { JSX } from "react/jsx-runtime"
+import { omit } from "rambda"
 
 type Props = JSX.IntrinsicAttributes &
   ClassAttributes<HTMLInputElement> &
@@ -21,12 +22,8 @@ export function Input(props: Props) {
     }
   }, [])
 
-  const jsxProps = {
-    ...props,
-    value: undefined,
-    onText: undefined,
-    autoFocus: undefined,
-  }
+  // Remove non-jsx props
+  const jsxProps = omit(["onText", "autoFocus"], props)
 
   switch (theme) {
     case "modern":
