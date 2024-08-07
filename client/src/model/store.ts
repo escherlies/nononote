@@ -3,7 +3,7 @@ import { logger } from "./logger"
 import { navigateTo, View } from "./router"
 import { Maybe } from "../../../shared/types"
 import { Note } from "../../../server/src/data/note"
-import { loadSettings, saveSettings, Settings } from "./settings"
+import { defaultSettings, loadSettings, saveSettings, Settings } from "./settings"
 import { monacoInstance } from "../view/components/Monaco"
 import { User } from "../../../server/src/data/user"
 import { publish } from "./api"
@@ -273,10 +273,7 @@ export const logOut = () => {
   storage.removeItem("auth-token")
 
   // Reset settings
-  updateSettings(() => ({
-    ...loadSettings(),
-    darkMode: "auto",
-  }))
+  updateSettings(() => defaultSettings)
 }
 
 export const setConnection = (connection: WebSocket) => {

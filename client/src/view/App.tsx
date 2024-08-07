@@ -9,7 +9,7 @@ import { ViewInfo } from "./views/Info"
 import { ColorStyleTag } from "./views/settings/Color"
 import { ViewSettings } from "./views/Settings"
 import { ViewEditNote } from "./views/Edit"
-import { Auth, SignIn } from "./views/Auth"
+import { Auth } from "./views/Auth"
 import { ReactNode } from "react"
 
 export function App() {
