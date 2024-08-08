@@ -98,7 +98,16 @@ export default async function api(app: FastifyInstance, opts: never, done: () =>
   // ############################ File upload ############################ //
   // ##################################################################### //
 
-  await app.register(fastifyMultipart)
+  await app.register(fastifyMultipart, {
+    limits: {
+      fieldNameSize: 100, // Max field name size in bytes
+      fieldSize: 10_000_000, // Max field value (in bytes)
+      fields: 10, // Max number of non-file fields
+      fileSize: 10_000_000, // For multipart forms, the max file size (in bytes)
+      files: 1, // Max number of file fields
+      headerPairs: 2000, // Max number of header key=>value
+    },
+  })
 
   app.post("/upload-image", { preHandler: authenticateUser }, async (req, res) => {
     const user = (req as AuthenticatedRequest).user
