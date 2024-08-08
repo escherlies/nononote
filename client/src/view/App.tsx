@@ -77,6 +77,9 @@ function ViewBody() {
           <ViewNotes />
         </div>
       )
+
+    case "Note":
+      return <ViewNote noteId={view.id} />
   }
 
   // Wrap normal views in a container
@@ -84,9 +87,6 @@ function ViewBody() {
     switch (view.tag) {
       case "NotFound":
         return <div>Not Found</div>
-
-      case "Note":
-        return <ViewNote noteId={view.id} />
 
       case "EditNote":
         return <ViewEditNote />
