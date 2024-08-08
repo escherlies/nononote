@@ -37,16 +37,16 @@ export const loadSettings = (): Settings => {
   const res = SettingsSchema.safeParse(JSON.parse(settings))
 
   if (!res.success) {
-    return {
-      ...defaultSettings,
-      // Override the default settings for now for simplicity
-      theme: "modern",
-      colorScheme: {
-        light: "blue-on-white",
-        dark: "blue-on-night",
-      },
-    }
+    return defaultSettings
   }
 
-  return res.data
+  return {
+    ...res.data,
+    // Override the default settings for now for simplicity
+    theme: "modern",
+    colorScheme: {
+      light: "blue-on-white",
+      dark: "blue-on-night",
+    },
+  }
 }
