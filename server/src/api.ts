@@ -124,7 +124,7 @@ export default async function api(app: FastifyInstance, opts: never, done: () =>
     }
 
     // Handle image upload
-    if (file.mimetype.startsWith("image")) {
+    if (uploaded.file.mimeType.startsWith("image")) {
       await handleImageUpload(uploaded.file, user)
       res.status(200).send()
     }
