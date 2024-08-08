@@ -28,7 +28,7 @@ export function ViewNotes() {
   const notes = reverse(sortBy(prop("createdAt"), notesWithoutDeleted))
 
   return (
-    <div className="flex flex-col gap-10 w-full bg-background-secondary">
+    <div className="flex flex-col gap-10 w-full">
       {map((note) => {
         const lines = note.text
           // Split the text into lines
@@ -50,24 +50,7 @@ export function ViewNotes() {
         const firstLine = head(lines)
         const rest = tail(lines).join(" · ")
 
-        return (
-          <div
-            key={note.id}
-            className="cursor-pointer select-none flex justify-between items-center gap-2"
-            onClick={() => navigateTo(tag("Note", { id: note.id }))}
-          >
-            <div className="line-clamp-2">
-              <span className="font-bold">{firstLine}</span>
-              {rest && " · "}
-              {rest}
-            </div>
-            {note.isNew && (
-              <div className="w-5 min-w-5" title="Sync in progress...">
-                <UnsyncedIcon />
-              </div>
-            )}
-          </div>
-        )
+        return <NoteCard note={note} title={firstLine} />
       }, notes)}
     </div>
   )
@@ -94,20 +77,31 @@ export const ViewLastNote = () => {
     return <div>No notes</div>
   }
 
-  const localDate = new Date(lastNote.createdAt).toLocaleString()
+  return <NoteCard note={lastNote} title="Last Note" />
+}
+
+export const NoteCard = ({ note, title }: { note: Note & { isNew: boolean }; title: string }) => {
+  const localDate = new Date(note.updatedAt).toLocaleDateString()
 
   return (
     <div
-      className="flex flex-col gap-2 p-5 rounded-xl bg-background-secondary cursor-pointer"
-      onClick={() => navigateTo(tag("Note", { id: lastNote.id }))}
+      className="flex flex-col gap-2 px-5 py-4 rounded-xl bg-background-secondary cursor-pointer"
+      onClick={() => navigateTo(tag("Note", { id: note.id }))}
     >
-      <div className="flex">
-        <div className="font-mono text-xs font-bold text-color-accent">Last Note</div>
-        <div className="ml-auto font-mono text-xs">{localDate}</div>
+      <div className="flex items-end">
+        <div
+          className={
+            "flex-1 font-mono text-xs font-bold line-clamp-1 " +
+            (note.smartNote ? "text-color-accent" : "")
+          }
+        >
+          <span>{note.smartNote ? "Your generated TODOs" : title}</span>
+        </div>
+        <div className="flex-1 text-right font-mono text-xs">{localDate}</div>
       </div>
       <div className="border-b border-color-text-primary"></div>
-      <div className="text-sm line-clamp-3">{lastNote.text}</div>
-      {lastNote.isNew && (
+      <div className="text-sm line-clamp-3">{note.text}</div>
+      {note.isNew && (
         <div className="w-4 ml-auto">
           <UnsyncedIcon iconProps={{ strokeWidth: "2" }} />
         </div>

@@ -224,7 +224,7 @@ export const SmartActionButton = ({
   return (
     <button
       onClick={onClick}
-      className="bg-color-accent font-mono whitespace-nowrap rounded px-4 py-2 flex items-center text-white"
+      className="bg-color-accent font-mono whitespace-nowrap rounded-xl px-4 py-2 flex items-center text-white"
     >
       <div className="w-full">{text}</div>
       <div className="w-6 h-6">{icon}</div>

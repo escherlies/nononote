@@ -8,7 +8,7 @@ export const ViewSmartActions = () => {
       onClick={() => {
         publish({ type: "smart-notes:create-todo-list" })
       }}
-      text="Generate To-Do-List"
+      text="Generate To-Do List"
       icon={<GenerateTodoListIcon />}
     />
   )

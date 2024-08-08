@@ -65,9 +65,18 @@ function Container({ children }: Props) {
 function ViewBody() {
   const view = useStore((state) => state.view)
 
-  if (view.tag === "Home") {
-    // Special case for home view
-    return <ViewHome />
+  // Views that don't need a container
+  switch (view.tag) {
+    case "Home":
+      return <ViewHome />
+
+    case "Notes":
+      return (
+        <div className="flex flex-col gap-5">
+          <ViewSmartActions />
+          <ViewNotes />
+        </div>
+      )
   }
 
   // Wrap normal views in a container
@@ -75,14 +84,6 @@ function ViewBody() {
     switch (view.tag) {
       case "NotFound":
         return <div>Not Found</div>
-
-      case "Notes":
-        return (
-          <div className="flex flex-col gap-5">
-            <ViewSmartActions />
-            <ViewNotes />
-          </div>
-        )
 
       case "Note":
         return <ViewNote noteId={view.id} />
