@@ -28,7 +28,7 @@ export function ViewNotes() {
   const notes = reverse(sortBy(prop("createdAt"), notesWithoutDeleted))
 
   return (
-    <div className="flex flex-col gap-10 w-full bg-background-secondary p-5">
+    <div className="flex flex-col gap-10 w-full bg-background-secondary">
       {map((note) => {
         const lines = note.text
           // Split the text into lines
