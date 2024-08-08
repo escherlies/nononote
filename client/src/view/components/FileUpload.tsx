@@ -29,12 +29,12 @@ export const ViewFileUpload = () => {
     return (
       <IconButton
         icon={
-          <div className="animate-spin ">
+          <div className="scale-125">
             <UploadingIcon />
           </div>
         }
         onClick={() => {}}
-        className="pointer-events-none"
+        className="w-full h-full pointer-events-none"
       ></IconButton>
     )
   }
@@ -42,8 +42,9 @@ export const ViewFileUpload = () => {
   if (uploadState === "uploaded") {
     return (
       <IconButton
+        className="w-full h-full"
         icon={
-          <div className="animate-ping">
+          <div className="animate-ping scale-125">
             <UploadDoneIcon />
           </div>
         }
@@ -53,9 +54,17 @@ export const ViewFileUpload = () => {
   }
 
   return (
-    <div>
+    <div className="w-full h-full">
       <label htmlFor="file-upload">
-        <IconButton icon={<UploadIcon />} onClick={() => {}}></IconButton>
+        <IconButton
+          className="w-full h-full"
+          icon={
+            <div className="scale-125">
+              <UploadIcon />
+            </div>
+          }
+          onClick={() => {}}
+        ></IconButton>
       </label>
       <input
         id="file-upload"

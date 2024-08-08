@@ -15,11 +15,11 @@ export function NoteInput() {
   }, [])
 
   return (
-    <div className="h-full w-full overflow-hidden">
+    <div className="h-full overflow-hidden p-4 bg-background-secondary rounded-xl">
       <textarea
         id="note-input"
         ref={inputRef}
-        rows={10}
+        rows={1}
         cols={50}
         value={noteInput}
         onChange={(e) => setNoteInput(e.target.value)}

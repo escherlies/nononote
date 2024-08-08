@@ -197,20 +197,20 @@ export const ColorSchemeSelector = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
       {/* Light scheme */}
-      <label htmlFor="lightScheme">Light Scheme: </label>
+      {/* <label htmlFor="lightScheme">Light Scheme: </label>
       <ColorDropdown
         schemes={schemes.filter((s) => s.kind === "light")}
         selectedScheme={settings.colorScheme.light}
         handleSchemeChange={handleLightSchemeChange}
-      />
+      /> */}
 
       {/* Dark scheme */}
-      <label htmlFor="darkScheme">Dark Scheme: </label>
+      {/* <label htmlFor="darkScheme">Dark Scheme: </label>
       <ColorDropdown
         schemes={schemes.filter((s) => s.kind === "dark")}
         selectedScheme={settings.colorScheme.dark}
         handleSchemeChange={handleDarkSchemeChange}
-      />
+      /> */}
 
       {/* Dark mode */}
       <label htmlFor="darkMode">Dark Mode: </label>
@@ -226,7 +226,7 @@ export const ColorSchemeSelector = () => {
       </select>
 
       {/* Theme */}
-      <label htmlFor="theme">Theme: </label>
+      {/* <label htmlFor="theme">Theme: </label>
       <select
         id="theme"
         value={settings.theme}
@@ -236,10 +236,10 @@ export const ColorSchemeSelector = () => {
         <option value="modern">Modern</option>
         <option value="space-craft">Space Craft</option>
         <option value="brutalist">Brutalist</option>
-      </select>
+      </select> */}
 
       {/* Button Sounds */}
-      <label htmlFor="buttonSound">
+      {/* <label htmlFor="buttonSound">
         Button Sounds <br />
         <span className="text-xs">(Brutalist Theme only): </span>
       </label>
@@ -251,7 +251,7 @@ export const ColorSchemeSelector = () => {
       >
         <option value="true">On</option>
         <option value="false">Off</option>
-      </select>
+      </select> */}
     </div>
   )
 }

@@ -17,6 +17,12 @@ module.exports = {
         down: `var(--color-accent) 0px 0px`,
         active: `var(--color-accent) 1px 1px`,
       },
+      fontFamily: {
+        mono: ["Space Mono", "monospace"],
+      },
+      animation: {
+        "spin-slow": "spin 1.4s linear infinite",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

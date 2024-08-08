@@ -119,14 +119,6 @@ function getItems({
             ),
             description: "Settings",
           },
-          {
-            item: <ViewFileUpload key="file-upload" />,
-            description: "Upload",
-          },
-          {
-            item: <VoiceRecorder key="mic" />,
-            description: "Voice",
-          },
         ]
       }
 

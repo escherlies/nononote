@@ -19,7 +19,7 @@ export const defaultSettings: Settings = {
     dark: "blue-on-night",
   },
   darkMode: "auto",
-  theme: "brutalist",
+  theme: "modern",
   buttonSound: true,
 }
 
@@ -37,7 +37,15 @@ export const loadSettings = (): Settings => {
   const res = SettingsSchema.safeParse(JSON.parse(settings))
 
   if (!res.success) {
-    return defaultSettings
+    return {
+      ...defaultSettings,
+      // Override the default settings for now for simplicity
+      theme: "modern",
+      colorScheme: {
+        light: "blue-on-white",
+        dark: "blue-on-night",
+      },
+    }
   }
 
   return res.data

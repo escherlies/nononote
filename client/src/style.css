@@ -1,4 +1,5 @@
 @import url("../assets/PretendardStd-1.3.9/pretendardvariable-std.css");
+@import url("../assets/Space_Mono/space-mono.css");
 
 @tailwind base;
 @tailwind components;

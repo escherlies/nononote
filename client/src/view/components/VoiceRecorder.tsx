@@ -30,12 +30,12 @@ export const VoiceRecorder = () => {
     return (
       <IconButton
         icon={
-          <div className="animate-spin ">
+          <div className="scale-125">
             <UploadingIcon />
           </div>
         }
         onClick={() => {}}
-        className="pointer-events-none"
+        className="w-full h-full pointer-events-none"
       ></IconButton>
     )
   }
@@ -43,8 +43,9 @@ export const VoiceRecorder = () => {
   if (uploadState === "uploaded") {
     return (
       <IconButton
+        className="w-full h-full"
         icon={
-          <div className="animate-ping">
+          <div className="animate-ping scale-125">
             <UploadDoneIcon />
           </div>
         }
@@ -56,8 +57,9 @@ export const VoiceRecorder = () => {
   if (isRecording) {
     return (
       <IconButton
+        className="w-full h-full"
         icon={
-          <div className="flex items-center gap-2 relative">
+          <div className="flex items-center gap-2 relative scale-125">
             <div className="bg-red-500 h-1 w-1 absolute top-0 right-0 rounded-full animate-pulse"></div>
             <StopRecording />
           </div>
@@ -67,5 +69,15 @@ export const VoiceRecorder = () => {
     )
   }
 
-  return <IconButton icon={<StartRecording />} onClick={startRecording}></IconButton>
+  return (
+    <IconButton
+      className="w-full h-full"
+      icon={
+        <div className="scale-125">
+          <StartRecording />
+        </div>
+      }
+      onClick={startRecording}
+    ></IconButton>
+  )
 }

@@ -27,10 +27,7 @@ type LayoutType = {
 
 export function ModernLayout({ body, footer }: LayoutType) {
   return [
-    <div
-      key="body"
-      className="relative flex-grow overflow-scroll bg-background-secondary rounded-xl p-4"
-    >
+    <div key="body" className="relative flex-grow overflow-scroll rounded-xl">
       {body}
     </div>,
     <div key="footer" className="w-full max-w-sm mx-auto">
@@ -90,5 +87,11 @@ function ViewNameTag({ viewName }: { viewName: string }) {
     >
       {viewName}
     </div>
+  )
+}
+
+export const BodyContainer = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="p-4 bg-background-secondary overflow-auto h-full rounded-xl">{children}</div>
   )
 }

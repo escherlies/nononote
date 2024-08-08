@@ -1,6 +1,6 @@
 import { ViewHome } from "./views/Home"
 import { ViewNotes } from "./views/Notes"
-import { Layout } from "./components/Layout"
+import { BodyContainer, Layout } from "./components/Layout"
 import { Menu } from "./views/Menu"
 import { setError, useStore } from "../model/store"
 import { ViewNote } from "./views/Note"
@@ -64,29 +64,36 @@ function Container({ children }: Props) {
 function ViewBody() {
   const view = useStore((state) => state.view)
 
-  switch (view.tag) {
-    case "NotFound":
-      return <div>Not Found</div>
-
-    case "Home":
-      return <ViewHome />
-
-    case "Notes":
-      return <ViewNotes />
-
-    case "Note":
-      return <ViewNote noteId={view.id} />
-
-    case "EditNote":
-      return <ViewEditNote />
-
-    case "Search":
-      return <ViewNotesSearch />
-
-    case "Info":
-      return <ViewInfo />
-
-    case "Settings":
-      return <ViewSettings />
+  if (view.tag === "Home") {
+    // Special case for home view
+    return <ViewHome />
   }
+
+  // Wrap normal views in a container
+  const elem = (() => {
+    switch (view.tag) {
+      case "NotFound":
+        return <div>Not Found</div>
+
+      case "Notes":
+        return <ViewNotes />
+
+      case "Note":
+        return <ViewNote noteId={view.id} />
+
+      case "EditNote":
+        return <ViewEditNote />
+
+      case "Search":
+        return <ViewNotesSearch />
+
+      case "Info":
+        return <ViewInfo />
+
+      case "Settings":
+        return <ViewSettings />
+    }
+  })()
+
+  return <BodyContainer>{elem}</BodyContainer>
 }

@@ -21,8 +21,17 @@ import {
   MediaImagePlus,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
+import { SVGProps } from "react"
+import { JSX } from "react/jsx-runtime"
 
-const Icon = ({ children }: { children: React.ReactNode }) => {
+type IconProps = { iconProps?: Partial<React.SVGProps<SVGSVGElement>> }
+
+const Icon = ({
+  children,
+  iconProps,
+}: {
+  children: React.ReactNode
+} & IconProps) => {
   const theme = useStore((state) => state.settings.theme)
 
   switch (theme) {
@@ -34,6 +43,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
             width: "100%",
             height: "100%",
             color: "var(--color-accent)",
+            ...iconProps,
           }}
         >
           {children}
@@ -47,6 +57,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
             width: "100%",
             height: "100%",
             color: "var(--color-accent)",
+            ...iconProps,
           }}
         >
           {children}
@@ -60,6 +71,7 @@ const Icon = ({ children }: { children: React.ReactNode }) => {
             width: "100%",
             height: "100%",
             color: "var(--color-accent)",
+            ...iconProps,
           }}
         >
           {children}
@@ -119,9 +131,9 @@ export const SaveNoteIcon = () => {
   )
 }
 
-export const UnsyncedIcon = () => {
+export const UnsyncedIcon = (props: IconProps) => {
   return (
-    <Icon>
+    <Icon iconProps={props.iconProps}>
       <CloudSync />
     </Icon>
   )
@@ -194,9 +206,9 @@ export const StopRecording = () => {
 
 export const UploadingIcon = () => {
   return (
-    <Icon>
-      <RefreshDouble />
-    </Icon>
+    <div className="text-color-accent">
+      <LineMdLoadingTwotoneLoop />
+    </div>
   )
 }
 
@@ -213,5 +225,32 @@ export const UploadIcon = () => {
     <Icon>
       <MediaImagePlus />
     </Icon>
+  )
+}
+
+export function LineMdLoadingTwotoneLoop(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5">
+        <path
+          strokeDasharray="60"
+          strokeDashoffset="60"
+          strokeOpacity=".3"
+          d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"
+        >
+          <animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0" />
+        </path>
+        <path strokeDasharray="15" strokeDashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12">
+          <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0" />
+          <animateTransform
+            attributeName="transform"
+            dur="1.3s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="0 12 12;360 12 12"
+          />
+        </path>
+      </g>
+    </svg>
   )
 }

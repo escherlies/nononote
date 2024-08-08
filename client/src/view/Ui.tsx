@@ -3,6 +3,7 @@ import { JSX } from "react/jsx-runtime"
 import { toggleMenu, useStore } from "../model/store"
 import { MoreActionsIcon } from "./components/Icons"
 import { playPress, playRelease } from "../model/sounds"
+import { omit } from "rambda"
 
 type DefaultProps = {
   children: ReactNode
@@ -65,7 +66,7 @@ export const FlatButton = ({
     transition-all duration-75
     ${className}
     `}
-      {...props}
+      {...omit(["className"], props)}
     >
       {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
       <div className="w-fit h-full flex justify-center items-center p-[14px] gap-2">
@@ -94,7 +95,7 @@ export const SpaceButton = ({
     dark:bg-neutral-800/30
     ${className}
     `}
-      {...props}
+      {...omit(["className"], props)}
     >
       {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
       <div className="w-fit h-full flex justify-center items-center p-[14px] gap-2">
@@ -153,7 +154,7 @@ export const BrutalistButton = ({
       onPointerUp={() => handleSetClicked(false)}
       onPointerLeave={() => handleSetClicked(false)}
       onPointerCancel={() => handleSetClicked(false)}
-      {...props}
+      {...omit(["className"], props)}
       // onClick={handleClick}
     >
       {/* <div className="uppercase tracking-tight text-[40px]">{props.children}</div> */}
