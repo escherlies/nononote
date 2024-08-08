@@ -1,4 +1,4 @@
-import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai"
+import { GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai"
 
 import {
   createCategoriesFromNotePrompt,
@@ -18,12 +18,20 @@ const logger = moduleLogger("ai")
 
 const genAI = new GoogleGenerativeAI(GOOGLE_GENERATIVE_AI_API_KEY)
 
+const SAFETY_SETTINGS = [
+  { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
+  { category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
+  { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
+  { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
+]
+
 const geminiFlashModel = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
   generationConfig: {
     responseMimeType: "application/json",
     temperature: 1,
   },
+  safetySettings: SAFETY_SETTINGS,
 })
 
 const geminiProModel = genAI.getGenerativeModel({
@@ -32,6 +40,7 @@ const geminiProModel = genAI.getGenerativeModel({
     responseMimeType: "application/json",
     temperature: 1,
   },
+  safetySettings: SAFETY_SETTINGS,
 })
 
 const generateFromTextWithPrompt = async (model: GenerativeModel, prompt: string): Promise<string> => {
