@@ -54,9 +54,7 @@ export function ViewNote({ noteId }: { noteId: string }) {
       {/* Smart note actions */}
       {note.smartNote && (
         <SmartActionButton
-          onClick={() => {
-            // todo: publish({ type: "smart-notes:create-todo-list" })
-          }}
+          onClick={() => navigateTo({ tag: "PlayTodoGame", noteId: note.id })}
           text="Help me get shit done"
           icon={<GetShitDoneIcon />}
         />

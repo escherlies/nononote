@@ -18,6 +18,7 @@ export type View =
   | T<"Info">
   | T<"Search", { query: string }>
   | T<"NotFound">
+  | T<"PlayTodoGame", { noteId: string }>
 
 // ~~~~~~~~~~~~~~~~ Routes ~~~~~~~~~~~~~~~ //
 
@@ -53,6 +54,12 @@ router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: 
   },
 })
 
+// Play todo game
+router.on(
+  "/notes/:noteId/todo-game",
+  (match) => match && setView({ tag: "PlayTodoGame", noteId: match.data!.noteId })
+)
+
 // Settings
 router.on("/settings", () => setView({ tag: "Settings" }))
 
@@ -85,6 +92,9 @@ export const navigateTo = (view: View) => {
 
     case "EditNote":
       return router.navigate(`/notes/${view.id}/edit`)
+
+    case "PlayTodoGame":
+      return router.navigate(`/notes/${view.noteId}/todo-game`)
 
     case "Settings":
       return router.navigate("/settings")
@@ -140,5 +150,8 @@ export const getViewName = (view: View): string => {
 
     case "NotFound":
       return "Not Found"
+
+    case "PlayTodoGame":
+      return "Play Todo Game"
   }
 }
