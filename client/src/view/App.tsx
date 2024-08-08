@@ -12,6 +12,7 @@ import { ViewEditNote } from "./views/Edit"
 import { Auth } from "./views/Auth"
 import { ReactNode } from "react"
 import { ViewModal } from "./Modal"
+import { ViewSmartActions } from "./views/SmartActions"
 
 export function App() {
   const authToken = useStore((state) => state.authToken)
@@ -76,7 +77,12 @@ function ViewBody() {
         return <div>Not Found</div>
 
       case "Notes":
-        return <ViewNotes />
+        return (
+          <div className="flex flex-col gap-5">
+            <ViewSmartActions />
+            <ViewNotes />
+          </div>
+        )
 
       case "Note":
         return <ViewNote noteId={view.id} />

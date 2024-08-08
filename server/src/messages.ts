@@ -37,6 +37,9 @@ export const appMsg = z.union([
     type: z.literal("auth:authenticate"),
     token: z.string(),
   }),
+  z.object({
+    type: z.literal("smart-notes:create-todo-list"),
+  }),
 ])
 
 export type AppMsg = z.infer<typeof appMsg>

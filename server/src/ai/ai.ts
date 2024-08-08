@@ -6,6 +6,7 @@ import {
   createTagsFromWebpageKeywordsPrompt,
   createTagsFromWebpageMetaPrompt,
   generateImageDescriptionPrompt,
+  generateSmartTodoListPrompt,
   transcribeVoiceNotePrompt,
 } from "./prompts"
 
@@ -139,4 +140,34 @@ export async function describeImage(image: FileMetadataResponse): Promise<string
   const text = result.response.text()
 
   return text
+}
+
+// ##################################################################### //
+// ########################### Smart Actions ########################### //
+// ##################################################################### //
+
+export async function generateSmartTodoList(content: string[]): Promise<string[]> {
+  const result = await genAI
+    .getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: {
+        responseMimeType: "application/json",
+        temperature: 0.5,
+      },
+      safetySettings: SAFETY_SETTINGS,
+    })
+    .generateContent(generateSmartTodoListPrompt(content))
+
+  const response = result.response.text()
+
+  console.log("Smart Todo List:")
+  console.log("----------------")
+  console.log(JSON.stringify(content, null, 2))
+  console.log("----------------")
+  console.log(response)
+  console.log("----------------")
+
+  const json = JSON.parse(response)
+
+  return json
 }

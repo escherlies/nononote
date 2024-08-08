@@ -10,6 +10,8 @@ export const noteDecoder = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   deleted: z.boolean().optional(),
+  userId: z.string().optional(), // TODO: only optional for the client
+  smartNote: z.boolean().optional(), // Flag to indicate if the note was created by the smart notes feature
 })
 
 export type Note = z.infer<typeof noteDecoder>

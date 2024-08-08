@@ -19,6 +19,7 @@ import {
   RefreshDouble,
   Upload,
   MediaImagePlus,
+  ClipboardCheck,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 import { SVGProps } from "react"
@@ -227,6 +228,18 @@ export const UploadIcon = () => {
     </Icon>
   )
 }
+
+export const GenerateTodoListIcon = () => {
+  return (
+    <Icon iconProps={{ color: "currrentColor" }}>
+      <ClipboardCheck />
+    </Icon>
+  )
+}
+
+// ##################################################################### //
+// ############################# Svg icons ############################# //
+// ##################################################################### //
 
 export function LineMdLoadingTwotoneLoop(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
