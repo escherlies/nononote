@@ -91,15 +91,25 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
         .find({
           userId: context.user.id,
           // Include only that have previously been classified as todo
-          categories: { $in: ["todo"] },
+          // categories: { $in: ["todo"] },
           // Exclude deleted notes and smart notes
           deleted: { $ne: true },
           smartNote: { $ne: true },
         })
         .toArray()
 
-      // Extract text from notes
-      const notesContent = notes.reverse().map(prop("text"))
+      const notesContent = notes
+        .map((note) => {
+          if (note.categories.includes("todo")) {
+            return note
+          } else {
+            return { text: extractTodosFromNote(note) }
+          }
+        })
+        .reverse()
+        .map(prop("text"))
+        // Filter empty notes
+        .filter((note) => note.length > 0)
 
       // Generate a todo list from notes
       const todos = await generateSmartTodoList(notesContent)
@@ -117,7 +127,7 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
       }
 
       // Save note
-      // await monzod.cols.notes.insertOne(note)
+      await monzod.cols.notes.insertOne(note)
 
       // Emit note to all subscribers
       return emitMessageEvent({ context, message: { type: "notes:note", note } })
@@ -137,4 +147,23 @@ function formatRawTodos(todos: string[]): string {
     .join("\n")
 
   return formattedTodos
+}
+
+function extractTodosFromNote(note: Note) {
+  // If a note is not categorized as todo, extract possible todos from it
+  // Strip away all non-todo content
+  // The Todos are in markdown list or task list format
+  // - [ ] Task 1
+  // - [x] Task 2
+  // - Task 3
+  // - Task 4
+
+  // Extract todos from notes
+  const lines = note.text.split("\n")
+  // Filter out lines that are not todos
+  const todos = lines.filter((line) => {
+    // Check if line is a markdown task list or list item
+    return line.match(/- \[ \] /) || line.match(/- \[x\] /) || line.match(/- /)
+  })
+  return todos.join("\n")
 }
