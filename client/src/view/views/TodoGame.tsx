@@ -1,4 +1,6 @@
 import { ReactNode } from "react"
+import { navigateTo } from "../../model/router"
+import { Title } from "../Ui"
 
 type Props = {
   noteId: string
@@ -6,7 +8,7 @@ type Props = {
 export const ViewTodoGame = ({ noteId }: Props) => {
   return (
     <div className="flex flex-col gap-5 w-full h-full">
-      <Title />
+      <Title>Play a game</Title>
 
       {/* Todo Turnament */}
       <Card
@@ -18,6 +20,7 @@ export const ViewTodoGame = ({ noteId }: Props) => {
             emerges as the ultimate priority.
           </p>
         }
+        badge={true}
       />
 
       {/* Time Attack */}
@@ -25,20 +28,20 @@ export const ViewTodoGame = ({ noteId }: Props) => {
         title="Time Attack"
         icon={<TimerIcon />}
         content={<p>Set a timer and see how many tasks you can complete within that time.</p>}
+        badge={true}
       />
 
       {/* Focus Frenzy */}
       <Card
         title="Focus Frenzy"
+        onClick={() =>
+          navigateTo({ tag: "PlayTodoGameGame", noteId: noteId, gameId: "focus-frenzy" })
+        }
         icon={<ShuffleIcon />}
         content={<p>Picks a random task to work on for a set time period.</p>}
       />
     </div>
   )
-}
-
-export const Title = () => {
-  return <div className="text-3xl font-bold uppercase text-color-accent">Play a game</div>
 }
 
 const ComingSoonBadge = () => {
@@ -53,13 +56,20 @@ export const Card = ({
   title,
   icon,
   content,
+  onClick,
+  badge,
 }: {
   title: string
   icon: ReactNode
   content: ReactNode
+  onClick?: () => void
+  badge?: boolean
 }) => {
   return (
-    <div className="flex flex-col gap-2 px-4 pt-4 pb-10 rounded-xl bg-background-secondary relative">
+    <div
+      className="flex flex-col gap-2 px-4 pt-4 pb-10 rounded-xl bg-background-secondary relative cursor-pointer"
+      onClick={onClick}
+    >
       {/* Header */}
       <div className="flex gap-2 h-10 items-center justify-center">
         <div className="w-9 h-9">{icon}</div>
@@ -74,9 +84,11 @@ export const Card = ({
       <div className="text-sm">{content}</div>
 
       {/* Badge */}
-      <div className="absolute bottom-4 right-4">
-        <ComingSoonBadge />
-      </div>
+      {badge && (
+        <div className="absolute bottom-4 right-4">
+          <ComingSoonBadge />
+        </div>
+      )}
     </div>
   )
 }

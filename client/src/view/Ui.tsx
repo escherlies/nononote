@@ -10,7 +10,7 @@ type DefaultProps = {
 }
 
 export const Title = (props: DefaultProps) => {
-  return <div className="text-2xl font-bold">{props.children}</div>
+  return <div className="text-3xl font-bold uppercase text-color-accent">{props.children}</div>
 }
 
 export const SubTitle = (props: DefaultProps) => {
