@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { ReactNode, useState } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
 import { checkTodoOfNote } from "../../model/store"
 
@@ -7,16 +7,27 @@ interface MarkdownCheckboxProps {
   markdown: string
 }
 
+const extractText = (children: ReactNode): string => {
+  if (typeof children === "string") {
+    return children
+  } else if (Array.isArray(children)) {
+    return children.map(extractText).join("")
+  } else if (React.isValidElement(children)) {
+    return extractText(children.props.children)
+  }
+  return ""
+}
+
 export const MarkdownCheckbox: React.FC<MarkdownCheckboxProps> = ({ noteId, markdown }) => {
   const components: Partial<Components> = {
     li: ({ node, ...props }: any) => {
-      const item = props.children as string
+      const item = extractText(props.children)
 
       const unchecked = item.startsWith("[ ]")
       const checked = item.startsWith("[x]")
       const isCheckbox = checked || unchecked
 
-      const contentFormatted = props.children.replace("[ ] ", "").replace("[x] ", "")
+      const contentFormatted = item.replace("[ ] ", "").replace("[x] ", "")
 
       if (isCheckbox) {
         // Toggle
