@@ -13,6 +13,8 @@ import { Auth } from "./views/Auth"
 import { ReactNode } from "react"
 import { ViewModal } from "./Modal"
 import { ViewSmartActions } from "./views/SmartActions"
+import { ViewTodoGame } from "./views/TodoGame"
+import { ViewGames } from "./views/Games"
 
 export function App() {
   const authToken = useStore((state) => state.authToken)
@@ -77,6 +79,15 @@ function ViewBody() {
           <ViewNotes />
         </div>
       )
+
+    case "Note":
+      return <ViewNote noteId={view.id} />
+
+    case "PlayTodoGame":
+      return <ViewTodoGame noteId={view.noteId} />
+
+    case "PlayTodoGameGame":
+      return <ViewGames gameId={view.gameId} noteId={view.noteId} />
   }
 
   // Wrap normal views in a container
@@ -84,9 +95,6 @@ function ViewBody() {
     switch (view.tag) {
       case "NotFound":
         return <div>Not Found</div>
-
-      case "Note":
-        return <ViewNote noteId={view.id} />
 
       case "EditNote":
         return <ViewEditNote />

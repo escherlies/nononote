@@ -5,6 +5,8 @@ import { T } from "../../../shared/types"
 
 const router = new Navigo("/")
 
+export type Games = "focus-frenzy"
+
 //
 //
 // ~~~~~~~~~~~~~~~~~ View ~~~~~~~~~~~~~~~~ //
@@ -18,6 +20,8 @@ export type View =
   | T<"Info">
   | T<"Search", { query: string }>
   | T<"NotFound">
+  | T<"PlayTodoGame", { noteId: string }>
+  | T<"PlayTodoGameGame", { noteId: string; gameId: Games }>
 
 // ~~~~~~~~~~~~~~~~ Routes ~~~~~~~~~~~~~~~ //
 
@@ -53,6 +57,24 @@ router.on("/notes/:id/edit", (match) => match && setView({ tag: "EditNote", id: 
   },
 })
 
+// Play todo game
+router.on(
+  "/notes/:noteId/todo-game/:gameId",
+  (match) =>
+    match &&
+    setView({
+      tag: "PlayTodoGameGame",
+      noteId: match.data!.noteId,
+      gameId: match.data!.gameId as Games,
+    })
+)
+
+// Play todo game
+router.on(
+  "/notes/:noteId/todo-game",
+  (match) => match && setView({ tag: "PlayTodoGame", noteId: match.data!.noteId })
+)
+
 // Settings
 router.on("/settings", () => setView({ tag: "Settings" }))
 
@@ -85,6 +107,12 @@ export const navigateTo = (view: View) => {
 
     case "EditNote":
       return router.navigate(`/notes/${view.id}/edit`)
+
+    case "PlayTodoGame":
+      return router.navigate(`/notes/${view.noteId}/todo-game`)
+
+    case "PlayTodoGameGame":
+      return router.navigate(`/notes/${view.noteId}/todo-game/${view.gameId}`)
 
     case "Settings":
       return router.navigate("/settings")
@@ -140,5 +168,11 @@ export const getViewName = (view: View): string => {
 
     case "NotFound":
       return "Not Found"
+
+    case "PlayTodoGame":
+      return "Play Todo Game"
+
+    case "PlayTodoGameGame":
+      return view.gameId
   }
 }

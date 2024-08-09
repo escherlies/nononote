@@ -20,6 +20,7 @@ import {
   Upload,
   MediaImagePlus,
   ClipboardCheck,
+  Rocket,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 import { SVGProps } from "react"
@@ -233,6 +234,14 @@ export const GenerateTodoListIcon = () => {
   return (
     <Icon iconProps={{ color: "currrentColor" }}>
       <ClipboardCheck />
+    </Icon>
+  )
+}
+
+export const GetShitDoneIcon = () => {
+  return (
+    <Icon iconProps={{ color: "currrentColor", className: "rotate-45" }}>
+      <Rocket />
     </Icon>
   )
 }

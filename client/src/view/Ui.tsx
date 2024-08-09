@@ -10,7 +10,7 @@ type DefaultProps = {
 }
 
 export const Title = (props: DefaultProps) => {
-  return <div className="text-2xl font-bold">{props.children}</div>
+  return <div className="text-3xl font-bold uppercase text-color-accent">{props.children}</div>
 }
 
 export const SubTitle = (props: DefaultProps) => {
@@ -224,7 +224,7 @@ export const SmartActionButton = ({
   return (
     <button
       onClick={onClick}
-      className="bg-color-accent font-mono whitespace-nowrap rounded-xl px-4 py-2 flex items-center text-white"
+      className="w-full flex gap-2 bg-color-accent font-mono whitespace-nowrap rounded-lg px-4 py-2 items-center text-white"
     >
       <div className="w-full">{text}</div>
       <div className="w-6 h-6">{icon}</div>
