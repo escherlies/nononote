@@ -2,10 +2,9 @@ import { map } from "rambda"
 import { useStore } from "../../model/store"
 import { navigateTo } from "../../model/router"
 import { ReactNode } from "react"
-import Markdown from "../components/Markdown"
-import { NoteCard } from "./Notes"
 import { SmartActionButton } from "../Ui"
 import { GetShitDoneIcon } from "../components/Icons"
+import { MarkdownCheckbox } from "../components/MarkdownInteractive"
 
 export function ViewNote({ noteId }: { noteId: string }) {
   const storedNotes = useStore((state) => state.notes)
@@ -41,7 +40,14 @@ export function ViewNote({ noteId }: { noteId: string }) {
           <div className="flex-1 text-right font-mono text-xs">{localDate}</div>
         </div>
         <div className="border-b border-color-text-primary"></div>
-        <Markdown className="prose prose-neutral dark:prose-invert my-4" content={note.text} />
+        <div className="prose prose-neutral dark:prose-invert my-4">
+          <MarkdownCheckbox
+            // className="prose prose-neutral dark:prose-invert my-4"
+            // content={note.text}
+            markdown={note.text}
+            noteId={noteId}
+          />
+        </div>
         {/* Date and categories */}
         <div className="flex gap-1 w-full flex-wrap">
           {viewTag(new Date(note.createdAt).toLocaleString())}

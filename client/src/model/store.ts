@@ -108,15 +108,20 @@ export const saveNewNote = async () => {
 
 export const updateNote = async (noteId: string) => {
   const noteInput = useStore.getState().noteInput.trim()
+
+  return updateNoteWith(noteId, noteInput)
+}
+
+export const updateNoteWith = async (noteId: string, text: string) => {
   const isConnected = useStore.getState().isConnected
 
-  if (!noteInput) {
+  if (!text) {
     return
   }
 
   const note: Omit<Note, "userId"> = {
     id: noteId,
-    text: noteInput,
+    text: text,
     tags: [],
     categories: [],
     createdAt: new Date().toISOString(),
@@ -130,7 +135,7 @@ export const updateNote = async (noteId: string) => {
   }
 
   try {
-    await publish({ type: "notes:update", id: noteId, text: noteInput })
+    await publish({ type: "notes:update", id: noteId, text: text })
   } catch (error) {
     cacheUpdatedNote(note)
     setError(String(error))
@@ -336,4 +341,27 @@ export const handleDeleteNote = (noteId: string) => {
   setModal(null)
   // Navigate to notes
   navigateTo({ tag: "Notes" })
+}
+
+export const checkTodoOfNote = (noteId: string, item: string) => {
+  const note = useStore.getState().notes.find((note) => note.id === noteId)
+
+  if (!note) {
+    setError("Note not found")
+    return
+  }
+
+  const unchecked = item.startsWith("[ ]")
+  if (unchecked) {
+    const newItem = item.replace("[ ]", "[x]")
+    const content = note.text.replace(item, newItem)
+    return updateNoteWith(noteId, content)
+  }
+
+  const checked = item.startsWith("[x]")
+  if (checked) {
+    const newItem = item.replace("[x]", "[ ]")
+    const content = note.text.replace(item, newItem)
+    return updateNoteWith(noteId, content)
+  }
 }

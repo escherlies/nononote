@@ -28,8 +28,13 @@
     "react": "^18.3.1",
     "react-audio-voice-recorder": "^2.2.0",
     "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.0",
     "universal-router": "^9.2.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
+  },
+  "@parcel/resolver-default": {
+    "//": "https://github.com/remarkjs/react-markdown/issues/801#issuecomment-1863387758",
+    "packageExports": true
   }
 }
