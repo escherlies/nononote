@@ -68,7 +68,7 @@ export const ViewFocusFrenzy = ({ noteId }: Props) => {
     <div className="flex flex-col gap-5">
       <Title>Focus Frenzy</Title>
 
-      <p>Go set yourself a timer. We recommentd an hour.</p>
+      <p>Go set yourself a timer. We recommend an hour.</p>
       <SmartActionButton
         onClick={() => getRandomTodo(todos)}
         text="Let's go!"

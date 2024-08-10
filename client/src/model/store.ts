@@ -304,7 +304,6 @@ export const handleAuth = (authToken: string) => {
 }
 
 export const handleAuthError = (error: string) => {
-  useStore.setState({ error })
   logOut()
 }
 
