@@ -5,7 +5,7 @@ import { T } from "../../../shared/types"
 
 const router = new Navigo("/")
 
-export type Games = "focus-frenzy"
+export type Games = "focus-frenzy" | "todo-turnament"
 
 //
 //

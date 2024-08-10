@@ -14,22 +14,25 @@ export const ViewTodoGame = ({ noteId }: Props) => {
       <Card
         title="Todo Turnament"
         icon={<BoxingIcon />}
+        onClick={() =>
+          navigateTo({ tag: "PlayTodoGameGame", noteId: noteId, gameId: "todo-turnament" })
+        }
         content={
           <p>
             Determine the most important task by pitting your todos against each other until one
             emerges as the ultimate priority.
           </p>
         }
-        badge={true}
+        // badge={true}
       />
 
       {/* Time Attack */}
-      <Card
+      {/* <Card
         title="Time Attack"
         icon={<TimerIcon />}
         content={<p>Set a timer and see how many tasks you can complete within that time.</p>}
         badge={true}
-      />
+      /> */}
 
       {/* Focus Frenzy */}
       <Card

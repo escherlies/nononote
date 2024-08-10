@@ -15,6 +15,8 @@ import { ViewModal } from "./Modal"
 import { ViewSmartActions } from "./views/SmartActions"
 import { ViewTodoGame } from "./views/TodoGame"
 import { ViewGames } from "./views/Games"
+import { useWindowSize } from "@react-hook/window-size"
+import Confetti from "react-confetti"
 
 export function App() {
   const authToken = useStore((state) => state.authToken)
@@ -38,7 +40,9 @@ type Props = {
   children: ReactNode
 }
 function Container({ children }: Props) {
+  const [width, height] = useWindowSize()
   const error = useStore((state) => state.error)
+  const confetti = useStore((state) => state.confetti)
 
   return (
     <div className="w-dvw h-dvh bg-background-primary flex text-color-text-primary">
@@ -59,6 +63,18 @@ function Container({ children }: Props) {
           </div>
         </div>
       )}
+
+      {/* Confetti */}
+      {confetti !== "no" && (
+        <Confetti
+          numberOfPieces={confetti == "yes" ? 150 : 0}
+          className="fixed inset-0 overflow-hidden"
+          width={width - 1}
+          height={height - 1}
+        />
+      )}
+
+      {/* Style */}
       <ColorStyleTag />
     </div>
   )

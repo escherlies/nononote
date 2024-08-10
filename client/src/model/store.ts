@@ -34,6 +34,7 @@ export const useStore = create(() => ({
   connection: null as Maybe<WebSocket>,
   modal: null as Maybe<Modal>,
   reconnectionAttempts: 0,
+  confetti: "no" as "no" | "yes" | "stopEmitting",
 }))
 
 // Subscriptions
@@ -363,4 +364,15 @@ export const checkTodoOfNote = (noteId: string, item: string) => {
     const content = note.text.replace(item, newItem)
     return updateNoteWith(noteId, content)
   }
+}
+
+export const showConfetti = () => {
+  //
+  useStore.setState({ confetti: "yes" })
+  setTimeout(() => {
+    useStore.setState({ confetti: "stopEmitting" })
+    setTimeout(() => {
+      useStore.setState({ confetti: "no" })
+    }, 2000)
+  }, 3000)
 }

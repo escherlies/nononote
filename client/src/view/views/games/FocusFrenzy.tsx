@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react"
-import { useStore } from "../../../model/store"
+import { showConfetti, useStore } from "../../../model/store"
 import { GetShitDoneIcon } from "../../components/Icons"
 import { SmartActionButton, Title } from "../../Ui"
 import { MarkdownCheckbox } from "../../components/MarkdownInteractive"
-
-import Confetti from "react-confetti"
-import { useWindowSize } from "@react-hook/window-size"
 
 type Props = { noteId: string }
 
 export const ViewFocusFrenzy = ({ noteId }: Props) => {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
-
-  const [showConfetti, setConfetti] = useState("no" as "no" | "yes" | "stopEmitting")
-
-  const [width, height] = useWindowSize()
 
   const notes = [...storedNotes, ...unsyncedNewNotes]
 
@@ -34,15 +27,8 @@ export const ViewFocusFrenzy = ({ noteId }: Props) => {
     if (todo && note) {
       const todoGotChecked = todo.replace("[ ]", "[x]")
       if (note.text.includes(todoGotChecked)) {
-        //
-        setConfetti("yes")
         setTodo(todoGotChecked)
-        setTimeout(() => {
-          setConfetti("stopEmitting")
-          setTimeout(() => {
-            setConfetti("no")
-          }, 2000)
-        }, 3000)
+        showConfetti()
       }
 
       const todoGotUnChecked = todo.replace("[x]", "[ ]")
@@ -62,8 +48,6 @@ export const ViewFocusFrenzy = ({ noteId }: Props) => {
 
   const todos = extractMarkdownCheckboxes(note.text)
 
-  console.log(showConfetti)
-
   return (
     <div className="flex flex-col gap-5">
       <Title>Focus Frenzy</Title>
@@ -80,14 +64,7 @@ export const ViewFocusFrenzy = ({ noteId }: Props) => {
           <MarkdownCheckbox markdown={todo} noteId={noteId} />
         </div>
       )}
-      {showConfetti !== "no" && (
-        <Confetti
-          numberOfPieces={showConfetti == "yes" ? 200 : 0}
-          className="fixed inset-0 overflow-hidden"
-          width={width - 1}
-          height={height - 1}
-        />
-      )}
+      {}
     </div>
   )
 }
