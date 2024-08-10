@@ -83,7 +83,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
         {/* Winner todo */}
         {todo && todo.includes("[x]") && (
           <div className="flex flex-col gap-5">
-            <p>Good work! Continue?</p>
+            <p>Great work! Continue?</p>
             <SmartActionButton
               onClick={() => setTurnament(randomizeList(todos))}
               text="Let's go!"

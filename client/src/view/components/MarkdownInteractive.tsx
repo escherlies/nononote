@@ -32,7 +32,7 @@ export const MarkdownCheckbox: React.FC<MarkdownCheckboxProps> = ({ noteId, mark
       if (isCheckbox) {
         // Toggle
         return (
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <input
               type="checkbox"
               checked={checked}
