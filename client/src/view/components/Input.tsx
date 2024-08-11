@@ -28,11 +28,14 @@ export function Input(props: Props) {
   switch (theme) {
     case "modern":
       return (
-        <div className="w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary">
+        <div className="">
           <input
             ref={inputRef}
             spellCheck={false}
-            className="bg-transparent outline-none resize-none w-full text-2xl italic translate-y-0.5"
+            className={[
+              "w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary",
+              "outline-none resize-none w-full text-2xl italic border-none focus:ring-2",
+            ].join(" ")}
             onChange={(e) => props.onText(e.target.value)}
             {...jsxProps}
           />

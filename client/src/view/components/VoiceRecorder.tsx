@@ -29,6 +29,7 @@ export const VoiceRecorder = () => {
   if (uploadState === "uploading") {
     return (
       <IconButton
+        ariaLabel="Uploading"
         icon={
           <div className="scale-125">
             <UploadingIcon />
@@ -43,6 +44,7 @@ export const VoiceRecorder = () => {
   if (uploadState === "uploaded") {
     return (
       <IconButton
+        ariaLabel="Uploaded"
         className="w-full h-full"
         icon={
           <div className="animate-ping scale-125">
@@ -57,6 +59,7 @@ export const VoiceRecorder = () => {
   if (isRecording) {
     return (
       <IconButton
+        ariaLabel="Stop recording"
         className="w-full h-full"
         icon={
           <div className="flex items-center gap-2 relative scale-125">
@@ -71,6 +74,7 @@ export const VoiceRecorder = () => {
 
   return (
     <IconButton
+      ariaLabel="Start recording voice note"
       className="w-full h-full"
       icon={
         <div className="scale-125">

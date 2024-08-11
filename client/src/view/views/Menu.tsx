@@ -63,7 +63,9 @@ export function Menu() {
 }
 
 const BackButton = ({ className }: { className?: string }) => {
-  return <IconButton onClick={goBack} icon={<GoBackIcon />} className={className} />
+  return (
+    <IconButton ariaLabel="Back" onClick={goBack} icon={<GoBackIcon />} className={className} />
+  )
 }
 function getItems({
   view,
@@ -79,11 +81,26 @@ function getItems({
       if (noteInput !== "") {
         return [
           {
-            item: <IconButton key="abort" onClick={clearInput} icon={<DismissIcon />} />,
+            item: (
+              <IconButton
+                key="abort"
+                ariaLabel="Discard new note"
+                onClick={clearInput}
+                icon={<DismissIcon />}
+              />
+            ),
             description: "Abort",
           },
           {
-            item: <IconButton key="save" onClick={saveNote} icon={<SaveNoteIcon />} />,
+            item: (
+              <IconButton
+                key="save"
+                ariaLabel="Save new note"
+                onClick={saveNote}
+                icon={<SaveNoteIcon />}
+              />
+            ),
+
             description: "Save",
           },
         ]
@@ -93,6 +110,7 @@ function getItems({
             item: (
               <IconButton
                 key="notes"
+                ariaLabel="Notes"
                 onClick={() => navigateTo({ tag: "Notes" })}
                 icon={<NotesIcon />}
               />
@@ -103,6 +121,7 @@ function getItems({
             item: (
               <IconButton
                 key="search"
+                ariaLabel="Search"
                 onClick={() => navigateTo({ tag: "Search", query: "" })}
                 icon={<SearchIcon />}
               />
@@ -113,6 +132,7 @@ function getItems({
             item: (
               <IconButton
                 key="settings"
+                ariaLabel="Navigate to settings"
                 onClick={() => navigateTo({ tag: "Settings" })}
                 icon={<SettingsIcon />}
               />
@@ -137,6 +157,7 @@ function getItems({
               item: (
                 <IconButton
                   key="home"
+                  ariaLabel="Navigate to home"
                   onClick={() => navigateTo({ tag: "Home" })}
                   icon={<NewNoteIcon />}
                 />
@@ -144,7 +165,14 @@ function getItems({
               description: "New",
             }
           : {
-              item: <IconButton key="notes" onClick={clearSearchQuery} icon={<DismissIcon />} />,
+              item: (
+                <IconButton
+                  key="clear"
+                  ariaLabel="Clear search query"
+                  onClick={clearSearchQuery}
+                  icon={<DismissIcon />}
+                />
+              ),
               description: "Clear Search",
             },
       ]
@@ -159,6 +187,7 @@ function getItems({
           item: (
             <IconButton
               key="edit"
+              ariaLabel="Edit note"
               className={view.id.includes("intro-") ? "hidden" : undefined}
               onClick={() => navigateTo({ tag: "EditNote", id: view.id })}
               icon={<Pencil />}
@@ -170,6 +199,7 @@ function getItems({
           item: (
             <IconButton
               key="home"
+              ariaLabel="Navigate to home"
               onClick={() => navigateTo({ tag: "Home" })}
               icon={<NewNoteIcon />}
             />
@@ -188,6 +218,7 @@ function getItems({
           item: (
             <IconButton
               key="delete"
+              ariaLabel="Delete note"
               onClick={() => setModal({ tag: "DeleteNotePrompt", noteId: view.id })}
               icon={<DeleteIcon />}
             />
@@ -198,6 +229,7 @@ function getItems({
           item: (
             <IconButton
               key="save"
+              ariaLabel="Save note"
               onClick={saveNote}
               icon={<SaveNoteIcon />}
               className={noteInput === "" ? "opacity-50" : ""}
@@ -217,6 +249,7 @@ function getItems({
           item: (
             <IconButton
               key="search"
+              ariaLabel="Search"
               onClick={() => navigateTo({ tag: "Search", query: "" })}
               icon={<SearchIcon />}
             />
@@ -227,6 +260,7 @@ function getItems({
           item: (
             <IconButton
               key="home"
+              ariaLabel="Navigate to home"
               onClick={() => navigateTo({ tag: "Home" })}
               icon={<NewNoteIcon />}
             />
@@ -245,6 +279,7 @@ function getItems({
           item: (
             <IconButton
               key="home"
+              ariaLabel="Navigate to home"
               onClick={() => navigateTo({ tag: "Home" })}
               icon={<NewNoteIcon />}
             />

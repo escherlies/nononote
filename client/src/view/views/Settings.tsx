@@ -1,6 +1,6 @@
 import { logOut } from "../../model/store"
 import { LogOutIcon } from "../components/Icons"
-import { IconButton, TextButton } from "../Ui"
+import { TextButton } from "../Ui"
 import { ColorSchemeSelector } from "./settings/Color"
 
 export const ViewSettings = () => {

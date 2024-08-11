@@ -17,9 +17,7 @@ export const SubTitle = (props: DefaultProps) => {
   return <div className="text-lg font-semibold">{props.children}</div>
 }
 
-export const MenuButton = ({
-  ...props
-}: JSX.IntrinsicAttributes & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>) => {
+export const MenuButton = (props: DefaultButtonProps) => {
   const menuOpen = useStore((state) => state.menuOpen)
 
   return (
@@ -55,7 +53,8 @@ export const FlatButton = ({
   ...props
 }: DefaultButtonProps & { active?: boolean }) => {
   return (
-    <div
+    <button
+      role="button"
       className={`
     w-fit
     min-w-[60px] h-[60px]
@@ -72,7 +71,7 @@ export const FlatButton = ({
       <div className="w-fit h-full flex justify-center items-center p-[14px] gap-2">
         {props.children}
       </div>
-    </div>
+    </button>
   )
 }
 
@@ -83,7 +82,8 @@ export const SpaceButton = ({
   ...props
 }: DefaultButtonProps & { active?: boolean }) => {
   return (
-    <div
+    <button
+      role="button"
       className={`
     w-fit
     min-w-[60px] h-[60px]
@@ -101,7 +101,7 @@ export const SpaceButton = ({
       <div className="w-fit h-full flex justify-center items-center p-[14px] gap-2">
         {props.children}
       </div>
-    </div>
+    </button>
   )
 }
 
@@ -141,7 +141,8 @@ export const BrutalistButton = ({
   const clickedClassNames = getClassNames()
 
   return (
-    <div
+    <button
+      role="button"
       className={`
     border-[3px] border-color-accent min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     rounded-xl
@@ -161,13 +162,13 @@ export const BrutalistButton = ({
       <div className="w-fit h-full flex justify-center items-center p-2 gap-2">
         {props.children}
       </div>
-    </div>
+    </button>
   )
 }
 
 type DefaultButtonProps = JSX.IntrinsicAttributes &
-  ClassAttributes<HTMLDivElement> &
-  HTMLAttributes<HTMLDivElement> & {
+  ClassAttributes<HTMLButtonElement> &
+  HTMLAttributes<HTMLButtonElement> & {
     onClick: () => void
   }
 
@@ -175,8 +176,9 @@ export const IconButton = ({
   onClick,
   icon,
   active,
+  ariaLabel,
   ...props
-}: DefaultButtonProps & { icon: ReactNode; active?: boolean }) => {
+}: DefaultButtonProps & { icon: ReactNode; active?: boolean; ariaLabel: string }) => {
   const theme = useStore((state) => state.settings.theme)
 
   const iconClas = (() => {
@@ -188,7 +190,7 @@ export const IconButton = ({
   })()
 
   return (
-    <Button onClick={onClick} active={active} {...props}>
+    <Button onClick={onClick} active={active} aria-label={ariaLabel} {...props}>
       <div className={iconClas}>{icon}</div>
     </Button>
   )

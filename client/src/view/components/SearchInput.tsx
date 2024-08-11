@@ -19,18 +19,16 @@ export function SearchInput(
   switch (theme) {
     case "modern":
       return (
-        <div className="w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary">
-          <input
-            id="note-input"
-            ref={inputRef}
-            value={value}
-            spellCheck={false}
-            className="bg-transparent outline-none resize-none w-full text-2xl italic translate-y-0.5"
-            onChange={(e) => setSeachQuery(e.target.value)}
-            placeholder="Search"
-            {...props}
-          />
-        </div>
+        <input
+          id="note-input"
+          ref={inputRef}
+          value={value}
+          spellCheck={false}
+          className="w-full overflow-hidden h-[60px] rounded-xl px-4 flex items-center bg-background-secondary border-none italic text-2xl outline-none"
+          onChange={(e) => setSeachQuery(e.target.value)}
+          placeholder="Search"
+          {...props}
+        />
       )
 
     case "space-craft":

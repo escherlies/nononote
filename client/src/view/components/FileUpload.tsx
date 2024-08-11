@@ -28,6 +28,7 @@ export const ViewFileUpload = () => {
   if (uploadState === "uploading") {
     return (
       <IconButton
+        ariaLabel="Uploading"
         icon={
           <div className="scale-125">
             <UploadingIcon />
@@ -42,6 +43,7 @@ export const ViewFileUpload = () => {
   if (uploadState === "uploaded") {
     return (
       <IconButton
+        ariaLabel="Uploaded"
         className="w-full h-full"
         icon={
           <div className="animate-ping scale-125">
@@ -57,6 +59,7 @@ export const ViewFileUpload = () => {
     <div className="w-full h-full">
       <label htmlFor="file-upload">
         <IconButton
+          ariaLabel="Upload"
           className="w-full h-full"
           icon={
             <div className="scale-125">

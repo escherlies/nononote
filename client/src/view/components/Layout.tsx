@@ -27,7 +27,7 @@ type LayoutType = {
 
 export function ModernLayout({ body, footer }: LayoutType) {
   return [
-    <div key="body" className="flex-grow overflow-scroll rounded-xl">
+    <div key="body" className="flex-grow overflow-scroll rounded-xl p-1">
       {body}
     </div>,
     <div key="footer" className="w-full max-w-sm mx-auto">

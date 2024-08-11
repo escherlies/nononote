@@ -50,7 +50,7 @@ export function ViewNotes() {
         const firstLine = head(lines)
         const rest = tail(lines).join(" · ")
 
-        return <NoteCard note={note} title={firstLine} />
+        return <NoteCard key={note.id} note={note} title={firstLine} />
       }, notes)}
     </div>
   )
@@ -85,8 +85,22 @@ export const NoteCard = ({ note, title }: { note: Note & { isNew: boolean }; tit
 
   return (
     <div
-      className="flex flex-col gap-2 px-5 py-4 rounded-xl bg-background-secondary cursor-pointer"
+      tabIndex={0}
+      role="button"
+      className="flex flex-col gap-2 px-5 py-4 rounded-xl bg-background-secondary cursor-pointer focus:outline-color-accent"
       onClick={() => navigateTo(tag("Note", { id: note.id }))}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          navigateTo(tag("Note", { id: note.id }))
+        }
+        // Up and down arrow keys
+        if (e.key === "ArrowDown") {
+          ;(e.currentTarget.nextSibling as HTMLElement)?.focus()
+        }
+        if (e.key === "ArrowUp") {
+          ;(e.currentTarget.previousSibling as HTMLElement)?.focus()
+        }
+      }}
     >
       <div className="flex items-end">
         <div
