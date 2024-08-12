@@ -16,14 +16,15 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
 
   switch (message.type) {
     case "notes:create": {
-      const { categories, tags } = await classifyNoteContent(message.text).catch((error) => {
+      const { categories, tags, text } = await classifyNoteContent(message.text).catch((error) => {
         logger.error("Error classifying note content: %o", error)
-        return { categories: [] as string[], tags: [] as string[] }
+        return { categories: [] as string[], tags: [] as string[], text: message.text }
       })
 
       const note = {
         id: monzod.cols.notes.generateId(),
-        text: message.text,
+        text: text,
+        // Todo: add original text to note
         tags: tags,
         categories: categories,
         createdAt: new Date().toISOString(),

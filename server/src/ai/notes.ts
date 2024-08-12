@@ -1,5 +1,7 @@
 import {
+  formatTodosAsMarkdown,
   generateCategoriesFromText,
+  generateNoteTitleIfMissing,
   generateTagsFromText,
   generateTagsFromWebpage,
 } from "./ai"
@@ -12,13 +14,22 @@ export const classifyNoteContent = async (textContent: string) => {
   // Generate tags
   const tags = await handleTagsGeneration(textContent, categories)
 
-  return { categories, tags: tags || [] }
+  // Generate a title
+  const title = await generateNoteTitleIfMissing(textContent)
+  console.log("title", title)
+
+  // Format todos as markdown, if note is todo
+  let noteWithTitle = title.trim() !== "#" ? title + "\n" + textContent : textContent
+
+  if (categories.includes("todo")) {
+    // Format todos as markdown
+    noteWithTitle = await formatTodosAsMarkdown(noteWithTitle)
+  }
+
+  return { categories, tags: tags || [], text: noteWithTitle }
 }
 
-const handleTagsGeneration = async (
-  textContent: string,
-  categories: string[]
-) => {
+const handleTagsGeneration = async (textContent: string, categories: string[]) => {
   if (categories.includes("shopping list") || categories.includes("code")) {
     // Don't generate tags for shopping lists
     return []

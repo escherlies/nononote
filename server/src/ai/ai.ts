@@ -1,11 +1,19 @@
-import { GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai"
+import {
+  FunctionDeclarationSchemaType,
+  GenerativeModel,
+  GoogleGenerativeAI,
+  HarmBlockThreshold,
+  HarmCategory,
+} from "@google/generative-ai"
 
 import {
   createCategoriesFromNotePrompt,
   createTagsFromNotePrompt,
   createTagsFromWebpageKeywordsPrompt,
   createTagsFromWebpageMetaPrompt,
+  formatTodosAsMarkdownPrompt,
   generateImageDescriptionPrompt,
+  generateNoteTitleIfMissingPrompt,
   generateSmartTodoListPrompt,
   transcribeVoiceNotePrompt,
 } from "./prompts"
@@ -63,17 +71,53 @@ const parseStringArray = async (text: string): Promise<string[]> => {
   }
 }
 
+// Tags
+
 export async function generateTagsFromText(content: string): Promise<string[]> {
   const text = await generateFromTextWithPrompt(geminiFlashModel, createTagsFromNotePrompt(content))
 
   return parseStringArray(text)
 }
 
+// Categories
+
 export async function generateCategoriesFromText(content: string): Promise<string[]> {
   const text = await generateFromTextWithPrompt(geminiFlashModel, createCategoriesFromNotePrompt(content))
 
   return parseStringArray(text)
 }
+
+// Title
+
+export async function generateNoteTitleIfMissing(content: string): Promise<string> {
+  const text = await generateFromTextWithPrompt(
+    genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: {},
+      safetySettings: SAFETY_SETTINGS,
+    }),
+    generateNoteTitleIfMissingPrompt(content)
+  )
+
+  return text
+}
+
+// Gen Todos
+
+export async function formatTodosAsMarkdown(content: string): Promise<string> {
+  const text = await generateFromTextWithPrompt(
+    genAI.getGenerativeModel({
+      model: "gemini-1.5-pro",
+      generationConfig: {},
+      safetySettings: SAFETY_SETTINGS,
+    }),
+    formatTodosAsMarkdownPrompt(content)
+  )
+
+  return text
+}
+
+// Tags from webpage
 
 export async function generateTagsFromWebpage(
   content: string,
@@ -126,7 +170,7 @@ export async function transcribeVoiceNote(voiceNote: FileMetadataResponse): Prom
 export async function describeImage(image: FileMetadataResponse): Promise<string> {
   const result = await genAI
     .getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-1.5-pro",
       safetySettings: SAFETY_SETTINGS,
     })
     .generateContent([
