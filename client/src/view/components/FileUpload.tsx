@@ -57,17 +57,13 @@ export const ViewFileUpload = () => {
 
   return (
     <div className="w-full h-full">
-      <label htmlFor="file-upload">
-        <IconButton
-          ariaLabel="Upload"
-          className="w-full h-full"
-          icon={
-            <div className="scale-125">
-              <UploadIcon />
-            </div>
-          }
-          onClick={() => {}}
-        ></IconButton>
+      <label
+        htmlFor="file-upload"
+        className="h-full w-full bg-background-secondary rounded-xl flex justify-center items-center"
+      >
+        <div className="w-[35px] h-[35px]">
+          <UploadIcon />
+        </div>
       </label>
       <input
         id="file-upload"

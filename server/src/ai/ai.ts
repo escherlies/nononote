@@ -102,6 +102,7 @@ export async function transcribeVoiceNote(voiceNote: FileMetadataResponse): Prom
   const result = await genAI
     .getGenerativeModel({
       model: "gemini-1.5-flash",
+      safetySettings: SAFETY_SETTINGS,
     })
     .generateContent([
       {
@@ -126,6 +127,7 @@ export async function describeImage(image: FileMetadataResponse): Promise<string
   const result = await genAI
     .getGenerativeModel({
       model: "gemini-1.5-flash",
+      safetySettings: SAFETY_SETTINGS,
     })
     .generateContent([
       {

@@ -55,16 +55,7 @@ export const transcribeVoiceNotePrompt = (): string => {
 
 // Promt for the task of extracting content from an image.
 export const generateImageDescriptionPrompt = (): string => {
-  return `I need a detailed description of an image to help a blind person understand it. Please include the following details in your explanation:
-
-1.	General Overview: Start with a brief summary of the image, including the overall scene and setting.
-2.	Main Subjects: Describe the main subjects or focal points in the image, including their positions, actions, and any notable features.
-3.	Background and Context: Explain the background elements and the context of the scene, including any relevant details that add to the understanding of the image.
-4.	Colors and Textures: Describe the colors and textures present in the image, mentioning any contrasts or notable patterns.
-5.	Emotions and Atmosphere: Convey the emotions and atmosphere depicted in the image, including any expressions or moods of the subjects.
-6.	Additional Details: Include any other significant details that are present in the image, such as objects, animals, weather conditions, or text.
-
-Make sure your description is vivid and clear, providing as much detail as possible to create a mental image for the blind person.`
+  return `Please extract and transcribe the content from the following materials, regardless of the medium (e.g., handwritten notes, printed documents, whiteboards, post-it notes, images, etc.) and the language used. The materials may include text, drawings, sketches, graphs, and other visual elements. Provide the extracted text in a clear, structured format, preserving the original layout and context as much as possible. For non-text elements like drawings, sketches, or graphs, describe them in detail and explain their context or significance where relevant.`
 }
 
 // Prompt for the task of generating a smart to-do list.
