@@ -87,7 +87,7 @@ export const NoteCard = ({ note, title }: { note: Note & { isNew: boolean }; tit
     <div
       tabIndex={0}
       role="button"
-      className="flex flex-col gap-2 px-5 py-4 rounded-xl bg-background-secondary cursor-pointer focus:outline-color-accent"
+      className="flex flex-col gap-2 px-5 py-4 rounded-xl bg-background-secondary cursor-pointer"
       onClick={() => navigateTo(tag("Note", { id: note.id }))}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {

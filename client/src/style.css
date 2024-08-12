@@ -27,7 +27,13 @@ body {
 }
 
 button {
-  @apply focus:outline-2 outline-color-accent focus:outline-color-accent focus:ring-color-accent focus:border-color-accent;
+  @apply focus:ring-2 focus:ring-color-accent;
+  @apply focus-visible:outline-none;
+}
+
+div[role="button"] {
+  @apply focus:ring-2 focus:ring-color-accent;
+  @apply focus-visible:outline-none;
 }
 
 input {
