@@ -12,3 +12,6 @@ run:
 
 clean:
   rm -rf ./dist ./node_modules
+
+gen-env-template:
+  grep -v '^#' .env | sed 's/=.*/=/' | awk NF > .env.template
