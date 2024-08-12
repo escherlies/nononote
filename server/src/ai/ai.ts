@@ -74,7 +74,7 @@ const parseStringArray = async (text: string): Promise<string[]> => {
 // Tags
 
 export async function generateTagsFromText(content: string): Promise<string[]> {
-  const text = await generateFromTextWithPrompt(geminiFlashModel, createTagsFromNotePrompt(content))
+  const text = await generateFromTextWithPrompt(geminiProModel, createTagsFromNotePrompt(content))
 
   return parseStringArray(text)
 }
@@ -82,7 +82,7 @@ export async function generateTagsFromText(content: string): Promise<string[]> {
 // Categories
 
 export async function generateCategoriesFromText(content: string): Promise<string[]> {
-  const text = await generateFromTextWithPrompt(geminiFlashModel, createCategoriesFromNotePrompt(content))
+  const text = await generateFromTextWithPrompt(geminiProModel, createCategoriesFromNotePrompt(content))
 
   return parseStringArray(text)
 }
@@ -195,7 +195,7 @@ export async function describeImage(image: FileMetadataResponse): Promise<string
 export async function generateSmartTodoList(content: string[]): Promise<string[]> {
   const result = await genAI
     .getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-1.5-pro",
       generationConfig: {
         responseMimeType: "application/json",
         temperature: 0.5,
@@ -205,13 +205,6 @@ export async function generateSmartTodoList(content: string[]): Promise<string[]
     .generateContent(generateSmartTodoListPrompt(content))
 
   const response = result.response.text()
-
-  console.log("Smart Todo List:")
-  console.log("----------------")
-  console.log(JSON.stringify(content, null, 2))
-  console.log("----------------")
-  console.log(response)
-  console.log("----------------")
 
   const json = JSON.parse(response)
 
