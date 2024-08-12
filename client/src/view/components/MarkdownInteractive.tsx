@@ -1,5 +1,8 @@
 import React, { ReactNode, useState } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
+
+import "property-information" // See: https://github.com/parcel-bundler/parcel/discussions/9113#discussioncomment-6702710
+
 import { checkTodoOfNote } from "../../model/store"
 
 interface MarkdownCheckboxProps {
