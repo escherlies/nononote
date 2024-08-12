@@ -69,7 +69,7 @@ export const ViewLastNote = () => {
 
   const notesWithoutDeleted = allNotes.filter((note) => !note.deleted)
 
-  const notes = reverse(sortBy(prop("createdAt"), notesWithoutDeleted))
+  const notes = reverse(sortBy(prop("updatedAt"), notesWithoutDeleted))
 
   const lastNote = head(notes)
 
