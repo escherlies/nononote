@@ -12,6 +12,7 @@ pkgs.mkShell {
   shellHook = ''
     echo -e "\033[90m"
     echo "Welcome to nononote.ai, $USER!"
+    echo "To start, run \"just dev\""
     echo -e "\033[0m"
   '';
 }
