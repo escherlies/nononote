@@ -1,5 +1,7 @@
+# nononote.ai
+
 <p align="center">
-  <img src="./client/assets/Logo.svg" alt="Logo" style="width: 150px;">
+  <img src="/Logo.ae2e970a.svg" alt="Logo" style="width: 150px;">
 </p>
 
 Nononote is a simple, fast, and efficient note-taking app designed to help you organize your thoughts and ideas effortlessly. Focus on what matters most with Nononote's intuitive features.

@@ -32,6 +32,7 @@
     "react-confetti": "^6.1.0",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.0",
+    "rehype-raw": "^7.0.0",
     "universal-router": "^9.2.0",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"

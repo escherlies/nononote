@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
+import rehypeRaw from "rehype-raw"
 
 import "property-information" // See: https://github.com/parcel-bundler/parcel/discussions/9113#discussioncomment-6702710
 
@@ -50,5 +51,13 @@ export const MarkdownCheckbox: React.FC<MarkdownCheckboxProps> = ({ noteId, mark
     },
   }
 
-  return <ReactMarkdown components={components}>{markdown}</ReactMarkdown>
+  return (
+    <ReactMarkdown
+      components={components}
+      remarkRehypeOptions={{ allowDangerousHtml: true }}
+      rehypePlugins={[rehypeRaw]}
+    >
+      {markdown}
+    </ReactMarkdown>
+  )
 }
