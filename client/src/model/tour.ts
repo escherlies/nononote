@@ -6,8 +6,9 @@ import { navigateTo } from "./router"
 
 const steps: TourGuideStep[] = [
   {
-    title: "Welcome to nononote 👋",
-    content: "This is a short guide to get you set up and show you where things are",
+    title: "Welcome to Nononote 👋",
+    content:
+      "This quick tour will guide you through the setup and show you where everything is located.",
     beforeEnter: () => {
       navigateTo({ tag: "Home" })
     },
@@ -16,30 +17,29 @@ const steps: TourGuideStep[] = [
   {
     title: "Note Input",
     content:
-      "This is where you can write your notes. Just jot down whatever and the ai will take care of the rest",
+      "This is where you can start writing your notes. Just jot down your thoughts, and the AI will take care of the rest.",
     target: "#note-input",
-    foo: "bar",
     beforeEnter: () => {
       setNoteInput("")
     },
   } as TourGuideStep,
   // Auto input some text into the input field
   {
-    title: "Todo List",
-    content: "To create a todo list, just write down your tasks like this...",
+    title: "Creating a To-Do List",
+    content: "To create a to-do list, simply write down your tasks like this...",
     target: "#note-input",
     beforeEnter: () => {
       setNoteInput(`buy groceries
 pick up laundry
 call mom
-finish tour guide
-        `)
+finish tour guide`)
     },
   } as TourGuideStep,
   // Auto input some text into the input field
   {
-    title: "Todo List",
-    content: "or like this... However you like it, the ai will take care of the rest",
+    title: "Alternate To-Do List Format",
+    content:
+      "Or, you can write your tasks like this... No matter the format, the AI will handle the rest.",
     target: "#note-input",
     beforeEnter: () => {
       setNoteInput("buy groceries, pick up laundry, call mom, finish tour guide")
@@ -47,8 +47,8 @@ finish tour guide
   } as TourGuideStep,
   // Save note
   {
-    title: "Save Note",
-    content: "Let's save this note",
+    title: "Saving Your Note",
+    content: "Let's save this note to keep your tasks organized.",
     target: "#save-new-note",
     beforeLeave: () => {
       saveNewNote()
@@ -56,31 +56,30 @@ finish tour guide
   },
   // Focus on the last note
   {
-    title: "Last Note",
-    content: "Aaaaaaaaaaand there's your last note containing your todo list",
+    title: "Viewing Your Last Note",
+    content: "Here's your most recent note with your to-do list.",
     target: "#last-note-container",
   },
   // voice-and-file-container
   {
     title: "Voice Recorder and File Upload",
     content:
-      "Click here to record your voice or upload a file. The content will be added to your note",
+      "Click here to record a voice note or upload a file. The content will be added directly to your note.",
     target: "#voice-and-file-container",
   },
 
   // notes-button
   {
-    title: "Notes",
-    content: "Click here to see all your notes",
+    title: "Accessing All Notes",
+    content: "Click here to view all of your saved notes.",
     target: "#notes-button",
   },
   // End
   {
-    title: "That's it!",
-    content: "You're all set. Enjoy your note taking experience!",
+    title: "Tour Complete!",
+    content: "You're all set. Enjoy taking notes with Nononote!",
   },
 ].reverse()
-
 const tg = new TourGuideClient({
   steps: steps,
   allowDialogOverlap: true,
