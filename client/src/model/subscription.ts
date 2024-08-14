@@ -3,6 +3,7 @@ import { appMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
 import { useStore } from "./store"
 import { navigateTo } from "./router"
+import { startTour } from "./tour"
 
 export async function onSubscriptionData(message: JSON) {
   const res = await appMsg.safeParseAsync(message)
@@ -26,8 +27,7 @@ export async function onSubscriptionData(message: JSON) {
 
     case "notes:got-notes": {
       if (isEmpty(data.notes)) {
-        // Navigate to /notes/intro-welcome
-        navigateTo({ tag: "Note", id: "intro-welcome" })
+        startTour()
         return
       }
       useStore.setState((state) => {

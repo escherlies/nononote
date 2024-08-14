@@ -95,6 +95,7 @@ function getItems({
             item: (
               <IconButton
                 key="save"
+                id="save-new-note"
                 ariaLabel="Save new note"
                 onClick={saveNote}
                 icon={<SaveNoteIcon />}
@@ -109,6 +110,7 @@ function getItems({
           {
             item: (
               <IconButton
+                id="notes-button"
                 key="notes"
                 ariaLabel="Notes"
                 onClick={() => navigateTo({ tag: "Notes" })}

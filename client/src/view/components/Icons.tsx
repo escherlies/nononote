@@ -21,6 +21,7 @@ import {
   MediaImagePlus,
   ClipboardCheck,
   Rocket,
+  InfoCircle,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 import { SVGProps } from "react"
@@ -242,6 +243,14 @@ export const GetShitDoneIcon = () => {
   return (
     <Icon iconProps={{ color: "currrentColor", className: "rotate-45" }}>
       <Rocket />
+    </Icon>
+  )
+}
+
+export const ShowTourIcon = () => {
+  return (
+    <Icon iconProps={{ strokeWidth: 2 }}>
+      <InfoCircle />
     </Icon>
   )
 }

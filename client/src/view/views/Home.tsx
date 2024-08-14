@@ -20,7 +20,10 @@ export function ViewHome() {
       <div className={`flex-1 ${isHidden("text") ? "hidden" : ""}`}>
         <NoteInput />
       </div>
-      <div className={`flex gap-5 flex-1 ${isAudioAndUploadHidden ? "hidden" : ""}`}>
+      <div
+        id="voice-and-file-container"
+        className={`flex gap-5 flex-1 ${isAudioAndUploadHidden ? "hidden" : ""}`}
+      >
         <div className={`flex-1 ${isHidden("audio") ? "hidden" : ""}`}>
           <VoiceRecorder />
         </div>
@@ -29,7 +32,7 @@ export function ViewHome() {
         </div>
       </div>
       <div className={`h-[10%] ${inputState !== null ? "hidden" : ""}`}></div>
-      <div className={`flex-1 ${inputState !== null ? "hidden" : ""}`}>
+      <div id="last-note-container" className={`flex-1 ${inputState !== null ? "hidden" : ""}`}>
         <ViewLastNote />
       </div>
     </div>

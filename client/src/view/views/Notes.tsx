@@ -77,10 +77,15 @@ export const ViewLastNote = () => {
     return <div>No notes</div>
   }
 
-  return <NoteCard note={lastNote} title="Last Note" />
+  return <NoteCard id="last-note" note={lastNote} title="Last Note" />
 }
 
-export const NoteCard = ({ note, title }: { note: Note & { isNew: boolean }; title: string }) => {
+type CardProps = {
+  note: Note & { isNew: boolean }
+  title: string
+} & React.HTMLAttributes<HTMLDivElement>
+
+export const NoteCard = ({ note, title, ...props }: CardProps) => {
   const localDate = new Date(note.updatedAt).toLocaleDateString()
 
   return (
@@ -101,6 +106,7 @@ export const NoteCard = ({ note, title }: { note: Note & { isNew: boolean }; tit
           ;(e.currentTarget.previousSibling as HTMLElement)?.focus()
         }
       }}
+      {...props}
     >
       <div className="flex items-end">
         <div
