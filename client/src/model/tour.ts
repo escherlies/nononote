@@ -79,7 +79,8 @@ finish tour guide`)
     title: "Tour Complete!",
     content: "You're all set. Enjoy taking notes with Nononote!",
   },
-].reverse()
+].map((step, index) => ({ ...step, order: index } as TourGuideStep))
+
 const tg = new TourGuideClient({
   steps: steps,
   allowDialogOverlap: true,
