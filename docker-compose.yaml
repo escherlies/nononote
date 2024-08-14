@@ -9,7 +9,7 @@ services:
       - ~/.data/mongodb/data/util:/data/util
 
   nononote:
-    image: ghcr.io/binaryplease/nononote/app:latest
+    image: ghcr.io/escherlies/nononote/app:latest
     restart: always
     entrypoint: ["/app/scripts/entrypoint.sh"]
     depends_on:
