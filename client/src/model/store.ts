@@ -36,6 +36,7 @@ export const useStore = create(() => ({
   modal: null as Maybe<Modal>,
   reconnectionAttempts: 0,
   confetti: "no" as "no" | "yes" | "stopEmitting",
+  isCreatingNote: { tag: "no" } as { tag: "no" } | { tag: "yes"; timeout: NodeJS.Timeout },
 }))
 
 // Subscriptions
@@ -100,6 +101,7 @@ export const saveNewNote = async () => {
 
   try {
     await publish({ type: "notes:create", text: noteInput })
+    showIsCreatingNote()
   } catch (error) {
     cacheNewNote(note)
     setError(String(error))
@@ -394,4 +396,33 @@ export const copyNote = (noteId: string) => {
 
   navigator.clipboard.writeText(note.text)
   toast.success("Note copied to clipboard", { position: "bottom-center" })
+}
+
+export const showIsCreatingNote = () => {
+  const timeout = setTimeout(() => {
+    const stillCreating = useStore.getState().isCreatingNote.tag === "yes"
+    if (stillCreating) {
+      useStore.setState({ isCreatingNote: { tag: "no" } })
+      toast.error("Maybe failed to create note", { position: "bottom-center" })
+    }
+  }, 10_000)
+
+  useStore.setState({ isCreatingNote: { tag: "yes", timeout } })
+}
+
+export const hideIsCreatingNote = () => {
+  const isCreatingNote = useStore.getState().isCreatingNote
+  if (isCreatingNote.tag === "yes") {
+    clearTimeout(isCreatingNote.timeout)
+    useStore.setState({ isCreatingNote: { tag: "no" } })
+  }
+}
+
+export const gotNewNote = (newNote: Note) => {
+  useStore.setState((state) => {
+    const updatedNotes = state.notes.filter((note) => note.id !== newNote.id)
+    return { notes: [newNote, ...updatedNotes] }
+  })
+
+  hideIsCreatingNote()
 }

@@ -2,7 +2,7 @@ import { useStore } from "../../model/store"
 import { ViewFileUpload } from "../components/FileUpload"
 import { NoteInput } from "../components/NoteInput"
 import { VoiceRecorder } from "../components/VoiceRecorder"
-import { ViewLastNote } from "./Notes"
+import { ViewLastNoteOrCreatingNote } from "./Notes"
 
 export function ViewHome() {
   const noteInput = useStore((state) => state.noteInput)
@@ -33,7 +33,7 @@ export function ViewHome() {
       </div>
       <div className={`h-[10%] ${inputState !== null ? "hidden" : ""}`}></div>
       <div id="last-note-container" className={`flex-1 ${inputState !== null ? "hidden" : ""}`}>
-        <ViewLastNote />
+        <ViewLastNoteOrCreatingNote />
       </div>
     </div>
   )

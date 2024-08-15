@@ -26,6 +26,10 @@ body {
   touch-action: manipulation;
 }
 
+.vanta-canvas {
+  @apply rounded-xl;
+}
+
 button {
   @apply focus:ring-2 focus:ring-color-accent;
   @apply focus-visible:outline-none;

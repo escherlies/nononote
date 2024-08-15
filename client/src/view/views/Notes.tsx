@@ -4,6 +4,7 @@ import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
 import { Note } from "../../../../server/src/data/note"
 import { UnsyncedIcon } from "../components/Icons"
+import { MyComponent } from "./Halo"
 
 const setIsCached = (isNew: boolean) => (note: Note) => {
   return {
@@ -53,6 +54,27 @@ export function ViewNotes() {
         return <NoteCard key={note.id} note={note} title={firstLine} />
       }, notes)}
     </div>
+  )
+}
+
+export const ViewLastNoteOrCreatingNote = () => {
+  const isCreatingNote = useStore((state) => state.isCreatingNote)
+
+  if (isCreatingNote.tag === "yes") {
+    return <ViewIsCreatingNote />
+  }
+
+  return <ViewLastNote />
+}
+
+export const ViewIsCreatingNote = () => {
+  return (
+    <MyComponent>
+      <div className="flex flex-col items-center justify-center w-full h-full text-white rounded-xl">
+        <div className="text-xs">One sec, </div>
+        <div className="font-mono">artificial neurons firing</div>
+      </div>
+    </MyComponent>
   )
 }
 

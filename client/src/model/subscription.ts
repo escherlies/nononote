@@ -1,7 +1,7 @@
 import { isEmpty } from "rambda"
 import { appMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
-import { useStore } from "./store"
+import { gotNewNote, useStore } from "./store"
 import { navigateTo } from "./router"
 import { startInitialTour } from "./tours/initial.tour"
 
@@ -19,11 +19,7 @@ export async function onSubscriptionData(message: JSON) {
 
   switch (data.type) {
     case "notes:note":
-      useStore.setState((state) => {
-        const updatedNotes = state.notes.filter((note) => note.id !== data.note.id)
-        return { notes: [data.note, ...updatedNotes] }
-      })
-      break
+      return gotNewNote(data.note)
 
     case "notes:got-notes": {
       if (isEmpty(data.notes)) {
