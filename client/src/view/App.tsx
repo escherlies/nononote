@@ -104,6 +104,9 @@ function ViewBody() {
 
     case "PlayTodoGameGame":
       return <ViewGames gameId={view.gameId} noteId={view.noteId} />
+
+    case "EditNote":
+      return <ViewEditNote />
   }
 
   // Wrap normal views in a container
@@ -111,9 +114,6 @@ function ViewBody() {
     switch (view.tag) {
       case "NotFound":
         return <div>Not Found</div>
-
-      case "EditNote":
-        return <ViewEditNote />
 
       case "Search":
         return <ViewNotesSearch />
