@@ -127,10 +127,20 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
       // Generate a todo list from notes
       const todos = await generateSmartTodoList(notesContent)
 
+      // If todos are empty, create a todo with "Create a to-do list ☺️" text and add a paragraph stating that no todos were found
+      let text = formatRawTodos(todos)
+      if (todos.length === 0) {
+        text = `No to-dos were found in your recent notes. 🤔 Looks like you have just one task for now:
+
+- [ ] Create a to-do list ☺️
+
+Simply jot down your tasks in a note, and we’ll take care of the rest. 🤖`
+      }
+
       // Create a new note with the todo list
       const note: Note = {
         id: monzod.cols.notes.generateId(),
-        text: formatRawTodos(todos),
+        text: text,
         tags: ["todo"],
         categories: ["todo"],
         createdAt: new Date().toISOString(),

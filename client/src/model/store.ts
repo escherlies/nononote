@@ -11,6 +11,7 @@ import { storage } from "./storage"
 import { initializeWebSocket } from "./websocket"
 import { getUserDarkModePreference } from "../view/views/settings/Color"
 import { Modal } from "../view/Modal"
+import { any } from "rambda"
 
 // Store
 
@@ -375,4 +376,9 @@ export const showConfetti = () => {
       useStore.setState({ confetti: "no" })
     }, 2000)
   }, 3000)
+}
+
+export const hasSmartAction = () => {
+  const notes = useStore.getState().notes
+  return any((note) => note.smartNote || false, notes)
 }

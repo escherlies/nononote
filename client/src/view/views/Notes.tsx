@@ -111,7 +111,7 @@ export const NoteCard = ({ note, title, ...props }: CardProps) => {
       <div className="flex items-end">
         <div
           className={
-            "flex-1 font-mono text-xs font-bold line-clamp-1 " +
+            "flex-grow font-mono text-xs font-bold line-clamp-1 " +
             (note.smartNote ? "text-color-accent" : "")
           }
         >

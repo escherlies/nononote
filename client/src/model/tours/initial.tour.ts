@@ -1,14 +1,14 @@
 import "@sjmc11/tourguidejs/src/scss/tour.scss" // Styles
-import { TourGuideClient } from "@sjmc11/tourguidejs/src/Tour" // JS
 import { TourGuideStep } from "@sjmc11/tourguidejs/src/types/TourGuideStep"
-import { saveNewNote, setNoteInput } from "./store"
-import { navigateTo } from "./router"
+import { saveNewNote, setNoteInput } from "../store"
+import { navigateTo } from "../router"
+import { tourGuide } from "./tour"
 
 const steps: TourGuideStep[] = [
   {
     title: "Welcome to Nononote 👋",
     content:
-      "This quick tour will guide you through the setup and show you where everything is located.",
+      "This quick tour will guide you through the setup and show you where everything is located. If you prefer, you can skip the tour and start it later from the settings menu.",
     beforeEnter: () => {
       navigateTo({ tag: "Home" })
     },
@@ -81,12 +81,7 @@ finish tour guide`)
   },
 ].map((step, index) => ({ ...step, order: index } as TourGuideStep))
 
-const tg = new TourGuideClient({
-  steps: steps,
-  allowDialogOverlap: true,
-  rememberStep: true,
-})
-
-export const startTour = () => {
-  tg.start()
+export const startInitialTour = () => {
+  tourGuide.setOptions({ steps, allowDialogOverlap: true })
+  tourGuide.start()
 }

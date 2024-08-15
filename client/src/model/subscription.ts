@@ -3,7 +3,7 @@ import { appMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
 import { useStore } from "./store"
 import { navigateTo } from "./router"
-import { startTour } from "./tour"
+import { startInitialTour } from "./tours/initial.tour"
 
 export async function onSubscriptionData(message: JSON) {
   const res = await appMsg.safeParseAsync(message)
@@ -27,7 +27,7 @@ export async function onSubscriptionData(message: JSON) {
 
     case "notes:got-notes": {
       if (isEmpty(data.notes)) {
-        startTour()
+        startInitialTour()
         return
       }
       useStore.setState((state) => {
