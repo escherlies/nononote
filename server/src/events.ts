@@ -5,7 +5,7 @@ import { z } from "zod"
 import { moduleLogger } from "./config"
 import { Maybe } from "../../shared/types"
 import { AppMsg } from "./messages"
-import { handleNotesMessages } from "./notes"
+import { handleNotesMessages } from "./update"
 
 const logger = moduleLogger("events")
 
