@@ -12,6 +12,7 @@ import { initializeWebSocket } from "./websocket"
 import { getUserDarkModePreference } from "../view/views/settings/Color"
 import { Modal } from "../view/Modal"
 import { any } from "rambda"
+import toast from "react-hot-toast"
 
 // Store
 
@@ -156,6 +157,7 @@ export const deleteNote = async (noteId: string) => {
 
   try {
     await publish({ type: "notes:delete", id: noteId })
+    toast.success("Note deleted", { position: "bottom-center" })
   } catch (error) {
     setError(String(error))
   }
@@ -306,6 +308,9 @@ export const handleAuth = (authToken: string) => {
 }
 
 export const handleAuthError = (error: string) => {
+  if (String(error).includes("NetworkError")) {
+    return setError("Network error, please check your connection")
+  }
   logOut()
 }
 
@@ -381,4 +386,15 @@ export const showConfetti = () => {
 export const hasSmartAction = () => {
   const notes = useStore.getState().notes
   return any((note) => note.smartNote || false, notes)
+}
+
+export const copyNote = (noteId: string) => {
+  const note = useStore.getState().notes.find((n) => n.id === noteId)
+  if (!note) {
+    logger.error("Note not found")
+    return setError("Note not found")
+  }
+
+  navigator.clipboard.writeText(note.text)
+  toast.success("Note copied to clipboard", { position: "bottom-center" })
 }

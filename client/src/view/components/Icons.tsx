@@ -22,6 +22,8 @@ import {
   ClipboardCheck,
   Rocket,
   InfoCircle,
+  Trash,
+  Copy,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 import { SVGProps } from "react"
@@ -186,7 +188,14 @@ export const LogOutIcon = () => {
 export const DeleteIcon = () => {
   return (
     <Icon>
-      <MultiplePagesXmark />
+      <Trash />
+    </Icon>
+  )
+}
+export const CopyIcon = () => {
+  return (
+    <Icon>
+      <Copy />
     </Icon>
   )
 }

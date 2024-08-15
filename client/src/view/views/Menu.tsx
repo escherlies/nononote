@@ -1,6 +1,13 @@
 import { map } from "rambda"
 import { goBack, navigateTo, View } from "../../model/router"
-import { clearInput, clearSearchQuery, saveNote, setModal, useStore } from "../../model/store"
+import {
+  clearInput,
+  clearSearchQuery,
+  copyNote,
+  saveNote,
+  setModal,
+  useStore,
+} from "../../model/store"
 import {
   SaveNoteIcon,
   NotesIcon,
@@ -11,6 +18,7 @@ import {
   DismissIcon,
   GoBackIcon,
   DeleteIcon,
+  CopyIcon,
 } from "../components/Icons"
 import { SearchInput } from "../components/SearchInput"
 import { IconButton } from "../Ui"
@@ -184,6 +192,30 @@ function getItems({
         {
           item: <BackButton key="back" />,
           description: "Back",
+        },
+        {
+          item: (
+            <IconButton
+              key="copy"
+              ariaLabel="Copy note"
+              className={view.id.includes("intro-") ? "hidden" : undefined}
+              onClick={() => copyNote(view.id)}
+              icon={<CopyIcon />}
+            />
+          ),
+          description: "Delete",
+        },
+        {
+          item: (
+            <IconButton
+              key="delete"
+              ariaLabel="Delete note"
+              className={view.id.includes("intro-") ? "hidden" : undefined}
+              onClick={() => setModal({ tag: "DeleteNotePrompt", noteId: view.id })}
+              icon={<DeleteIcon />}
+            />
+          ),
+          description: "Delete",
         },
         {
           item: (

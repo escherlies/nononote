@@ -17,6 +17,7 @@ import { ViewTodoGame } from "./views/TodoGame"
 import { ViewGames } from "./views/Games"
 import { useWindowSize } from "@react-hook/window-size"
 import Confetti from "react-confetti"
+import { Toaster } from "react-hot-toast"
 
 export function App() {
   const authToken = useStore((state) => state.authToken)
@@ -73,6 +74,18 @@ function Container({ children }: Props) {
           height={height - 1}
         />
       )}
+
+      {/* Toasts */}
+      <Toaster
+        toastOptions={{
+          style: {
+            background: "var(--color-accent)",
+            color: "var(--background-primary)",
+            borderRadius: "0.5rem",
+            padding: "0.5rem 1rem",
+          },
+        }}
+      />
 
       {/* Style */}
       <ColorStyleTag />
