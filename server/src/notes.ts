@@ -4,7 +4,7 @@ import { classifyNoteContent } from "./ai/notes"
 import monzod from "./db"
 import { generateSmartTodoList } from "./ai/ai"
 import { Note } from "./data/note"
-import { prop } from "rambda"
+import { last, prop } from "rambda"
 
 const logger = moduleLogger("notes")
 
@@ -88,6 +88,16 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
     }
 
     case "smart-notes:create-todo-list": {
+      const smartNotes = await monzod.cols.notes
+        .find({
+          userId: context.user.id,
+          smartNote: true,
+          deleted: { $ne: true },
+        })
+        .toArray()
+
+      const lastSmartNote = last(smartNotes)
+
       const notes = await monzod.cols.notes
         .find({
           userId: context.user.id,
@@ -96,6 +106,8 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
           // Exclude deleted notes and smart notes
           deleted: { $ne: true },
           smartNote: { $ne: true },
+          // Only include notes that have been created after the last smart note
+          createdAt: { $gt: lastSmartNote?.createdAt || new Date(0).toISOString() },
         })
         .toArray()
 
