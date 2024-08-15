@@ -13,7 +13,10 @@ export function SearchInput(
   // auto focus input using ref and useEffect
   const inputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    inputRef.current?.focus()
+    // Only focus if the input is empty
+    if (value === "") {
+      inputRef.current?.focus()
+    }
   }, [])
 
   switch (theme) {

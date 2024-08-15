@@ -214,8 +214,13 @@ export const removeCachedDeletedNote = (noteId: string) => {
 
 export const clearInput = () => {
   useStore.setState({ noteInput: "" })
-  const input = document.getElementById("note-input") as HTMLTextAreaElement
-  input?.focus()
+
+  const isMobile = useStore.getState().isMobile
+  // Do not focus on mobile, because it will open the keyboard
+  if (!isMobile) {
+    const input = document.getElementById("note-input") as HTMLTextAreaElement
+    input?.focus()
+  }
 }
 
 export const toggleMenu = () => {
