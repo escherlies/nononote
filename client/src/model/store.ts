@@ -4,7 +4,6 @@ import { navigateTo, View } from "./router"
 import { Maybe } from "../../../shared/types"
 import { Note } from "../../../server/src/data/note"
 import { defaultSettings, loadSettings, saveSettings, Settings } from "./settings"
-import { monacoInstance } from "../view/components/Monaco"
 import { User } from "../../../server/src/data/user"
 import { publish } from "./api"
 import { storage } from "./storage"
@@ -215,8 +214,6 @@ export const clearInput = () => {
   useStore.setState({ noteInput: "" })
   const input = document.getElementById("note-input") as HTMLTextAreaElement
   input?.focus()
-
-  monacoInstance?.editor.getEditors()[0]?.focus()
 }
 
 export const toggleMenu = () => {
