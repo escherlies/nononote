@@ -7,3 +7,7 @@ rm -fr "/var/www/nononote/*"
 # Copy the build files to the web server directory
 echo "Copying the build files to the web server directory..."
 cp -r /app/client/build/* /var/www/nononote/
+
+# Start the web server
+cd /app/server
+just run

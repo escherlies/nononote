@@ -11,7 +11,7 @@ services:
   nononote:
     image: ghcr.io/escherlies/nononote/app:latest
     restart: always
-    # entrypoint: ["/app/scripts/entrypoint.sh"]
+    entrypoint: ["/app/scripts/entrypoint.sh"]
     depends_on:
       - mongo
     ports:
