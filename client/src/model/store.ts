@@ -431,3 +431,8 @@ export const gotNewNote = (newNote: Note) => {
 
   hideIsCreatingNote()
 }
+
+export const generateTodoList = () => {
+  publish({ type: "smart-notes:create-todo-list" })
+  showIsCreatingNote()
+}

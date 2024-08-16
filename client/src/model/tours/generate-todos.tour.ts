@@ -1,7 +1,7 @@
 import "@sjmc11/tourguidejs/src/scss/tour.scss" // Styles
 import { TourGuideStep } from "@sjmc11/tourguidejs/src/types/TourGuideStep"
 import { tourGuide } from "./tour"
-import { publish } from "../api"
+import { generateTodoList } from "../store"
 
 const steps: TourGuideStep[] = [
   {
@@ -19,6 +19,6 @@ export const startGenerateTodosTour = () => {
   })
   tourGuide.start()
   tourGuide.onFinish(() => {
-    publish({ type: "smart-notes:create-todo-list" })
+    generateTodoList()
   })
 }
