@@ -24,8 +24,8 @@ Note:
 }
 
 // Convert a note containing a list of to-dos into a formatted markdown task list.
-export const formatTodosAsMarkdownPrompt = (note: string): string => {
-  return `Given a note that includes a list of to-do items, format these items into a markdown task list of type 'todo' (- [ ]), ensuring each item is in sentence case.
+export const formatTasksAsMarkdownPrompt = (note: string): string => {
+  return `Given a note that may include a list of task items, format these items into a gfm markdown task list of type 'task' (- [ ]), ensuring each item is in sentence case.
 Keep any other content in the note unchanged.
 Return the formatted note as a string, without wrapping it in a markdown code block.
 

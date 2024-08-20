@@ -21,10 +21,8 @@ export const classifyNoteContent = async (textContent: string) => {
   // Format todos as markdown, if note is todo
   let noteWithTitle = title.trim() !== "#" ? title + "\n" + textContent : textContent
 
-  if (categories.includes("todo")) {
-    // Format todos as markdown
-    noteWithTitle = await formatTodosAsMarkdown(noteWithTitle)
-  }
+  // Format a task list as markdown
+  noteWithTitle = await formatTodosAsMarkdown(noteWithTitle)
 
   return { categories, tags: tags || [], text: noteWithTitle }
 }

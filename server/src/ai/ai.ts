@@ -11,7 +11,7 @@ import {
   createTagsFromNotePrompt,
   createTagsFromWebpageKeywordsPrompt,
   createTagsFromWebpageMetaPrompt,
-  formatTodosAsMarkdownPrompt,
+  formatTasksAsMarkdownPrompt,
   generateImageDescriptionPrompt,
   generateNoteTitleIfMissingPrompt,
   generateSmartTodoListPrompt,
@@ -111,7 +111,7 @@ export async function formatTodosAsMarkdown(content: string): Promise<string> {
       generationConfig: {},
       safetySettings: SAFETY_SETTINGS,
     }),
-    formatTodosAsMarkdownPrompt(content)
+    formatTasksAsMarkdownPrompt(content)
   )
 
   return text
