@@ -40,8 +40,6 @@ export function Menu() {
       return (
         <div className="relative w-full">
           <div className="flex gap-1 justify-between rounded-xl">
-            {/* ?! Cant decide on a theme :) */}
-            {/* <div className="flex gap-1 justify-between rounded-xl bg-background-secondary p-1"> */}
             {items.map((item) => item.item)}
           </div>
         </div>

@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react"
 import { setNoteInput, useStore } from "../../model/store"
+import { IS_MOBILE_PLATTFORM } from "../../model/config"
 
 export function NoteInput() {
   const noteInput = useStore((state) => state.noteInput)
-  const isMobile = useStore((state) => state.isMobile)
 
   // Auto focus input using ref and useEffect
   const inputRef = useRef<HTMLTextAreaElement>(null)
   useEffect(() => {
     // Only focus on desktop
-    if (!isMobile) {
+    if (!IS_MOBILE_PLATTFORM) {
       inputRef.current?.focus()
     }
   }, [])

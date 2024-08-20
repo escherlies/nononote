@@ -12,6 +12,7 @@ import { getUserDarkModePreference } from "../view/views/settings/Color"
 import { Modal } from "../view/Modal"
 import { any } from "rambda"
 import toast from "react-hot-toast"
+import { IS_MOBILE_PLATTFORM, SMALL_SCREEN_BREAKPOINT } from "./config"
 
 // Store
 
@@ -29,7 +30,7 @@ export const useStore = create(() => ({
   unsyncedUpdatedNotes: [] as Note[],
   unsyncedDeletedNotes: [] as string[],
   settings: loadSettings() as Settings,
-  isMobile: window.innerWidth < 768,
+  isSmallScreen: window.innerWidth < SMALL_SCREEN_BREAKPOINT,
   authToken: null as Maybe<string>,
   user: null as Maybe<User>,
   connection: null as Maybe<WebSocket>,
@@ -44,6 +45,20 @@ export const useStore = create(() => ({
 useStore.subscribe((state) => {
   const selector = getUserDarkModePreference(state.settings, state.darkMode)
   document.body.classList.toggle("dark", selector === "dark")
+})
+
+// Window events
+
+window.addEventListener("online", () => {
+  setConnectionStatus(true)
+})
+
+window.addEventListener("offline", () => {
+  setConnectionStatus(false)
+})
+
+window.addEventListener("resize", () => {
+  useStore.setState({ isSmallScreen: window.innerWidth < SMALL_SCREEN_BREAKPOINT })
 })
 
 // Actions/Reducers
@@ -215,9 +230,8 @@ export const removeCachedDeletedNote = (noteId: string) => {
 export const clearInput = () => {
   useStore.setState({ noteInput: "" })
 
-  const isMobile = useStore.getState().isMobile
   // Do not focus on mobile, because it will open the keyboard
-  if (!isMobile) {
+  if (!IS_MOBILE_PLATTFORM) {
     const input = document.getElementById("note-input") as HTMLTextAreaElement
     input?.focus()
   }
