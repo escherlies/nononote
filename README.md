@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/hero.png" alt="Screenshot ai in progress" style="width: 100%">
+  <img src="./docs/hero.png" alt="Nononote overview" style="width: 100%">
 </p>
 
 Nononote is a simple, fast, and efficient note-taking app designed to help you organize your thoughts and ideas effortlessly. Focus on what matters most with Nononote's intuitive features.
@@ -41,3 +41,9 @@ Nononote isn't just about note-taking; it also helps you stay productive:
 ## 🍦 Development/Self-Hosting
 
 Deploy Nononote effortlessly with the provided Docker Compose file. GitHub Actions automates the Docker build process, and you can also use the pre-built image from the repository for quick setup. Set the environment variables in the .env file on your target system, then spin up the container to get started.
+
+## Screenshots
+
+<p align="center">
+  <img src="./docs/screenshots.png" alt="Screenshot ai in progress" style="width: 100%">
+</p>
