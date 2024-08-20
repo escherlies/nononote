@@ -6,8 +6,11 @@ import { generateTodoList } from "../store"
 const steps: TourGuideStep[] = [
   {
     title: "Generate a To-Do List",
-    content:
-      "This feature allows you to generate a to-do list from your notes. Simply click the “Generate To-Do List” button to begin. Please note that when generating multiple to-do lists, only the notes up to the point of the last generated list will be included. Happy ticking! 😊",
+    content: `This feature enables you to effortlessly create a to-do list from your notes. Just click the 'Generate To-Do List' button to get started.
+
+When generating multiple to-do lists, only the notes up to the most recently created list will be included. Any open tasks from the last generated list will also be carried over, ensuring that your current to-dos are always in one place.
+
+Happy tasking! 😊`,
   } as TourGuideStep,
 ].map((step, index) => ({ ...step, order: index } as TourGuideStep))
 

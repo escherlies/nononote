@@ -123,6 +123,8 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
         .map(prop("text"))
         // Filter empty notes
         .filter((note) => note.length > 0)
+        // Carry over unchecked todos from the last smart note
+        .concat([lastSmartNote.text])
 
       // Generate a todo list from notes
       const todos = await generateSmartTodoList(notesContent)
