@@ -18,7 +18,7 @@ const schemes = [
     colors: {
       colorAccent: "#001aff",
       backgroundPrimary: "#0D0A0B",
-      backgroundSecondary: "#110E0F",
+      backgroundSecondary: "#121112",
       backgroundTertiary: "#0D0A0B",
       colorTextPrimary: "#d9d9d9",
     },
