@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./client/assets/Logo.svg" alt="Logo" style="width: 150px;">
+  <img src="./docs/hero.png" alt="Screenshot ai in progress" style="width: 100%">
 </p>
 
 Nononote is a simple, fast, and efficient note-taking app designed to help you organize your thoughts and ideas effortlessly. Focus on what matters most with Nononote's intuitive features.
