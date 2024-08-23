@@ -38,5 +38,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          # tags: hyhyve/reply-with-attachments:latest
           tags: ghcr.io/${{ github.repository }}/app:latest, ghcr.io/${{ github.repository }}/app:${{ env.COMMIT_SHORT_SHA }}

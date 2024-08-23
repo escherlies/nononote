@@ -8,7 +8,7 @@ build:
   bun build src/index.ts --outdir ./build --target node
 
 run:
-  node build/index.js
+  node --trace-uncaught --trace-warnings --unhandled-rejections=warn build/index.js
 
 clean:
   rm -rf ./dist ./node_modules
