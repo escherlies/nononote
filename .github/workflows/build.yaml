@@ -2,8 +2,10 @@ name: ci
 
 on:
   push:
+    tags:
+      - v*
     branches:
-      - "release"
+      - github-actions
 
 jobs:
   docker:

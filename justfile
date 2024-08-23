@@ -10,3 +10,6 @@ shell:
 
 close:
   tmux kill-session -t dev
+
+release:
+  bash ./scripts/release.sh
