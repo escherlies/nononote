@@ -24,7 +24,10 @@ export const ViewModal = () => {
             <h1>Disclaimer</h1>
             <p>Thanks for trying out this software! Here are a few things to keep in mind:</p>
             <ul>
-              <li>This software is a demo. Many features are still missing.</li>
+              <li>
+                This software is actively being developed, with many exciting new features coming
+                soon.
+              </li>
               <li>
                 Please note that all data is stored in plaintext on the server and is not encrypted.
               </li>
