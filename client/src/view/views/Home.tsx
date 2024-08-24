@@ -4,7 +4,7 @@ import { NoteInput } from "../components/NoteInput"
 import { VoiceRecorder } from "../components/VoiceRecorder"
 import { ViewLastNoteOrCreatingNote } from "./Notes"
 
-export function ViewHome() {
+export const ViewHome = () => {
   const noteInput = useStore((state) => state.noteInput)
 
   // TODO: handle other input types

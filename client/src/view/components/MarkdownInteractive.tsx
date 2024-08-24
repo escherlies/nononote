@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react"
+import React, { ReactNode } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
 import rehypeRaw from "rehype-raw"
 
@@ -24,7 +24,7 @@ const extractText = (children: ReactNode): string => {
 
 export const MarkdownCheckbox: React.FC<MarkdownCheckboxProps> = ({ noteId, markdown }) => {
   const components: Partial<Components> = {
-    li: ({ node, ...props }: any) => {
+    li: (props) => {
       const item = extractText(props.children)
 
       const unchecked = item.startsWith("[ ]")

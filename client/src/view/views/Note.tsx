@@ -6,7 +6,7 @@ import { SmartActionButton } from "../Ui"
 import { GetShitDoneIcon } from "../components/Icons"
 import { MarkdownCheckbox } from "../components/MarkdownInteractive"
 
-export function ViewNote({ noteId }: { noteId: string }) {
+export const ViewNote = ({ noteId }: { noteId: string }) => {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
 
@@ -71,12 +71,12 @@ export function ViewNote({ noteId }: { noteId: string }) {
 
 function viewTag(tag: string): ReactNode {
   return (
-    <div
+    <button
       key={tag}
       className="text-xs bg-color-accent px-0.5 text-white uppercase dark:text-background-primary cursor-pointer"
       onClick={() => navigateTo({ tag: "Search", query: tag })}
     >
       {tag}
-    </div>
+    </button>
   )
 }

@@ -6,18 +6,14 @@ import {
   Archive,
   Settings,
   Search,
-  CloudXmark,
   EditPencil,
   MoreHoriz,
   Xmark,
   NavArrowLeft,
   LogOut,
-  MultiplePagesXmark,
   CloudSync,
   Microphone,
   MicrophoneCheck,
-  RefreshDouble,
-  Upload,
   MediaImagePlus,
   ClipboardCheck,
   Rocket,
@@ -26,8 +22,6 @@ import {
   Copy,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
-import { SVGProps } from "react"
-import { JSX } from "react/jsx-runtime"
 
 type IconProps = { iconProps?: Partial<React.SVGProps<SVGSVGElement>> }
 
@@ -268,7 +262,7 @@ export const ShowTourIcon = () => {
 // ############################# Svg icons ############################# //
 // ##################################################################### //
 
-export function LineMdLoadingTwotoneLoop(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+export const LineMdLoadingTwotoneLoop = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24">
       <g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5">

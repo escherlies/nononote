@@ -9,7 +9,7 @@ export type Modal =
   | T<"TermsOfService">
   | T<"DeleteNotePrompt", { noteId: string }>
 
-export function ViewModal() {
+export const ViewModal = () => {
   const modal = useStore((state) => state.modal)
 
   if (!modal) {

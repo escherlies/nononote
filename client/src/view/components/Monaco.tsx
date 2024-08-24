@@ -13,7 +13,7 @@ loader.init().then((monaco) => {
   monacoInstance = monaco
 })
 
-export function ViewMonaco() {
+export const ViewMonaco = () => {
   const noteInput = useStore((state) => state.noteInput)
   const systemDarkMode = useStore((state) => state.darkMode)
   const settings = useStore((state) => state.settings)
@@ -51,7 +51,8 @@ export function ViewMonaco() {
 }
 
 const setMonacoThemeAndKeybindings = (scheme: Scheme) => (monaco: Monaco) => {
-  const [primary, background] = scheme.colors
+  const primary = scheme.colors.colorTextPrimary
+  const background = scheme.colors.backgroundPrimary
 
   monaco.editor.defineTheme(`nnn-${scheme.tag}`, {
     base: "hc-light", // Can be 'vs', 'vs-dark', or 'hc-black'

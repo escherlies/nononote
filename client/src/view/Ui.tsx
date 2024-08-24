@@ -47,14 +47,9 @@ export const Button = ({
   }
 }
 
-export const FlatButton = ({
-  active,
-  className,
-  ...props
-}: DefaultButtonProps & { active?: boolean }) => {
+export const FlatButton = ({ className, ...props }: DefaultButtonProps & { active?: boolean }) => {
   return (
     <button
-      role="button"
       className={`
     w-fit
     min-w-[60px] h-[60px]
@@ -76,14 +71,9 @@ export const FlatButton = ({
 }
 
 //
-export const SpaceButton = ({
-  active,
-  className,
-  ...props
-}: DefaultButtonProps & { active?: boolean }) => {
+export const SpaceButton = ({ className, ...props }: DefaultButtonProps & { active?: boolean }) => {
   return (
     <button
-      role="button"
       className={`
     w-fit
     min-w-[60px] h-[60px]
@@ -122,12 +112,6 @@ export const BrutalistButton = ({
     }
   }
 
-  // Default behavior for a click event. This is contrary to a physical button, which we try to emulate.
-  const clickOnRealese = () => {
-    handleSetClicked(false)
-    props.onClick && props.onClick()
-  }
-
   const getClassNames = () => {
     if (isClicked) {
       return "translate-x-0 translate-y-0 shadow-down"
@@ -142,7 +126,6 @@ export const BrutalistButton = ({
 
   return (
     <button
-      role="button"
       className={`
     border-[3px] border-color-accent min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     rounded-xl

@@ -6,7 +6,7 @@ export const initializeWebSocket = async (authToken: string) => {
   const ws = new WebSocket("/api/ws")
 
   ws.onopen = () => {
-    console.log("Connected to server")
+    logger.debug("Connected to server")
     ws.send("ping")
 
     // Authenticate
@@ -20,7 +20,7 @@ export const initializeWebSocket = async (authToken: string) => {
       const json = JSON.parse(event.data)
       onSubscriptionData(json)
     } catch (_) {
-      console.log("Message:", event.data)
+      logger.debug("Message:", event.data)
       if (event.data === "Authenticated") {
         onSubscriptionReady()
       }
@@ -28,7 +28,7 @@ export const initializeWebSocket = async (authToken: string) => {
   }
 
   ws.onclose = () => {
-    console.log("Disconnected from server")
+    logger.debug("Disconnected from server")
     removeConnection()
     reconnect(authToken)
   }
@@ -43,7 +43,7 @@ const reconnect = (authToken: string) => {
 
   logger.debug(`Reconnecting attempt ${reconnectionAttempts + 1} in ${delay}ms`)
   setTimeout(() => {
-    console.log("Reconnecting...")
+    logger.debug("Reconnecting...")
     initializeWebSocket(authToken)
   }, delay)
 

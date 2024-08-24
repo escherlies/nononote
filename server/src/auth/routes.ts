@@ -1,8 +1,8 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
+import { FastifyInstance } from "fastify"
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
 import { AuthenticatedRequest, authenticateUser, generateMagicCode, verifyMagicCode } from "./auth"
-import { signJwt, verifyJwt } from "./jwt"
+import { signJwt } from "./jwt"
 import { sendMagicCode } from "../email"
 import monzod from "../db"
 

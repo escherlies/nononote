@@ -143,7 +143,7 @@ function parseYamlFromYamlHeaderMarkdown(content: string): Res {
     throw new Error("Invalid markdown format")
   }
 
-  console.log(res.header.join("\n"))
+  logger.debug(res.header.join("\n"))
 
   return { header: res.header.join("\n"), body: res.body.join("\n") }
 }

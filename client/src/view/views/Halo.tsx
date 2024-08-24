@@ -4,12 +4,8 @@ import * as THREE from "three"
 
 type Props = JSX.IntrinsicElements["div"]
 
-const cssHexToDec = (hex: string) => {
-  return parseInt(hex.replace("#", ""), 16)
-}
-
 export const MyComponent = (props: Props) => {
-  const [vantaEffect, setVantaEffect] = useState(null)
+  const [vantaEffect, setVantaEffect] = useState(null as null | { destroy: () => void })
   const myRef = useRef(null)
 
   useEffect(() => {
@@ -30,7 +26,6 @@ export const MyComponent = (props: Props) => {
       )
     }
     return () => {
-      // @ts-ignore
       if (vantaEffect) vantaEffect.destroy()
     }
   }, [vantaEffect])

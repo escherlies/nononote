@@ -1,16 +1,12 @@
 import { toLower } from "rambda"
 import monzod from "../db"
-import { genMagicCode, safeid, safeid32 } from "../nanoid"
+import { genMagicCode, safeid } from "../nanoid"
 // import bcrypt from "bcrypt"
-import { User } from "../data/user"
-import { sendPasswordResetEmail } from "../email"
 import { moduleLogger } from "../config"
 import { FastifyReply, FastifyRequest } from "fastify"
 import { verifyJwt } from "./jwt"
 
 const logger = moduleLogger("auth")
-
-const saltRounds = 10
 
 export interface AuthenticatedRequest extends FastifyRequest {
   user?: { id: string } // Replace `YourUserType` with the type returned from `verifyJwt`
@@ -42,7 +38,6 @@ const getOrCreateUser = async (email: string) => {
     return existing
   }
 
-  const initialPassword = safeid32()
   const user = {
     id: safeid("u_"),
     name: toLower(email.split("@")[0] || "Noname"),
@@ -119,7 +114,7 @@ export const verifyMagicCode = async ({ magicCode, email }: { magicCode: string;
 // }
 // export const signUpWithPassword = async ({ email, password, name }: SignUpParams) => {
 //   const existingUser = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
-//   console.log({ existingUser })
+//   logger.debug({ existingUser })
 
 //   if (existingUser) {
 //     return loginWithPassword(email, password)

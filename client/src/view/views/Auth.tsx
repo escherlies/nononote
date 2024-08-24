@@ -5,7 +5,7 @@ import { Input } from "../components/Input"
 
 import svgLogo from "url:../../../assets/Logo.svg"
 
-export function Auth() {
+export const Auth = () => {
   return (
     <div className="m-auto">
       <SignIn />
@@ -13,7 +13,7 @@ export function Auth() {
   )
 }
 
-export function SignIn() {
+export const SignIn = () => {
   const [email, setEmail] = useState("")
   const [emailSend, setEmailSend] = useState(false)
   const [magicCode, setMagicCode] = useState("")

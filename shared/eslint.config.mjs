@@ -24,6 +24,8 @@ export default [
       "eol-last": ["error", "always"],
       // Switch exhaustiveness check
       "@typescript-eslint/switch-exhaustiveness-check": "error",
+      // No unused vars
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
 ];

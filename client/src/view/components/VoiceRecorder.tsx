@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAudioRecorder } from "react-audio-voice-recorder"
 import { IconButton } from "../Ui"
-import { DismissIcon, StartRecording, StopRecording, UploadDoneIcon, UploadingIcon } from "./Icons"
+import { StartRecording, StopRecording, UploadDoneIcon, UploadingIcon } from "./Icons"
 import { uploadVoiceNote } from "../../model/api"
 
 export const VoiceRecorder = () => {

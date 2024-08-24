@@ -1,10 +1,4 @@
-import {
-  FunctionDeclarationSchemaType,
-  GenerativeModel,
-  GoogleGenerativeAI,
-  HarmBlockThreshold,
-  HarmCategory,
-} from "@google/generative-ai"
+import { GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai"
 
 import {
   createCategoriesFromNotePrompt,

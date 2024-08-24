@@ -1,4 +1,4 @@
-import { head, map, pipe, prop, reverse, sortBy, tail } from "rambda"
+import { head, map, prop, reverse, sortBy } from "rambda"
 import { tag } from "../../../../shared/types"
 import { navigateTo } from "../../model/router"
 import { useStore } from "../../model/store"
@@ -13,7 +13,7 @@ const setIsCached = (isNew: boolean) => (note: Note) => {
   }
 }
 
-export function ViewNotes() {
+export const ViewNotes = () => {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
   const unsyncedUpdatedNotes = useStore((state) => state.unsyncedUpdatedNotes)
@@ -49,7 +49,6 @@ export function ViewNotes() {
           .filter((line) => line.trim() !== "")
 
         const firstLine = head(lines)
-        const rest = tail(lines).join(" · ")
 
         return <NoteCard key={note.id} note={note} title={firstLine} />
       }, notes)}

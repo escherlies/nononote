@@ -69,7 +69,7 @@ export const Card = ({
   badge?: boolean
 }) => {
   return (
-    <div
+    <button
       className="flex flex-col gap-2 px-4 pt-4 pb-10 rounded-xl bg-background-secondary relative cursor-pointer"
       onClick={onClick}
     >
@@ -92,7 +92,7 @@ export const Card = ({
           <ComingSoonBadge />
         </div>
       )}
-    </div>
+    </button>
   )
 }
 
@@ -108,24 +108,6 @@ const BoxingIcon = () => {
         d="M5.982 11.246c-.087 2.723 3.12 6.078 6.129 7.133m-6.13-7.133c-.304.523-3.415 3.017-3.47 4.073c-.263 2.098 3.301 6.039 6.05 6.173c1.026.146 2.449-1.58 3.892-2.864c.795-.707 1.94-.87 6.524-2.008c1.664-.289 3.663-3.159.7-5.59m-13.695.216c.928-2.201 2.532-6.456 5.68-8.137c1.277-.726 4.597-1.394 7.85 1.698c1.119.94 3.058 3.002 1.253 5.377c-1.204 1.403-3.024.997-3.2 3.423"
         color="currentColor"
       />
-    </svg>
-  )
-}
-
-const TimerIcon = () => {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24">
-      <g
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-        color="currentColor"
-      >
-        <path d="M2 22h11a9 9 0 1 0 0-18c-4.633 0-8.503 3.5-9 8m14.5-6.5l1-1m-14 0l1 1" />
-        <path d="m16.5 9l-2.94 2.94m0 0a1.5 1.5 0 1 0-2.121 2.121a1.5 1.5 0 0 0 2.122-2.122M12.5 3.5V2m-2 0h4M2 15h3m-3 4h5" />
-      </g>
     </svg>
   )
 }
