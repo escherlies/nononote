@@ -50,7 +50,6 @@ export const Button = ({
 export const FlatButton = ({ className, ...props }: DefaultButtonProps & { active?: boolean }) => {
   return (
     <button
-      role="button"
       className={`
     w-fit
     min-w-[60px] h-[60px]
@@ -75,7 +74,6 @@ export const FlatButton = ({ className, ...props }: DefaultButtonProps & { activ
 export const SpaceButton = ({ className, ...props }: DefaultButtonProps & { active?: boolean }) => {
   return (
     <button
-      role="button"
       className={`
     w-fit
     min-w-[60px] h-[60px]
@@ -128,7 +126,6 @@ export const BrutalistButton = ({
 
   return (
     <button
-      role="button"
       className={`
     border-[3px] border-color-accent min-w-[68px] h-[68px] flex items-center justify-center bg-background-primary
     rounded-xl

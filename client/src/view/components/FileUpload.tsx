@@ -4,6 +4,7 @@ import { IconButton } from "../Ui"
 import { UploadDoneIcon, UploadIcon, UploadingIcon } from "./Icons"
 
 export const ViewFileUpload = () => {
+  const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null)
   const [uploadState, setUploadState] = useState<"idle" | "uploading" | "uploaded">("idle")
 
   const uploadFile = async (file: null | File) => {
@@ -23,6 +24,13 @@ export const ViewFileUpload = () => {
       .catch(() => {
         setUploadState("idle")
       })
+  }
+
+  const handleClick = () => {
+    if (inputRef === null) {
+      return
+    }
+    inputRef.click()
   }
 
   if (uploadState === "uploading") {
@@ -57,16 +65,17 @@ export const ViewFileUpload = () => {
 
   return (
     <div className="w-full h-full">
-      <label
-        htmlFor="file-upload"
+      <button
         className="h-full w-full bg-background-secondary rounded-xl flex justify-center items-center"
+        aria-label="Upload image"
+        onClick={handleClick}
       >
         <div className="w-[35px] h-[35px]">
           <UploadIcon />
         </div>
-      </label>
+      </button>
       <input
-        id="file-upload"
+        ref={(ref) => setInputRef(ref)}
         className="hidden"
         type="file"
         accept="image/*"

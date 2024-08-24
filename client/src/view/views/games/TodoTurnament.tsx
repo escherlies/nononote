@@ -104,7 +104,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
 
       {/* Turnament */}
       <div className="flex gap-8 flex-col my-auto">
-        <div
+        <button
           className="flex-1 p-8 bg-background-secondary rounded-xl text-center text-xl font-semibold cursor-pointer"
           onClick={() => {
             if (turnament.length === 2) {
@@ -114,9 +114,9 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
           }}
         >
           {stripMarkdownCheckboxes(nextStandoff[0])}
-        </div>
+        </button>
         <div className="text-4xl font-bold -rotate-[30deg] w-fit m-auto text-color-accent">vs</div>
-        <div
+        <button
           className="flex-1 p-8 bg-background-secondary rounded-xl text-center text-xl font-semibold cursor-pointer"
           onClick={() => {
             if (turnament.length === 2) {
@@ -126,7 +126,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
           }}
         >
           {stripMarkdownCheckboxes(nextStandoff[1])}
-        </div>
+        </button>
       </div>
     </div>
   )

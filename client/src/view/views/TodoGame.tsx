@@ -69,7 +69,7 @@ export const Card = ({
   badge?: boolean
 }) => {
   return (
-    <div
+    <button
       className="flex flex-col gap-2 px-4 pt-4 pb-10 rounded-xl bg-background-secondary relative cursor-pointer"
       onClick={onClick}
     >
@@ -92,7 +92,7 @@ export const Card = ({
           <ComingSoonBadge />
         </div>
       )}
-    </div>
+    </button>
   )
 }
 

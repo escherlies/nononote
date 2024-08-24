@@ -56,9 +56,9 @@ const Container = ({ children }: { children: ReactNode }) => {
       {error && (
         <div className="fixed top-0 left-0 right-0 z-50 bg-red-500 text-white p-2 flex gap-4 items-center">
           <div>{error}</div>
-          <div className="ml-auto text-xs cursor-pointer" onClick={() => setError(null)}>
+          <button className="ml-auto text-xs cursor-pointer" onClick={() => setError(null)}>
             CLOSE
-          </div>
+          </button>
         </div>
       )}
 

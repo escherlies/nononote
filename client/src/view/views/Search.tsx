@@ -54,7 +54,7 @@ export const ViewNotesSearch = () => {
 
         return (
           <div key={index} className="">
-            <div
+            <button
               className="cursor-pointer select-none"
               onClick={() => navigateTo(tag("Note", { id: note.id }))}
             >
@@ -65,7 +65,7 @@ export const ViewNotesSearch = () => {
               <HighlightTags
                 tags={note.categories.filter((tag) => matches.includes(tag.toLowerCase()))}
               />
-            </div>
+            </button>
           </div>
         )
       })}
