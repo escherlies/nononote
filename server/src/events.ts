@@ -1,7 +1,5 @@
 import { EventEmitter } from "node:events"
 
-import { z } from "zod"
-
 import { moduleLogger } from "./config"
 import { Maybe } from "../../shared/types"
 import { AppMsg } from "./messages"

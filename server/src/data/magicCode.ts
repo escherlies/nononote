@@ -1,6 +1,4 @@
-import z from 'zod';
-
-
+import z from "zod"
 
 export const magicCode = z.object({
   id: z.string(),

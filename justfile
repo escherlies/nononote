@@ -18,3 +18,4 @@ release:
 lint:
   echo "Linting..."
   cd client && just lint
+  cd server && just lint

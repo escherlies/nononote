@@ -1,16 +1,18 @@
-import { FastifyInstance, FastifyRequest } from "fastify"
+import { FastifyInstance } from "fastify"
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { verifyJwt } from "./auth/jwt"
 import { Maybe } from "../../shared/types"
 import { emitMessageEvent, listenForMessage } from "./events"
 import { appMsg } from "./messages"
 import { path } from "rambda"
-import fastifyMultipart, { SavedMultipartFile } from "@fastify/multipart"
+import fastifyMultipart from "@fastify/multipart"
 import { uploadFileToAIFileManager } from "./ai/files"
-import { transcribeVoiceNotePrompt } from "./ai/prompts"
 import { describeImage, transcribeVoiceNote } from "./ai/ai"
 import { AuthenticatedRequest, authenticateUser } from "./auth/auth"
 import { FileMetadataResponse } from "@google/generative-ai/dist/server/server"
+import { moduleLogger } from "./config"
+
+const logger = moduleLogger("api")
 
 export default async function api(app: FastifyInstance, opts: never, done: () => void) {
   // Hello
@@ -32,7 +34,7 @@ export default async function api(app: FastifyInstance, opts: never, done: () =>
   })
 
   // Notes websocket
-  app.get("/ws", { websocket: true }, (socket, req) => {
+  app.get("/ws", { websocket: true }, (socket) => {
     let user: Maybe<{ id: string }> = null
 
     // Subscribe to messages
@@ -76,7 +78,7 @@ export default async function api(app: FastifyInstance, opts: never, done: () =>
           },
         })
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         socket.send("Invalid message")
       }
     })

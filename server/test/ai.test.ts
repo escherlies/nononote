@@ -1,6 +1,9 @@
 import { test } from "bun:test"
 import { generateCategoriesFromText, generateTagsFromText } from "../src/ai/ai"
 import { classifyNoteContent } from "../src/ai/notes"
+import { moduleLogger } from "../src/config"
+
+const logger = moduleLogger("ai.test")
 
 const testPrompts = [
   {

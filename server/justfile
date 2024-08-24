@@ -15,3 +15,6 @@ clean:
 
 gen-env-template:
   grep -v '^#' .env | sed 's/=.*/=/' | awk NF > .env.template
+
+lint:
+  npx eslint src
