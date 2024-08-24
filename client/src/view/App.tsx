@@ -118,6 +118,9 @@ const ViewBody = () => {
     case "EditNote":
       return <ViewEditNote />
 
+    case "Settings":
+      return <ViewSettings />
+
     default:
       break
   }
@@ -133,9 +136,6 @@ const ViewBody = () => {
 
       case "Info":
         return <ViewInfo />
-
-      case "Settings":
-        return <ViewSettings />
     }
   })()
 

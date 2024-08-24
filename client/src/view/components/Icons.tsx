@@ -17,8 +17,8 @@ import {
   MediaImagePlus,
   ClipboardCheck,
   Rocket,
-  InfoCircle,
   Trash,
+  HelpCircle,
   Copy,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
@@ -173,7 +173,7 @@ export const GoBackIcon = () => {
 
 export const LogOutIcon = () => {
   return (
-    <Icon>
+    <Icon iconProps={{ strokeWidth: 2 }}>
       <LogOut />
     </Icon>
   )
@@ -253,7 +253,7 @@ export const GetShitDoneIcon = () => {
 export const ShowTourIcon = () => {
   return (
     <Icon iconProps={{ strokeWidth: 2 }}>
-      <InfoCircle />
+      <HelpCircle />
     </Icon>
   )
 }

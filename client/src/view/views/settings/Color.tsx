@@ -196,7 +196,7 @@ export const ColorSchemeSelector = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 w-full items-center">
       {/* Light scheme */}
       {/* <label htmlFor="lightScheme">Light Scheme: </label>
       <ColorDropdown
@@ -214,7 +214,7 @@ export const ColorSchemeSelector = () => {
       /> */}
 
       {/* Dark mode */}
-      <label htmlFor="darkMode">Dark Mode: </label>
+      <label htmlFor="darkMode">Dark Mode</label>
       <select
         id="darkMode"
         value={settings.darkMode}

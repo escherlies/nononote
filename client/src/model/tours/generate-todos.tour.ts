@@ -2,6 +2,7 @@ import "@sjmc11/tourguidejs/src/scss/tour.scss" // Styles
 import { TourGuideStep } from "@sjmc11/tourguidejs/src/types/TourGuideStep"
 import { tourGuide } from "./tour"
 import { generateTodoList } from "../store"
+import { navigateTo } from "../router"
 
 const steps: TourGuideStep[] = [
   {
@@ -20,6 +21,7 @@ export const startGenerateTodosTour = () => {
     allowDialogOverlap: true,
     finishLabel: "Got it!",
   })
+  navigateTo({ tag: "Notes" })
   tourGuide.start()
   tourGuide.onFinish(() => {
     generateTodoList()

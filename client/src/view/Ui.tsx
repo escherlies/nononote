@@ -5,6 +5,8 @@ import { MoreActionsIcon } from "./components/Icons"
 import { playPress, playRelease } from "../model/sounds"
 import { omit } from "rambda"
 
+// Typography
+
 type DefaultProps = {
   children: ReactNode
 }
@@ -14,8 +16,25 @@ export const Title = (props: DefaultProps) => {
 }
 
 export const SubTitle = (props: DefaultProps) => {
-  return <div className="text-lg font-semibold">{props.children}</div>
+  return <div className="text-lg font-semibold text-color-accent">{props.children}</div>
 }
+
+export const Label = (props: DefaultProps) => {
+  return <div className="text-lg font-semibold text-color-accent">{props.children}</div>
+}
+
+// Components
+
+export const Section = ({ label, children }: { label?: ReactNode; children: ReactNode }) => {
+  return (
+    <div className="flex flex-col gap-1">
+      <Label>{label}</Label>
+      <div className="flex flex-col gap-4 bg-background-secondary p-4 rounded-xl">{children}</div>
+    </div>
+  )
+}
+
+// Inputs
 
 export const MenuButton = (props: DefaultButtonProps) => {
   const menuOpen = useStore((state) => state.menuOpen)
@@ -190,7 +209,7 @@ export const TextButton = ({
       onClick={onClick}
       active={active}
       {...props}
-      className="text-xl font-bold text-color-accent uppercase whitespace-nowrap"
+      className="text-xl font-bold text-color-accent uppercase whitespace-nowrap w-full"
     >
       {children}
     </Button>
