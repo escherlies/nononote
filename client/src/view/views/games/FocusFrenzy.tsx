@@ -3,6 +3,7 @@ import { showConfetti, useStore } from "../../../model/store"
 import { GetShitDoneIcon } from "../../components/Icons"
 import { SmartActionButton, Title } from "../../Ui"
 import { MarkdownCheckbox } from "../../components/MarkdownInteractive"
+import { logger } from "../../../model/logger"
 
 type Props = { noteId: string }
 
@@ -22,7 +23,7 @@ export const ViewFocusFrenzy = ({ noteId }: Props) => {
   }
 
   useEffect(() => {
-    console.log("Notes changed")
+    logger.debug("Notes changed")
     // Check whether the note has been checked
     if (todo && note) {
       const todoGotChecked = todo.replace("[ ]", "[x]")

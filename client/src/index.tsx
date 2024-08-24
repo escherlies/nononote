@@ -7,7 +7,7 @@ import { loadIntroNotes } from "./model/intro"
 import { initBindings } from "./model/keyboard"
 
 import { App } from "./view/App"
-import { loadUnsyncedNewNotes, toggleDarkMode, useStore } from "./model/store"
+import { loadUnsyncedNewNotes, toggleDarkMode } from "./model/store"
 import { initAuth } from "./model/api"
 
 // Mount react app

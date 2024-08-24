@@ -16,7 +16,7 @@ export const classifyNoteContent = async (textContent: string) => {
 
   // Generate a title
   const title = await generateNoteTitleIfMissing(textContent)
-  console.log("title", title)
+  logger.debug("title", title)
 
   // Format todos as markdown, if note is todo
   let noteWithTitle = title.trim() !== "#" ? title + "\n" + textContent : textContent

@@ -2,7 +2,6 @@ import { isEmpty } from "rambda"
 import { appMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
 import { gotNewNote, useStore } from "./store"
-import { navigateTo } from "./router"
 import { startInitialTour } from "./tours/initial.tour"
 
 export async function onSubscriptionData(message: JSON) {
@@ -11,7 +10,7 @@ export async function onSubscriptionData(message: JSON) {
   logger.debug("Received message: %o", res)
 
   if (!res.success) {
-    console.error("Failed to parse message: ", res.error)
+    logger.error("Failed to parse message: ", res.error)
     return
   }
 

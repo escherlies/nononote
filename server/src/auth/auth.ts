@@ -119,7 +119,7 @@ export const verifyMagicCode = async ({ magicCode, email }: { magicCode: string;
 // }
 // export const signUpWithPassword = async ({ email, password, name }: SignUpParams) => {
 //   const existingUser = await monzod.cols.users.findOne({ emails: { $in: [toLower(email)] } })
-//   console.log({ existingUser })
+//   logger.debug({ existingUser })
 
 //   if (existingUser) {
 //     return loginWithPassword(email, password)

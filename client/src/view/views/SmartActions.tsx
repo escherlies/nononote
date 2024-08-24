@@ -1,4 +1,3 @@
-import { publish } from "../../model/api"
 import { generateTodoList, hasSmartAction, useStore } from "../../model/store"
 import { startGenerateTodosTour } from "../../model/tours/generate-todos.tour"
 import { GenerateTodoListIcon } from "../components/Icons"

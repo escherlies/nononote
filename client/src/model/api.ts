@@ -1,4 +1,5 @@
 import { AppMsg } from "../../../server/src/messages"
+import { logger } from "./logger"
 import { storage } from "./storage"
 import { handleAuth, handleAuthError, logOut, setError, setModal, useStore } from "./store"
 
@@ -20,7 +21,7 @@ export const initAuth = async () => {
 }
 
 export const publish = async (message: AppMsg) => {
-  console.log("Publishing message:", message)
+  logger.debug("Publishing message:", message)
 
   const connection = useStore.getState().connection
   if (!connection) {
@@ -44,7 +45,7 @@ export const auth = {
       body: JSON.stringify({ email }),
     })
 
-    console.log({ response })
+    logger.debug({ response })
 
     if (!response.ok) {
       throw new Error("Failed to get magic code")

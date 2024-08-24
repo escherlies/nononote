@@ -264,7 +264,7 @@ export const setConnectionStatus = (isConnected: boolean) => {
 }
 
 export const toggleDarkMode = (darkMode: boolean) => {
-  useStore.setState((state) => ({ darkMode: darkMode }))
+  useStore.setState({ darkMode: darkMode })
 }
 
 export const loadUnsyncedNewNotes = () => {

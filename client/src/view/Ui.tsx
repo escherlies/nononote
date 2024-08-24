@@ -47,11 +47,7 @@ export const Button = ({
   }
 }
 
-export const FlatButton = ({
-  active,
-  className,
-  ...props
-}: DefaultButtonProps & { active?: boolean }) => {
+export const FlatButton = ({ className, ...props }: DefaultButtonProps & { active?: boolean }) => {
   return (
     <button
       role="button"
@@ -76,11 +72,7 @@ export const FlatButton = ({
 }
 
 //
-export const SpaceButton = ({
-  active,
-  className,
-  ...props
-}: DefaultButtonProps & { active?: boolean }) => {
+export const SpaceButton = ({ className, ...props }: DefaultButtonProps & { active?: boolean }) => {
   return (
     <button
       role="button"
@@ -120,12 +112,6 @@ export const BrutalistButton = ({
     } else if (isClicked) {
       playRelease()
     }
-  }
-
-  // Default behavior for a click event. This is contrary to a physical button, which we try to emulate.
-  const clickOnRealese = () => {
-    handleSetClicked(false)
-    props.onClick && props.onClick()
   }
 
   const getClassNames = () => {

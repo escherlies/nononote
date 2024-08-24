@@ -82,16 +82,16 @@ export default async function api(app: FastifyInstance, opts: never, done: () =>
     })
 
     socket.on("open", () => {
-      console.log("Client connected")
+      logger.debug("Client connected")
     })
 
     socket.on("close", () => {
       unsub()
-      console.log("Client disconnected")
+      logger.debug("Client disconnected")
     })
 
     socket.send("Connected")
-    console.log("Client connected")
+    logger.debug("Client connected")
   })
 
   // ##################################################################### //

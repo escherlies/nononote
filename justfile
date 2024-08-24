@@ -13,3 +13,8 @@ close:
 
 release:
   bash ./scripts/release.sh
+
+
+lint:
+  echo "Linting..."
+  cd client && just lint

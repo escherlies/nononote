@@ -3,7 +3,8 @@ import { showConfetti, useStore } from "../../../model/store"
 import { GetShitDoneIcon } from "../../components/Icons"
 import { SmartActionButton, Title } from "../../Ui"
 import { MarkdownCheckbox } from "../../components/MarkdownInteractive"
-import { drop, take } from "rambda"
+import { removeIndex, take } from "rambda"
+import { logger } from "../../../model/logger"
 
 type Props = { noteId: string }
 
@@ -22,7 +23,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
   const note = notes.find((note) => note.id === noteId)
 
   useEffect(() => {
-    console.log("Notes changed")
+    logger.debug("Notes changed")
     // Check whether the note has been checked
     if (todo && note) {
       const todoGotChecked = todo.replace("[ ]", "[x]")
@@ -49,14 +50,14 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
   const todos = extractMarkdownCheckboxes(note.text)
   const nextStandoff = take(2, turnament)
 
-  console.log({ todos, turnament, todo })
+  logger.debug({ todos, turnament, todo })
 
   // Not initialized
   if (nextStandoff.length === 0) {
     return (
       <div className="flex flex-col gap-5">
         <Title>Todo Turnament</Title>
-        <p>Let's find your next most imporant task</p>
+        <p>{"Let's find your next most imporant task"}</p>
         <SmartActionButton
           onClick={() => setTurnament(randomizeList(todos))}
           text="Let's go!"
@@ -99,7 +100,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
     <div className="flex flex-col gap-5 h-full">
       <Title>Todo Turnament</Title>
 
-      <p>Let's find your next most imporant task</p>
+      <p>{"Let's find your next most imporant task"}</p>
 
       {/* Turnament */}
       <div className="flex gap-8 flex-col my-auto">
@@ -109,7 +110,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
             if (turnament.length === 2) {
               setTodo(nextStandoff[0])
             }
-            setTurnament(randomizeList(deleteAt(1, turnament)))
+            setTurnament(randomizeList(removeIndex(1, turnament)))
           }}
         >
           {stripMarkdownCheckboxes(nextStandoff[0])}
@@ -121,7 +122,7 @@ export const ViewTodoTurnament = ({ noteId }: Props) => {
             if (turnament.length === 2) {
               setTodo(nextStandoff[1])
             }
-            setTurnament(randomizeList(deleteAt(0, turnament)))
+            setTurnament(randomizeList(removeIndex(0, turnament)))
           }}
         >
           {stripMarkdownCheckboxes(nextStandoff[1])}
@@ -148,14 +149,6 @@ function stripMarkdownCheckboxes(markdownText: string): string {
   return markdownText.replace(checkboxRegex, "")
 }
 
-function getRandomElement<T>(arr: T[]): T | undefined {
-  if (arr.length === 0) {
-    return undefined // Handle empty array case
-  }
-  const randomIndex = Math.floor(Math.random() * arr.length)
-  return arr[randomIndex]
-}
-
 function randomizeList<T>(arr: T[]): T[] {
   if (arr.length === 0) {
     return arr
@@ -168,11 +161,7 @@ function randomizeList<T>(arr: T[]): T[] {
   const randomIndex = Math.floor(Math.random() * arr.length)
 
   const item = arr[randomIndex]
-  const rest = deleteAt(randomIndex, arr)
+  const rest = removeIndex(randomIndex, arr)
 
   return [item, ...randomizeList(rest)]
-}
-
-const deleteAt = (i: number, arr: any[]) => {
-  return [...take(i, arr), ...drop(i + 1, arr)]
 }

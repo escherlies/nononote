@@ -120,6 +120,9 @@ function ViewBody() {
 
     case "EditNote":
       return <ViewEditNote />
+
+    default:
+      break
   }
 
   // Wrap normal views in a container

@@ -27,15 +27,7 @@ const testPrompts = [
     note: "Buy groceries: milk, eggs, bread, and vegetables. Also, need to get some cleaning supplies and toiletries.",
     categories: ["shopping list"],
     // For a shopping list, we don't need to generate tags
-    tags: [
-      "groceries",
-      "milk",
-      "eggs",
-      "bread",
-      "vegetables",
-      "cleaning supplies",
-      "toiletries",
-    ],
+    tags: ["groceries", "milk", "eggs", "bread", "vegetables", "cleaning supplies", "toiletries"],
   },
   {
     note: "Company annual picnic scheduled for next Saturday. Need to arrange for catering and set up a few outdoor games.",
@@ -50,13 +42,7 @@ const testPrompts = [
   {
     note: "Book a flight to New York for the conference next month. Confirm hotel reservations and prepare the presentation slides.",
     categories: ["todo"],
-    tags: [
-      "flight",
-      "New York",
-      "conference",
-      "hotel reservations",
-      "presentation slides",
-    ],
+    tags: ["flight", "New York", "conference", "hotel reservations", "presentation slides"],
   },
   {
     note: "Remember to back up the server data before the scheduled maintenance on Sunday.",
@@ -73,10 +59,10 @@ const testPrompts = [
 test.skip("createTagsFromNotePrompt", async () => {
   const sample = testPrompts[4]
   const tags = await generateTagsFromText(sample.note)
-  console.log("Generated tags:", tags)
+  logger.debug("Generated tags:", tags)
 
   const categories = await generateCategoriesFromText(sample.note)
-  console.log("Generated categories:", categories)
+  logger.debug("Generated categories:", categories)
 
   // for (const { note, tags } of testPrompts) {
   //   expect(prompt).toContain(note)
@@ -89,6 +75,6 @@ test.only("create tags from note containing a link", async () => {
   const note = "https://affxwrks.com/collections/shop-all"
   const { tags, categories } = await classifyNoteContent(note)
 
-  console.log("Tags:", tags)
-  console.log("Categories:", categories)
+  logger.debug("Tags:", tags)
+  logger.debug("Categories:", categories)
 })
