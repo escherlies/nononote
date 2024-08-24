@@ -14,7 +14,7 @@ const miniSearch = new MiniSearch({
   },
 })
 
-export function ViewNotesSearch() {
+export const ViewNotesSearch = () => {
   const notes = useStore((state) => state.notes)
   const query = useStore((state) => state.searchQuery)
 
@@ -73,7 +73,7 @@ export function ViewNotesSearch() {
   )
 }
 
-function HighlightedText({ text, match }: { text: string; match: string[] }) {
+const HighlightedText = ({ text, match }: { text: string; match: string[] }) => {
   const parts = text.split(new RegExp(`(${match.join("|")})`, "gi"))
 
   return (
@@ -92,7 +92,7 @@ function HighlightedText({ text, match }: { text: string; match: string[] }) {
   )
 }
 
-function HighlightTags({ tags }: { tags: string[] }) {
+const HighlightTags = ({ tags }: { tags: string[] }) => {
   return (
     <div className="flex gap-1 flex-wrap">
       {tags.map((tag, index) => (

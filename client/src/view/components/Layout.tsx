@@ -7,7 +7,7 @@ type LayoutProps = {
   footer: ReactNode
 }
 
-export function Layout({ body, footer }: LayoutProps) {
+export const Layout = ({ body, footer }: LayoutProps) => {
   const theme = useStore((state) => state.settings.theme)
 
   switch (theme) {
@@ -73,7 +73,7 @@ export function BrutalistLayout({ body, footer }: LayoutType) {
   ]
 }
 
-function ViewNameTag({ viewName }: { viewName: string }) {
+const ViewNameTag = ({ viewName }: { viewName: string }) => {
   return (
     <div
       className={`flex justify-center text-xs

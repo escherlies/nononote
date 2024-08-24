@@ -13,7 +13,7 @@ loader.init().then((monaco) => {
   monacoInstance = monaco
 })
 
-export function ViewMonaco() {
+export const ViewMonaco = () => {
   const noteInput = useStore((state) => state.noteInput)
   const systemDarkMode = useStore((state) => state.darkMode)
   const settings = useStore((state) => state.settings)

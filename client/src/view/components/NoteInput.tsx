@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react"
 import { setNoteInput, useStore } from "../../model/store"
 import { IS_MOBILE_PLATTFORM } from "../../model/config"
 
-export function NoteInput() {
+export const NoteInput = () => {
   const noteInput = useStore((state) => state.noteInput)
 
   // Auto focus input using ref and useEffect

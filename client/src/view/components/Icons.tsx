@@ -262,7 +262,7 @@ export const ShowTourIcon = () => {
 // ############################# Svg icons ############################# //
 // ##################################################################### //
 
-export function LineMdLoadingTwotoneLoop() {
+export const LineMdLoadingTwotoneLoop = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24">
       <g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5">

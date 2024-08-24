@@ -1,5 +1,5 @@
 import { VERSION } from "../model/config"
 
-export function Version() {
+export const Version = () => {
   return <span>{VERSION}</span>
 }

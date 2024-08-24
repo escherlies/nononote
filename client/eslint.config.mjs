@@ -37,4 +37,17 @@ export default [
       },
     },
   },
+  // Client rules
+  {
+    rules: {
+      "prefer-arrow-callback": ["warn", { allowNamedFunctions: false }],
+      "react/function-component-definition": [
+        "warn",
+        {
+          namedComponents: "arrow-function",
+          unnamedComponents: "arrow-function",
+        },
+      ],
+    },
+  },
 ]

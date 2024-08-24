@@ -23,7 +23,7 @@ import {
 import { SearchInput } from "../components/SearchInput"
 import { IconButton } from "../Ui"
 
-export function Menu() {
+export const Menu = () => {
   const theme = useStore((state) => state.settings.theme)
   const view = useStore((state) => state.view)
   const noteInput = useStore((state) => state.noteInput)

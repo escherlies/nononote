@@ -19,7 +19,7 @@ import { useWindowSize } from "@react-hook/window-size"
 import Confetti from "react-confetti"
 import { Toaster } from "react-hot-toast"
 
-export function App() {
+export const App = () => {
   const authToken = useStore((state) => state.authToken)
 
   if (!authToken) {
@@ -37,10 +37,7 @@ export function App() {
   )
 }
 
-type Props = {
-  children: ReactNode
-}
-function Container({ children }: Props) {
+const Container = ({ children }: { children: ReactNode }) => {
   const [width, height] = useWindowSize()
   const error = useStore((state) => state.error)
   const confetti = useStore((state) => state.confetti)
@@ -93,7 +90,7 @@ function Container({ children }: Props) {
   )
 }
 
-function ViewBody() {
+const ViewBody = () => {
   const view = useStore((state) => state.view)
 
   // Views that don't need a container

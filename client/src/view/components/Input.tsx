@@ -11,7 +11,7 @@ type Props = JSX.IntrinsicAttributes &
     autoFocus?: boolean
   }
 
-export function Input(props: Props) {
+export const Input = (props: Props) => {
   const theme = useStore((state) => state.settings.theme)
 
   // auto focus input using ref and useEffect

@@ -13,7 +13,7 @@ const setIsCached = (isNew: boolean) => (note: Note) => {
   }
 }
 
-export function ViewNotes() {
+export const ViewNotes = () => {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
   const unsyncedUpdatedNotes = useStore((state) => state.unsyncedUpdatedNotes)

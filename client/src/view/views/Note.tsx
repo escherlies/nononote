@@ -6,7 +6,7 @@ import { SmartActionButton } from "../Ui"
 import { GetShitDoneIcon } from "../components/Icons"
 import { MarkdownCheckbox } from "../components/MarkdownInteractive"
 
-export function ViewNote({ noteId }: { noteId: string }) {
+export const ViewNote = ({ noteId }: { noteId: string }) => {
   const storedNotes = useStore((state) => state.notes)
   const unsyncedNewNotes = useStore((state) => state.unsyncedNewNotes)
 

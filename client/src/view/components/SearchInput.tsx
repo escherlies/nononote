@@ -2,11 +2,11 @@ import { ClassAttributes, InputHTMLAttributes, useEffect, useRef } from "react"
 import { setSeachQuery, useStore } from "../../model/store"
 import { JSX } from "react/jsx-runtime"
 
-export function SearchInput(
+export const SearchInput = (
   props: JSX.IntrinsicAttributes &
     ClassAttributes<HTMLInputElement> &
     InputHTMLAttributes<HTMLInputElement>
-) {
+) => {
   const theme = useStore((state) => state.settings.theme)
 
   const value = useStore((state) => state.searchQuery)
