@@ -40,4 +40,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}/enc:latest, ghcr.io/${{ github.repository }}/enc:tmv-${{ env.TIMEVER }}, ghcr.io/${{ github.repository }}/enc:sha-${{ env.COMMIT_SHORT_SHA }}
+          tags: ghcr.io/${{ github.repository }}/app:latest, ghcr.io/${{ github.repository }}/app:tmv-${{ env.TIMEVER }}, ghcr.io/${{ github.repository }}/app:sha-${{ env.COMMIT_SHORT_SHA }}
