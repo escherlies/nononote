@@ -9,8 +9,10 @@
     "strict": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
     "lib": [
-      "es2015",
+      "ESNext",
       "dom"
     ],
     "outDir": "out"

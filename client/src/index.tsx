@@ -9,6 +9,7 @@ import { initBindings } from "./model/keyboard"
 import { App } from "./view/App"
 import { loadUnsyncedNewNotes, toggleDarkMode } from "./model/store"
 import { initAuth } from "./model/api"
+import { registerServiceWorker } from "./register-service-worker"
 
 // Mount react app
 const container = document.getElementById("app")
@@ -37,3 +38,6 @@ toggleDarkMode(darkModeMedia.matches)
 
 // Init auth
 initAuth()
+
+// Service worker registration
+registerServiceWorker()
