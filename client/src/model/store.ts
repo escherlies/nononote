@@ -40,13 +40,6 @@ export const useStore = create(() => ({
   isCreatingNote: { tag: "no" } as { tag: "no" } | { tag: "yes"; timeout: NodeJS.Timeout },
 }))
 
-// Subscriptions
-
-useStore.subscribe((state) => {
-  const selector = getUserDarkModePreference(state.settings, state.darkMode)
-  document.body.classList.toggle("dark", selector === "dark")
-})
-
 // Window events
 
 window.addEventListener("online", () => {
@@ -265,6 +258,8 @@ export const setConnectionStatus = (isConnected: boolean) => {
 
 export const toggleDarkMode = (darkMode: boolean) => {
   useStore.setState({ darkMode: darkMode })
+
+  applyDarkModePreference()
 }
 
 export const loadUnsyncedNewNotes = () => {
@@ -305,6 +300,8 @@ export const updateSettings = (fn: (settings: Settings) => Settings) => {
     saveSettings(settings)
     return { settings }
   })
+
+  applyDarkModePreference()
 }
 
 export const initEditNote = (noteId: string) => {
@@ -449,4 +446,18 @@ export const gotNewNote = (newNote: Note) => {
 export const generateTodoList = () => {
   publish({ type: "smart-notes:create-todo-list" })
   showIsCreatingNote()
+}
+
+export const applyDarkModePreference = () => {
+  const state = useStore.getState()
+
+  const userPreference = getUserDarkModePreference(state.settings, state.darkMode)
+  document.body.classList.toggle("dark", userPreference === "dark")
+
+  // Update meta theme color
+  const isDarkModePreferred = userPreference === "dark"
+
+  const themeColor = isDarkModePreferred ? "#0D0A0B" : "#fffefd"
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]')
+  themeColorMeta?.setAttribute("content", themeColor)
 }

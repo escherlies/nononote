@@ -16,8 +16,8 @@ export default [
       ],
       // No console
       "no-console": "error",
-      // Always double quotes
-      quotes: ["error", "double"],
+      // Always double quotes, except if it contains a double quote
+      quotes: ["error", "double", { avoidEscape: true }],
       // No semi
       semi: ["error", "never"],
       // Newline at end of file

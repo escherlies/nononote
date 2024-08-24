@@ -1,4 +1,5 @@
 import { logger } from "./model/logger"
+import { toggleDarkMode } from "./model/store"
 
 export const registerServiceWorker = () => {
   if ("serviceWorker" in navigator) {
@@ -36,6 +37,10 @@ export const registerServiceWorker = () => {
               if (document.visibilityState === "visible") {
                 logger.debug("App is back in the foreground, checking for updates...")
                 registration.update() // Trigger an update check
+
+                // PWA on iOS fails to emit the darkModeMedia event, so we need to check it here
+                const darkModeMedia = window.matchMedia("(prefers-color-scheme: dark)")
+                toggleDarkMode(darkModeMedia.matches)
               }
             })
           })
