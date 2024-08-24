@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Use COMMIT_SHORT_SHA from ci/cd environment if available, otherwise use git to get the short sha
-: "${COMMIT_SHORT_SHA:=$(git rev-parse --short HEAD)}"
+COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)
 TIMEVER=$(date -u "+%Y-%m-%d-%H%M")
+LOCAL_VERSION="$TIMEVER-$COMMIT_SHORT_SHA"
 
-export VERSION="$TIMEVER-$COMMIT_SHORT_SHA"
+# Use the version from the environment if available, otherwise use the local version
+: "${VERSION:=$LOCAL_VERSION}"
+
+echo "Version: $VERSION"
+export VERSION

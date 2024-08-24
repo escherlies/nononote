@@ -1,5 +1,7 @@
 FROM ghcr.io/escherlies/nixnode/nixnode:latest
 
+ARG VERSION
+
 USER root
 
 # Install bun
