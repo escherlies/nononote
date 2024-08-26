@@ -96,3 +96,12 @@ Notes:
 ${notesEncoded}
 `
 }
+
+// Group task list
+export const organizeAndSortTasksPrompt = (markdownTaskList: string): string => {
+  return `Given a markdown task list, organize and sort the tasks by grouping related items together. Separate each group with a markdown subtitle (##) for clarity. Return the updated and organized markdown list.
+
+Task list:
+${markdownTaskList}
+`
+}

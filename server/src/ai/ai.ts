@@ -9,6 +9,7 @@ import {
   generateImageDescriptionPrompt,
   generateNoteTitleIfMissingPrompt,
   generateSmartTodoListPrompt,
+  organizeAndSortTasksPrompt,
   transcribeVoiceNotePrompt,
 } from "./prompts"
 
@@ -203,4 +204,20 @@ export async function generateSmartTodoList(content: string[]): Promise<string[]
   const json = JSON.parse(response)
 
   return json
+}
+
+export async function groupTasklistItems(content: string): Promise<string> {
+  const result = await genAI
+    .getGenerativeModel({
+      model: "gemini-1.5-pro",
+      generationConfig: {
+        temperature: 0.7,
+      },
+      safetySettings: SAFETY_SETTINGS,
+    })
+    .generateContent([organizeAndSortTasksPrompt(content)])
+
+  const response = result.response.text()
+
+  return response
 }

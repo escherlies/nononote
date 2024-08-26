@@ -2,7 +2,7 @@ import { emitMessageEvent, MessageWithContext } from "./events"
 import { moduleLogger } from "./config"
 import { classifyNoteContent } from "./ai/notes"
 import monzod from "./db"
-import { generateSmartTodoList } from "./ai/ai"
+import { generateSmartTodoList, groupTasklistItems } from "./ai/ai"
 import { Note } from "./data/note"
 import { last, prop } from "rambda"
 
@@ -96,7 +96,7 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
         })
         .toArray()
 
-      const lastSmartNote = last(smartNotes)
+      const lastSmartNote = last(smartNotes) as Note | undefined
 
       const notes = await monzod.cols.notes
         .find({
@@ -124,25 +124,47 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
         // Filter empty notes
         .filter((note) => note.length > 0)
         // Carry over unchecked todos from the last smart note
-        .concat([lastSmartNote.text])
+        .concat([lastSmartNote?.text || ""])
 
       // Generate a todo list from notes
       const todos = await generateSmartTodoList(notesContent)
 
       // If todos are empty, create a todo with "Create a to-do list ☺️" text and add a paragraph stating that no todos were found
-      let text = formatRawTodos(todos)
       if (todos.length === 0) {
-        text = `No to-dos were found in your recent notes. 🤔 Looks like you have just one task for now:
+        const text = `No to-dos were found in your recent notes. 🤔 Looks like you have just one task for now:
 
 - [ ] Create a to-do list ☺️
 
 Simply jot down your tasks in a note, and we’ll take care of the rest. 🤖`
+
+        // Create a new note with the todo list
+        const note: Note = {
+          id: monzod.cols.notes.generateId(),
+          text: text,
+          tags: ["todo"],
+          categories: ["todo"],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          userId: context.user.id,
+          smartNote: true,
+        }
+
+        // Save note
+        await monzod.cols.notes.insertOne(note)
+
+        // Emit note to all subscribers
+        return emitMessageEvent({ context, message: { type: "notes:note", note } })
       }
+      // Continue with the normal flow
+
+      const todosAsMarkdownTasklist = formatRawTodos(todos)
+
+      const todosSorted = await groupTasklistItems(todosAsMarkdownTasklist)
 
       // Create a new note with the todo list
       const note: Note = {
         id: monzod.cols.notes.generateId(),
-        text: text,
+        text: todosSorted,
         tags: ["todo"],
         categories: ["todo"],
         createdAt: new Date().toISOString(),
@@ -166,8 +188,7 @@ function formatRawTodos(todos: string[]): string {
   // Format todo text with markdown checkboxes
   const formattedTodos = todos
     .map((todo) => {
-      const todoRaw = todo.replace(/- \[ \] /g, "").replace(/- \[x\] /g, "")
-      return `- [ ] ${todoRaw}`
+      return `- [ ] ${todo}`
     })
     .join("\n")
 
