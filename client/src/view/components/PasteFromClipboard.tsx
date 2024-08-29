@@ -1,6 +1,6 @@
 import { PasteIcon, UploadingIcon } from "./Icons"
 import { uploadImage } from "../../model/api"
-import { setError, setNoteInput } from "../../model/store"
+import { setNoteInput } from "../../model/store"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
