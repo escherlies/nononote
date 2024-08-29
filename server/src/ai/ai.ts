@@ -1,5 +1,7 @@
 import { GenerativeModel, GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai"
 
+import type { FileMetadataResponse } from "@google/generative-ai/server"
+
 import {
   createCategoriesFromNotePrompt,
   createTagsFromNotePrompt,
@@ -16,7 +18,6 @@ import {
 import { stringArrayZ } from "../data/note"
 
 import { GOOGLE_GENERATIVE_AI_API_KEY, moduleLogger } from "../config"
-import { FileMetadataResponse } from "@google/generative-ai/dist/server/server"
 
 const logger = moduleLogger("ai")
 

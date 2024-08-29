@@ -74,7 +74,7 @@ test.skip("createTagsFromNotePrompt", async () => {
   // }
 })
 
-test.only("create tags from note containing a link", async () => {
+test.skip("create tags from note containing a link", async () => {
   const note = "https://affxwrks.com/collections/shop-all"
   const { tags, categories } = await classifyNoteContent(note)
 

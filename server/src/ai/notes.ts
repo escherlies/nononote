@@ -17,8 +17,11 @@ export const classifyNoteContent = async (textContent: string) => {
   // Generate a title
   const title = await generateNoteTitleIfMissing(textContent)
 
+  // Format links
+  const textContentFormatted = formatLinks(textContent)
+
   // Format todos as markdown, if note is todo
-  let noteWithTitle = title.trim() !== "#" ? title + "\n" + textContent : textContent
+  let noteWithTitle = title.trim() !== "#" ? title + "\n" + textContentFormatted : textContentFormatted
 
   // Format a task list as markdown
   noteWithTitle = await formatTodosAsMarkdown(noteWithTitle)
@@ -46,10 +49,43 @@ export const handleLinkTagsGeneration = async (textContent: string) => {
     return []
   }
 
-  const webpage = await getWebpageContent(urlFromNote)
+  const cleanedUrl = removeSearchParams(urlFromNote)
+
+  const webpage = await getWebpageContent(cleanedUrl)
   if (!webpage) {
     return []
   }
 
   return generateTagsFromWebpage(webpage.text, webpage.type)
+}
+
+export const removeSearchParams = (url: string) => {
+  const urlObj = new URL(url)
+  urlObj.search = ""
+  return urlObj.toString()
+}
+
+export const formatAsMarkdownLink = ({ text, url }: { text: string; url: string }) => {
+  return `[${text}](${url})`
+}
+
+export const formatLinks = (textContent: string) => {
+  const links = extractLinks(textContent)
+  if (!links.length) {
+    return textContent
+  }
+
+  const cleanedLinks = links.map((link) => {
+    const cleaned = removeSearchParams(link)
+    return {
+      original: link,
+      cleaned: formatAsMarkdownLink({ text: cleaned, url: cleaned }),
+    }
+  })
+
+  const cleanedText = cleanedLinks.reduce((acc, link) => {
+    return acc.replace(link.original, link.cleaned)
+  }, textContent)
+
+  return cleanedText
 }
