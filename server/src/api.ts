@@ -15,7 +15,7 @@ import { moduleLogger } from "./config"
 
 const logger = moduleLogger("api")
 
-export default async function api(app: FastifyInstance, done: () => void) {
+export default async function api(app: FastifyInstance, _opts: any, done: () => void) {
   // Hello
   app.withTypeProvider<ZodTypeProvider>().route({
     method: "get",

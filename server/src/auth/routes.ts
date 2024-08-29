@@ -6,7 +6,7 @@ import { signJwt } from "./jwt"
 import { sendMagicCode } from "../email"
 import monzod from "../db"
 
-export default function authRouter(app: FastifyInstance, done: () => void) {
+export default function authRouter(app: FastifyInstance, _opts: any, done: () => void) {
   // Get magic code
   app.withTypeProvider<ZodTypeProvider>().route({
     method: "post",
