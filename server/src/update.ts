@@ -1,9 +1,9 @@
-import { emitMessageEvent, MessageWithContext } from "./events"
+import { emitMessageEvent, type MessageWithContext } from "./events"
 import { moduleLogger } from "./config"
 import { classifyNoteContent } from "./ai/notes"
 import monzod from "./db"
 import { generateSmartTodoList, groupTasklistItems } from "./ai/ai"
-import { Note } from "./data/note"
+import type { Note } from "./data/note"
 import { last, prop } from "rambda"
 
 const logger = moduleLogger("notes")

@@ -1,4 +1,4 @@
-import Fastify, { FastifyPluginAsync } from "fastify"
+import Fastify, { type FastifyPluginAsync } from "fastify"
 import api from "./api"
 import { moduleLogger } from "./config"
 import ws from "@fastify/websocket"

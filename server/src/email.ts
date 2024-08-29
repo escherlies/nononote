@@ -1,4 +1,4 @@
-import nodemailer, { SentMessageInfo } from "nodemailer"
+import nodemailer, { type SentMessageInfo } from "nodemailer"
 import { htmlToText } from "html-to-text"
 import Mail from "nodemailer/lib/mailer"
 import {

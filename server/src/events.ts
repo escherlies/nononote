@@ -1,8 +1,8 @@
 import { EventEmitter } from "node:events"
 
 import { moduleLogger } from "./config"
-import { Maybe } from "../../shared/types"
-import { AppMsg } from "./messages"
+import type { Maybe } from "../../shared/types"
+import type { AppMsg } from "./messages"
 import { handleNotesMessages } from "./update"
 
 const logger = moduleLogger("events")

@@ -1,25 +1,26 @@
-import { FastifyInstance } from "fastify"
-import { ZodTypeProvider } from "fastify-type-provider-zod"
+import type { FastifyInstance } from "fastify"
+import type { ZodTypeProvider } from "fastify-type-provider-zod"
+import type { FileMetadataResponse } from "@google/generative-ai/server"
 import { verifyJwt } from "./auth/jwt"
-import { Maybe } from "../../shared/types"
+import { path } from "rambda"
+
+import type { Maybe } from "../../shared/types"
 import { emitMessageEvent, listenForMessage } from "./events"
 import { appMsg } from "./messages"
-import { path } from "rambda"
 import fastifyMultipart from "@fastify/multipart"
 import { uploadFileToAIFileManager } from "./ai/files"
 import { describeImage, transcribeVoiceNote } from "./ai/ai"
-import { AuthenticatedRequest, authenticateUser } from "./auth/auth"
-import { FileMetadataResponse } from "@google/generative-ai/dist/server/server"
+import { type AuthenticatedRequest, authenticateUser } from "./auth/auth"
 import { moduleLogger } from "./config"
 
 const logger = moduleLogger("api")
 
-export default async function api(app: FastifyInstance, opts: never, done: () => void) {
+export default async function api(app: FastifyInstance, done: () => void) {
   // Hello
   app.withTypeProvider<ZodTypeProvider>().route({
     method: "get",
     url: "/hello",
-    handler: async (req, res) => {
+    handler: async (_req, res) => {
       return res.send("Hello!")
     },
   })
@@ -28,7 +29,7 @@ export default async function api(app: FastifyInstance, opts: never, done: () =>
   app.withTypeProvider<ZodTypeProvider>().route({
     method: "post",
     url: "/message",
-    handler: async (req, res) => {
+    handler: async (_req, res) => {
       return res.send([])
     },
   })

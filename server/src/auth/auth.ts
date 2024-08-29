@@ -3,7 +3,7 @@ import monzod from "../db"
 import { genMagicCode, safeid } from "../nanoid"
 // import bcrypt from "bcrypt"
 import { moduleLogger } from "../config"
-import { FastifyReply, FastifyRequest } from "fastify"
+import type { FastifyReply, FastifyRequest } from "fastify"
 import { verifyJwt } from "./jwt"
 
 const logger = moduleLogger("auth")

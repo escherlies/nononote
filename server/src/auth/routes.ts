@@ -1,12 +1,12 @@
-import { FastifyInstance } from "fastify"
-import { ZodTypeProvider } from "fastify-type-provider-zod"
+import type { FastifyInstance } from "fastify"
+import type { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
-import { AuthenticatedRequest, authenticateUser, generateMagicCode, verifyMagicCode } from "./auth"
+import { type AuthenticatedRequest, authenticateUser, generateMagicCode, verifyMagicCode } from "./auth"
 import { signJwt } from "./jwt"
 import { sendMagicCode } from "../email"
 import monzod from "../db"
 
-export default function authRouter(app: FastifyInstance, opts: never, done: () => void) {
+export default function authRouter(app: FastifyInstance, done: () => void) {
   // Get magic code
   app.withTypeProvider<ZodTypeProvider>().route({
     method: "post",
