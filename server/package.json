@@ -17,7 +17,7 @@
   "dependencies": {
     "@fastify/multipart": "^8.3.0",
     "@fastify/websocket": "^10.0.1",
-    "@google/generative-ai": "^0.16.0",
+    "@google/generative-ai": "^0.17.1",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/uuid": "^10.0.0",
     "cheerio": "^1.0.0-rc.12",

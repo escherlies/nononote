@@ -20,6 +20,7 @@ import {
   Trash,
   HelpCircle,
   Copy,
+  PasteClipboard,
 } from "iconoir-react"
 import { useStore } from "../../model/store"
 
@@ -254,6 +255,14 @@ export const ShowTourIcon = () => {
   return (
     <Icon iconProps={{ strokeWidth: 2 }}>
       <HelpCircle />
+    </Icon>
+  )
+}
+
+export const PasteIcon = () => {
+  return (
+    <Icon>
+      <PasteClipboard />
     </Icon>
   )
 }

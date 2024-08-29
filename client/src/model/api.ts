@@ -1,7 +1,15 @@
 import { AppMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
 import { storage } from "./storage"
-import { handleAuth, handleAuthError, logOut, setError, setModal, useStore } from "./store"
+import {
+  handleAuth,
+  handleAuthError,
+  logOut,
+  setError,
+  setModal,
+  showIsCreatingNote,
+  useStore,
+} from "./store"
 
 const API_URL = "/api"
 const apiRoute = (path: string) => `${API_URL}${path}`
@@ -113,6 +121,7 @@ export const uploadVoiceNote = async (audio: Blob) => {
     return
   }
 
+  showIsCreatingNote()
   // No reponse body expected
 }
 
@@ -139,5 +148,5 @@ export const uploadImage = async (image: File) => {
     return
   }
 
-  // No reponse body expected
+  showIsCreatingNote()
 }

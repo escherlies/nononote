@@ -1,6 +1,7 @@
 import { useStore } from "../../model/store"
 import { ViewFileUpload } from "../components/FileUpload"
 import { NoteInput } from "../components/NoteInput"
+import { PasteFromClipboard } from "../components/PasteFromClipboard"
 import { VoiceRecorder } from "../components/VoiceRecorder"
 import { ViewLastNoteOrCreatingNote } from "./Notes"
 
@@ -22,7 +23,7 @@ export const ViewHome = () => {
       </div>
       <div
         id="voice-and-file-container"
-        className={`flex gap-5 flex-1 ${isAudioAndUploadHidden ? "hidden" : ""}`}
+        className={`flex gap-2 flex-1 ${isAudioAndUploadHidden ? "hidden" : ""}`}
       >
         <div className={`flex-1 ${isHidden("audio") ? "hidden" : ""}`}>
           <VoiceRecorder />
@@ -30,8 +31,11 @@ export const ViewHome = () => {
         <div className={`flex-1 ${isHidden("upload") ? "hidden" : ""}`}>
           <ViewFileUpload />
         </div>
+        <div className={`flex-1 ${inputState !== null ? "hidden" : ""}`}>
+          <PasteFromClipboard />
+        </div>
       </div>
-      <div className={`h-[10%] ${inputState !== null ? "hidden" : ""}`}></div>
+      <div className={`flex-1 ${inputState !== null ? "hidden" : ""}`}></div>
       <div id="last-note-container" className={`flex-1 ${inputState !== null ? "hidden" : ""}`}>
         <ViewLastNoteOrCreatingNote />
       </div>

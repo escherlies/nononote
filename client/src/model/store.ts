@@ -419,9 +419,9 @@ export const showIsCreatingNote = () => {
     const stillCreating = useStore.getState().isCreatingNote.tag === "yes"
     if (stillCreating) {
       useStore.setState({ isCreatingNote: { tag: "no" } })
-      toast.error("Maybe failed to create note", { position: "bottom-center" })
+      toast("This is taking longer than expected", { position: "bottom-center" })
     }
-  }, 10_000)
+  }, 30_000)
 
   useStore.setState({ isCreatingNote: { tag: "yes", timeout } })
 }
