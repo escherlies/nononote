@@ -364,7 +364,7 @@ export const handleDeleteNote = (noteId: string) => {
   navigateTo({ tag: "Notes" })
 }
 
-export const checkTodoOfNote = (noteId: string, item: string) => {
+export const checkTodoOfNote = async (noteId: string, item: string) => {
   const note = useStore.getState().notes.find((note) => note.id === noteId)
 
   if (!note) {
@@ -376,7 +376,10 @@ export const checkTodoOfNote = (noteId: string, item: string) => {
   if (unchecked) {
     const newItem = item.replace("[ ]", "[x]")
     const content = note.text.replace(item, newItem)
-    return updateNoteWith(noteId, content)
+    await updateNoteWith(noteId, content)
+
+    // Show confetti
+    showConfetti()
   }
 
   const checked = item.startsWith("[x]")
