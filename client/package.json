@@ -44,12 +44,12 @@
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.0",
     "rehype-raw": "^7.0.0",
+    "remark-gfm-configurable": "^1.0.0",
     "three": "^0.167.1",
     "universal-router": "^9.2.0",
     "vanta": "^0.5.24",
     "zod": "^3.23.8",
-    "zustand": "^4.5.4",
-    "remark-gfm-configurable": "git+https://github.com/escherlies/remark-gfm-configurable.git"
+    "zustand": "^4.5.4"
   },
   "@parcel/resolver-default": {
     "//": "https://github.com/remarkjs/react-markdown/issues/801#issuecomment-1863387758",
