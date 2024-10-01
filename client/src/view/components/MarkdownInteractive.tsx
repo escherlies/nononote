@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
 import rehypeRaw from "rehype-raw"
+import remarkGfmConfigurable from "remark-gfm-configurable"
 
 import "property-information" // See: https://github.com/parcel-bundler/parcel/discussions/9113#discussioncomment-6702710
 
@@ -56,6 +57,7 @@ export const MarkdownCheckbox: React.FC<MarkdownCheckboxProps> = ({ noteId, mark
       components={components}
       remarkRehypeOptions={{ allowDangerousHtml: true }}
       rehypePlugins={[rehypeRaw]}
+      remarkPlugins={[[remarkGfmConfigurable, { plugins: { tasklist: false } }]]}
     >
       {markdown}
     </ReactMarkdown>
