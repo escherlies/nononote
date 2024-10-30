@@ -30,8 +30,11 @@ const SAFETY_SETTINGS = [
   { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH },
 ]
 
+const FLASH_MODEL = "gemini-1.5-flash-002"
+const PRO_MODEL = "gemini-1.5-pro-002"
+
 const geminiFlashModel = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: FLASH_MODEL,
   generationConfig: {
     responseMimeType: "application/json",
     temperature: 1,
@@ -40,7 +43,7 @@ const geminiFlashModel = genAI.getGenerativeModel({
 })
 
 const geminiProModel = genAI.getGenerativeModel({
-  model: "gemini-1.5-pro",
+  model: PRO_MODEL,
   generationConfig: {
     responseMimeType: "application/json",
     temperature: 1,
@@ -88,7 +91,7 @@ export async function generateCategoriesFromText(content: string): Promise<strin
 export async function generateNoteTitleIfMissing(content: string): Promise<string> {
   const text = await generateFromTextWithPrompt(
     genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: FLASH_MODEL,
       generationConfig: {},
       safetySettings: SAFETY_SETTINGS,
     }),
@@ -103,7 +106,7 @@ export async function generateNoteTitleIfMissing(content: string): Promise<strin
 export async function formatTodosAsMarkdown(content: string): Promise<string> {
   const text = await generateFromTextWithPrompt(
     genAI.getGenerativeModel({
-      model: "gemini-1.5-pro",
+      model: PRO_MODEL,
       generationConfig: {},
       safetySettings: SAFETY_SETTINGS,
     }),
@@ -141,7 +144,7 @@ export async function generateTagsFromWebpage(
 export async function transcribeVoiceNote(voiceNote: FileMetadataResponse): Promise<string> {
   const result = await genAI
     .getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: FLASH_MODEL,
       safetySettings: SAFETY_SETTINGS,
     })
     .generateContent([
@@ -166,7 +169,7 @@ export async function transcribeVoiceNote(voiceNote: FileMetadataResponse): Prom
 export async function describeImage(image: FileMetadataResponse): Promise<string> {
   const result = await genAI
     .getGenerativeModel({
-      model: "gemini-1.5-pro",
+      model: PRO_MODEL,
       safetySettings: SAFETY_SETTINGS,
     })
     .generateContent([
@@ -191,7 +194,7 @@ export async function describeImage(image: FileMetadataResponse): Promise<string
 export async function generateSmartTodoList(content: string[]): Promise<string[]> {
   const result = await genAI
     .getGenerativeModel({
-      model: "gemini-1.5-pro",
+      model: PRO_MODEL,
       generationConfig: {
         responseMimeType: "application/json",
         temperature: 0.5,
@@ -210,7 +213,7 @@ export async function generateSmartTodoList(content: string[]): Promise<string[]
 export async function groupTasklistItems(content: string): Promise<string> {
   const result = await genAI
     .getGenerativeModel({
-      model: "gemini-1.5-pro",
+      model: PRO_MODEL,
       generationConfig: {
         temperature: 0.7,
       },
