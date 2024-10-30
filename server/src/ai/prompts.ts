@@ -87,6 +87,7 @@ export const generateSmartTodoListPrompt = (notes: string[]): string => {
   return `You are a text analyzer that determines whether each note in a given JSON string array contains any to-do items.
 The notes are in plain text or markdown format.
 Ignore code blocks, completed to-do items (marked as - [x]), and other non-text content.
+Ignore and exclude lists of music, books or movies.
 A note may contain multiple to-do items, or the note itself may be a single to-do item.
 Analyze each note and extract any lines that are to-do items, removing any bullet points or markdown checkboxes.
 The notes can be in any language.
@@ -99,7 +100,8 @@ ${notesEncoded}
 
 // Group task list
 export const organizeAndSortTasksPrompt = (markdownTaskList: string): string => {
-  return `Given a markdown task list, organize and sort the tasks by grouping related items together. Separate each group with a markdown subtitle (##) for clarity. Return the updated and organized markdown list.
+  return `Given a markdown task list, organize and sort the tasks by grouping related items together. Separate each group with a markdown subtitle (##) for clarity.
+Return the updated and organized markdown list without wrapping it in a markdown code block.
 
 Task list:
 ${markdownTaskList}
