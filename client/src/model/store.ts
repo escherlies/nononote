@@ -446,6 +446,13 @@ export const gotNewNote = (newNote: Note) => {
   hideIsCreatingNote()
 }
 
+
+export const removeNote = (noteId: string) => {
+  useStore.setState(state => {
+    return { ...state, notes: state.notes.filter(({ id }) => id !== noteId) }
+  })
+}
+
 export const generateTodoList = () => {
   publish({ type: "smart-notes:create-todo-list" })
   showIsCreatingNote()

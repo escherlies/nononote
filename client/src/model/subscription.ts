@@ -1,7 +1,7 @@
 import { isEmpty } from "rambda"
 import { appMsg } from "../../../server/src/messages"
 import { logger } from "./logger"
-import { gotNewNote, useStore } from "./store"
+import { gotNewNote, removeNote, useStore } from "./store"
 import { startInitialTour } from "./tours/initial.tour"
 
 export async function onSubscriptionData(message: JSON) {
@@ -19,6 +19,9 @@ export async function onSubscriptionData(message: JSON) {
   switch (data.type) {
     case "notes:note":
       return gotNewNote(data.note)
+
+    case "notes:deleted":
+      return removeNote(data.noteId)
 
     case "notes:got-notes": {
       if (isEmpty(data.notes)) {

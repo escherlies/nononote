@@ -65,6 +65,13 @@ export const handleNotesMessages = async ({ context, message }: MessageWithConte
     }
 
     case "notes:delete": {
+      const note = await monzod.cols.notes.findOne({ id: message.id, userId: context.user.id })
+      // Finally delete it
+      if (note && note.deleted) {
+        await monzod.cols.notes.deleteOne({ id: note.id })
+        return emitMessageEvent({ context, message: { type: "notes:deleted", noteId: note.id } })
+      }
+
       // Mark note as deleted
       const updatedNote = await monzod.cols.notes.findOneAndUpdate(
         { id: message.id, userId: context.user.id },
